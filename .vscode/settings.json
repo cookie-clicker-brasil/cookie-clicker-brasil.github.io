@@ -7,5 +7,6 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true
- }
+},
+"java.configuration.updateBuildConfiguration": "disabled"
 }
