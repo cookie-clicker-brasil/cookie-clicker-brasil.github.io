@@ -43,8 +43,9 @@ jobs:
       - name: 🏗️ Build APK
         run: |
           npx cap sync android
-          chmod +x ./android/gradlew
-          ./android/gradlew clean assembleRelease
+          cd android
+          chmod +x ./gradlew
+          ./gradlew clean assembleRelease
 
       - name: 🔑 Decode Keystore
         run: |
