@@ -1,4 +1,4 @@
-name: 🚀 Build App (android)
+name: 🚀 Build App (Android)
 
 on:
   push:
@@ -41,7 +41,9 @@ jobs:
           ndk: false
 
       - name: 🔧 Set up Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.12'  
 
       - name: 🏗️ Build APK
         run: |
