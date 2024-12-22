@@ -6,7 +6,7 @@ $(document).ready(() => {
 			console.log("AdMob inicializado...");
 		})
 		.catch((err) => {
-			console.error(err.message);
+			console.log(err.message);
 		});
 
 	function $show_banner() {
@@ -20,7 +20,7 @@ $(document).ready(() => {
 				return console.log("Banner exibido..");
 			})
 			.catch((err) => {
-				return console.error("Erro ao exibir Banner: ", err.message);
+				return console.log("Erro ao exibir Banner: ", err.message);
 			});
 	}
 
@@ -30,7 +30,7 @@ $(document).ready(() => {
 				return console.log("Banner ocultado com sucesso...");
 			})
 			.catch((err) => {
-				return console.error("Erro ao ocultar o banner: ", err.message);
+				return console.log("Erro ao ocultar o banner: ", err.message);
 			});
 	}
 
@@ -45,10 +45,7 @@ $(document).ready(() => {
 				console.log("Intersticial recompensado exibido com sucesso.");
 			})
 			.catch((err) => {
-				console.error(
-					"Erro ao exibir intersticial recompensado: ",
-					err.message,
-				);
+				console.log("Erro ao exibir intersticial recompensado: ", err.message);
 			});
 	}
 
@@ -77,7 +74,7 @@ $(document).ready(() => {
 				console.log("Anúncio intersticial exibido com sucesso.");
 			})
 			.catch((err) => {
-				console.error("Erro ao exibir anúncio intersticial:", err.message);
+				console.log("Erro ao exibir anúncio intersticial:", err.message);
 			});
 	});
 });

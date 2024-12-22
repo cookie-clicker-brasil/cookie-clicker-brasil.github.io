@@ -27,34 +27,35 @@
 }
 
 .ui-cookie {
-  padding: 0;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  color: var(--text-color);
-  background-color: var(--layout);
+	padding: 0;
+	margin: 0;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	color: var(--text-color);
+	background-color: var(--layout);
 }
 
 .ui-cookie splash-screen .icon {
-  width: 85%;
-  animation: splash-screen 2s infinite ease-in-out;
+	width: 85%;
+	animation: splash-screen 2s infinite ease-in-out;
 }
 
 @keyframes splash-screen {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  25% {
-    transform: translateY(-8px);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(-15px);
-    opacity: 1;
-  }
-  75% {
-    transform: translateY(-8px);
-    opacity: 0.8;
-  }
+	0%,
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	25% {
+		transform: translateY(-8px);
+		opacity: 0.8;
+	}
+	50% {
+		transform: translateY(-15px);
+		opacity: 1;
+	}
+	75% {
+		transform: translateY(-8px);
+		opacity: 0.8;
+	}
 }

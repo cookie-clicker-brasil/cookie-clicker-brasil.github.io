@@ -1,35 +1,37 @@
-name: CI
+name: 🎨 Biome
 
 on:
-  push:
+  push: 
+    branches:
+      - main
   pull_request:
 
 jobs:
   spell-check:
     timeout-minutes: 5
-    name: Check spelling
+    name: Check spelling ✍️
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Actions Repository
+      - name: Checkout Actions Repository 🧑‍💻
         uses: actions/checkout@v4
 
-      - name: Check spelling
+      - name: Check spelling 🔤
         uses: crate-ci/typos@master
         with:
           config: ./_typos.toml
 
   quality:
     timeout-minutes: 5
-    name: Linting and formatting
+    name: Linting and formatting 🎨
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repository 📥
         uses: actions/checkout@v4
 
-      - name: Setup Biome
+      - name: Setup Biome 🔧
         uses: biomejs/setup-biome@v2
 
-      - name: Run Biome
+      - name: Run Biome 🏃‍♂️
         run: biome ci .

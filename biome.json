@@ -26,7 +26,6 @@
 		}
 	},
 	"files": {
-		"include": ["www/res/**/*.js", "www/res/**/*.css"],
-		"ignore": []
+		"ignore": ["node_modules", "android"]
 	}
 }

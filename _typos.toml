@@ -3,11 +3,8 @@ check-filename = true
 
 [files]
 extend-exclude = [
-    "node_modules",
-    "android",
-    "*.css",
-    "*.gradle",
-    "capacitor.config.ts",
+  "node_modules",
+  "android"
 ]
 
 [default.extend-words]
