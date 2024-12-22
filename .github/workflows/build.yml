@@ -8,6 +8,12 @@ on:
     branches:
       - android
 
+env:
+  SIGNED_APK: android/app/build/outputs/apk/release/app-release-signed.apk
+  UNSIGNED_APK: android/app/build/outputs/apk/release/app-release-unsigned.apk
+  KEYSTORE_PATH: android/app/release-key.jks
+  BUILD_TOOLS: $ANDROID_HOME/build-tools/34.0.0
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,8 +27,16 @@ jobs:
         with:
           node-version: '18' 
 
+      - name: Cache Node.js Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-cache-${{ runner.os }}-
+
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build files
         run: npm run build
@@ -33,6 +47,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: gradle-cache-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-cache-${{ runner.os }}-
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
         with:
@@ -40,29 +62,35 @@ jobs:
           build-tools: 34.0.0
           ndk: false
 
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > $KEYSTORE_PATH
+          test -f $KEYSTORE_PATH || { echo "Keystore decoding failed"; exit 1; }
+
       - name: Build APK
         run: |
           npx cap sync android
           cd android
           chmod +x ./gradlew
-          ./gradlew assembleRelease
+          ./gradlew clean assembleRelease
 
-      - name: Decode Keystore
+      - name: Check Unsigned APK
         run: |
-          echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > android/app/release-key.jks
+          test -f $UNSIGNED_APK || { echo "Unsigned APK not found"; exit 1; }
 
       - name: Sign APK
         run: |
-          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
-            --ks android/app/release-key.jks \
+          $BUILD_TOOLS/apksigner sign \
+            --ks $KEYSTORE_PATH \
             --ks-key-alias ${{ secrets.ALIAS }} \
             --ks-pass pass:${{ secrets.STORE_PASSWORD }} \
             --key-pass pass:${{ secrets.KEY_PASSWORD }} \
-            --out android/app/build/outputs/apk/release/app-release-signed.apk \
-            android/app/build/outputs/apk/release/app-release-unsigned.apk
+            --out $SIGNED_APK \
+            $UNSIGNED_APK
 
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: android
-          path: android/app/build/outputs/apk/release/*.apk
+          name: app-release-signed
+          path: $SIGNED_APK
+          
