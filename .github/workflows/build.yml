@@ -49,8 +49,7 @@ jobs:
         run: |
           npx cap sync android
           cd android
-          chmod +x ./gradlew
-          ./gradlew clean assembleRelease
+          gradlew clean assembleRelease
 
       - name: 🔑 Decode Keystore
         run: |
