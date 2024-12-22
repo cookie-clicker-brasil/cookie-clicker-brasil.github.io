@@ -39,17 +39,12 @@ jobs:
           api-level: 34
           build-tools: 34.0.0
           ndk: false
-
-      - name: 🔧 Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.12'  
-
+          
       - name: 🏗️ Build APK
         run: |
           npx cap sync android
-          cd android
-          gradlew clean assembleRelease
+          chmod +x ./android/gradlew
+          ./android/gradlew clean assembleRelease
 
       - name: 🔑 Decode Keystore
         run: |
