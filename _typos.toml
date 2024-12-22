@@ -5,7 +5,7 @@ check-filename = true
 extend-exclude = [
     "node_modules",
     "android",
-    "www",
+    "*.css",
     "*.gradle",
     "capacitor.config.ts",
 ]
