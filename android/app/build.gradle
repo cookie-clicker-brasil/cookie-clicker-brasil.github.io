@@ -29,6 +29,9 @@ repositories {
 }
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
     implementation "com.google.android.gms:play-services-ads:22.0.0" 
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"

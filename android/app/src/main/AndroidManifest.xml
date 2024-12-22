@@ -16,6 +16,8 @@
         <meta-data 
             android:name="com.google.android.gms.ads.APPLICATION_ID" 
             android:value="@string/admob_app_id" />
+        
+           
 
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"

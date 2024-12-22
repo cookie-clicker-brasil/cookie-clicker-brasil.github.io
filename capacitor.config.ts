@@ -13,6 +13,9 @@ const config: CapacitorConfig = {
       tagForChildDirectedTreatment: false, 
       tagForUnderAgeOfConsent: false,
     },
+    PushNotifications: {
+     presentationOptions: ["badge", "sound", "alert"],
+    },
   },
 };
 
