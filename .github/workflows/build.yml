@@ -1,12 +1,7 @@
 name: 🚀 Build App (Android)
 
 on:
-  push:
-    branches:
-      - android
-  pull_request:
-    branches:
-      - android
+  workflow_dispatch:
 
 jobs:
   build:
