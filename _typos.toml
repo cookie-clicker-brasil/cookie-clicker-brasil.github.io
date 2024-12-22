@@ -1,0 +1,18 @@
+[default]
+check-filename = true
+
+[files]
+extend-exclude = [
+    "node_modules",
+    "android",
+    "www",
+    "*.gradle",
+    "capacitor.config.ts",
+]
+
+[default.extend-words]
+strech = "strech"
+contaienr = "contaienr"
+formate = "formate"
+collapsable = "collapsable"
+styl = "styl"
