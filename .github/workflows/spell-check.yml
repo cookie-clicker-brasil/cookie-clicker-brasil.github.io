@@ -2,8 +2,6 @@ name: Spell Check Action ✨🔤
 
 on:
   push:
-    branches:
-      - main
   pull_request:
 
 jobs:
