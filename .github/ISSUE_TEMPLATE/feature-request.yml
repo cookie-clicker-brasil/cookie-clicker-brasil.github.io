@@ -21,7 +21,7 @@ body:
       description: "What problem does this feature solve for users?"
       placeholder: "E.g. 'Helps users who prefer dark mode.'"
 
-  - type: select
+  - type: checkbox
     attributes:
       label: "⚡ Priority"
       description: "How important is this feature?"
