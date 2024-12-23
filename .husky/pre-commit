@@ -1,4 +1,5 @@
+git status
+git add .
 npm run lint
 npm run format
-
 echo "Done!"

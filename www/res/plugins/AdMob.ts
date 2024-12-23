@@ -1,4 +1,4 @@
-const { AdMob } = window.Capacitor.Plugins;
+import { AdMob } from "@capacitor-community/admob";
 
 $(document).ready(() => {
 	// Initialize AdMob plugin

@@ -26,6 +26,6 @@
 		}
 	},
 	"files": {
-		"ignore": ["node_modules", "android"]
+		"ignore": ["node_modules", "build", "android"]
 	}
 }
