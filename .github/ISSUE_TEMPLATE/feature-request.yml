@@ -1,0 +1,50 @@
+name: "Feature Request"
+description: "Submit a request for a new feature or enhancement in the Android app."
+labels: ["feature", "enhancement", "android"]
+
+body:
+  - type: input
+    attributes:
+      label: "🔧 Title"
+      description: "A brief and descriptive title of the feature."
+      placeholder: "E.g. 'Dark Mode Toggle'"
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "📝 Description"
+      description: "Provide a detailed description of the feature. What problem does it solve?"
+      placeholder: "E.g. 'Add a toggle in the settings to enable dark mode.'"
+      required: true
+
+  - type: input
+    attributes:
+      label: "🔍 Use Case"
+      description: "What problem does this feature solve for users?"
+      placeholder: "E.g. 'Helps users who prefer dark mode.'"
+      required: true
+
+  - type: input
+    attributes:
+      label: "⚡ Priority"
+      description: "How important is this feature?"
+      options:
+        - "critical: Must be implemented immediately"
+        - "major: Should be implemented soon"
+        - "minor: Could be implemented later"
+      required: true
+
+  - type: input
+    attributes:
+      label: "📱 Platform Version"
+      description: "Which Android version or app version will this feature target?"
+      placeholder: "E.g. 'Android 10 or above'"
+      required: false
+
+  - type: input
+    attributes:
+      label: "📎 Additional Information"
+      description: "Any additional context, such as design mockups or related issues."
+      placeholder: "E.g. 'Link to design mockup or related issue.'"
+      required: false
+      
