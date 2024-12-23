@@ -21,14 +21,11 @@ body:
       description: "What problem does this feature solve for users?"
       placeholder: "E.g. 'Helps users who prefer dark mode.'"
 
-  - type: checkbox
+  - type: input
     attributes:
       label: "⚡ Priority"
       description: "How important is this feature?"
-      options:
-        - "critical: Must be implemented immediately"
-        - "major: Should be implemented soon"
-        - "minor: Could be implemented later"
+      placeholder: "E.g. 'Critical, Major, Minor'"
 
   - type: input
     attributes:
