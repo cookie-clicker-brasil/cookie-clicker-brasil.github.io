@@ -1,9 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -15,11 +11,7 @@
         <item name="android:background">#FFFBDE</item>
     </style>
 
-    <!-- Splash Screen Theme -->
     <style name="AppTheme.NoActionBarLaunch" parent="AppTheme.NoActionBar">
         <item name="android:background">@drawable/splash</item>
-        <item name="windowActionBar">false</item> <!-- Certifique-se que a barra de ação não apareça -->
-        <item name="windowNoTitle">true</item>  <!-- E o título da janela -->
     </style>
-
 </resources>
