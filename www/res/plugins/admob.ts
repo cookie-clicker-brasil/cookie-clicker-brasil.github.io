@@ -1,10 +1,7 @@
 import {
   AdMob,
-  BannerAdOptions,
   BannerAdSize,
   BannerAdPosition,
-  BannerAdPluginEvents,
-  AdMobBannerSize,
 } from "@capacitor-community/admob";
 
 $(document).ready(() => {
