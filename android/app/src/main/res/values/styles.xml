@@ -12,6 +12,6 @@
     </style>
 
     <style name="AppTheme.NoActionBarLaunch" parent="AppTheme.NoActionBar">
-        <!-- Não é necessário definir android:background novamente, pois já é herdado -->
+      <item name="android:background">@drawable/splash</item>
     </style>
 </resources>
