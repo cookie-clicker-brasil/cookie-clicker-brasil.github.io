@@ -1,4 +1,11 @@
-import { AdMob } from "@capacitor-community/admob";
+import {
+  AdMob,
+  BannerAdOptions,
+  BannerAdSize,
+  BannerAdPosition,
+  BannerAdPluginEvents,
+  AdMobBannerSize,
+} from "@capacitor-community/admob";
 
 $(document).ready(() => {
 	// Initialize AdMob plugin
@@ -14,9 +21,11 @@ $(document).ready(() => {
 	function $show_banner() {
 		AdMob.showBanner({
 			adId: "ca-app-pub-6690516270288705/1043067086",
-			adSize: "BANNER",
-			position: "BOTTOM_CENTER",
+			adSize: BannerAdSize.BANNER,
+			position: BannerAdPosition.BOTTOM_CENTER,
 			margin: 0,
+			// isTesting: true
+    // npa: true
 		})
 			.then(() => {
 				// Log when the banner is displayed successfully
