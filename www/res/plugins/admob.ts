@@ -18,7 +18,7 @@ $(document).ready(() => {
 	function $show_banner() {
 		AdMob.showBanner({
 			adId: "ca-app-pub-6690516270288705/1043067086",
-			adSize: BannerAdSize.BANNER,
+			adSize: BannerAdSize.FULL_BANNER,
 			position: BannerAdPosition.BOTTOM_CENTER,
 			margin: 0,
 			// isTesting: true
