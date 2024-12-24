@@ -31,6 +31,7 @@ repositories {
 dependencies {
     implementation "com.google.android.gms:play-services-ads:23.6.0" 
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.core:core-splashscreen:1.0.0"
     implementation project(':capacitor-android') 
 }
 
