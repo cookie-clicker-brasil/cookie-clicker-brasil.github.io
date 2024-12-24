@@ -22,7 +22,7 @@
             android:label="@string/title_activity_main"
             android:launchMode="singleTask"
             android:exported="true"
-            android:theme="@android:style/Theme.DeviceDefault">
+            android:theme="@style/AppTheme.NoActionBar">  
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
