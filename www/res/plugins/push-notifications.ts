@@ -1,35 +1,42 @@
 import { PushNotifications } from "@capacitor/push-notifications";
+import $ from "jquery";
 
-const register = async () => {
-	let STATUS = await PushNotifications.checkPermissions();
-	console.log(STATUS);
+$(async () => {
+  if (window.Capacitor.getPlatform() !== "android") {
+    console.log(
+      `PushNotifications: Unsupported platform (${window.Capacitor.getPlatform()})`,
+    );
+    return;
+  }
 
-	if (STATUS.receive === "prompt") {
-		STATUS = await PushNotifications.requestPermissions();
-		console.log(STATUS);
-	}
+  let STATUS = await PushNotifications.checkPermissions();
+  console.log(STATUS);
 
-	if (STATUS.receive !== "granted") {
-		console.log("not permission");
-	}
+  if (STATUS.receive === "prompt") {
+    STATUS = await PushNotifications.requestPermissions();
+    console.log(STATUS);
+  }
 
-	await PushNotifications.register();
+  if (STATUS.receive !== "granted") {
+    console.log("Not permission");
+    return;
+  }
 
-	PushNotifications.addListener("registration", (token) => {
-		console.log(token);
-	});
+  await PushNotifications.register();
 
-	PushNotifications.addListener("registrationError", (error) => {
-		console.log(error);
-	});
+  PushNotifications.addListener("registration", (token) => {
+    console.log(token);
+  });
 
-	PushNotifications.addListener("pushNotificationReceived", (notification) => {
-		console.log(notification);
-	});
+  PushNotifications.addListener("registrationError", (error) => {
+    console.log(error);
+  });
 
-	PushNotifications.addListener("pushNotificationActionPerformed", (action) => {
-		console.log(action);
-	});
-};
+  PushNotifications.addListener("pushNotificationReceived", (notification) => {
+    console.log(notification);
+  });
 
-register();
+  PushNotifications.addListener("pushNotificationActionPerformed", (action) => {
+    console.log(action);
+  });
+});
