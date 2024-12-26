@@ -5,36 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Cookie</title>
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/sebastianjnuwu/app/refs/heads/android/android/app/src/main/res/drawable/splash_screen.png" type="image/x-icon">
-  <link rel="stylesheet" href="./res/styles/css/ui.css">
+  <link rel="stylesheet" href="./src/styles/css/ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="./main.ts"></script>
 </head>
 
 <body class="ui-cookie">
-    <splash-screen>
-        <div class="d-flex flex-column justify-content-center align-items-center vh-100">
-         <img src="https://raw.githubusercontent.com/sebastianjnuwu/app/refs/heads/android/android/app/src/main/res/drawable/splash_screen.png" alt="splash-screen" class="icon mb-5">
-        </div>
-       </splash-screen>
+
+ <audio id="splash" preload="auto">
+   <source src="./src/audio/start.mp3" type="audio/mp3"></audio>
+ 
+ <splash-screen>
+   <div class="d-flex flex-column justify-content-center align-items-center vh-100">
+   <img src="https://raw.githubusercontent.com/sebastianjnuwu/app/refs/heads/android/android/app/src/main/res/drawable/splash_screen.png" alt="splash-screen" class="icon mb-5">
+    <h1>Click...</h1>
+   </div>
+  </splash-screen>
        
-         <div class="d-flex flex-column justify-content-center align-items-center">
-           <button id="show_banner" class="btn btn-custom">
-             <i class="fas fa-image"></i> Mostrar Banner
-           </button>
-       
-           <button id="hide_banner" class="btn btn-custom">
-             <i class="fas fa-eye-slash"></i> Esconder Banner
-           </button>
-       
-           <button id="show_video" class="btn btn-custom">
-             <i class="fas fa-video"></i> Mostrar Video
-           </button>
-       
-           <button id="award" class="btn btn-custom">
-             <i class="fas fa-trophy"></i> Mostrar Premio
-           </button>
-         </div>
-       
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="./src/js/main.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  
    </body>
 </html>
