@@ -6,63 +6,65 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
 :root {
   --layout: #fffbde;
-  --text-color: #333;
+  --layout-dark: #fbf0c1;
+  --text-color: #fdd388;
+  --text-color-dark: #7c3d18;
 }
 
-.ui-cookie {
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   padding: 0;
   margin: 0;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  color: var(--text-color);
-  background-color: var(--layout);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
 }
 
 .ui-cookie splash-screen .icon {
-  width: 15rem;
-  animation: splash-screen 2s infinite ease-in-out;
+    width: 15rem;
+    animation: splash-screen 2s infinite ease-in-out;
 }
 
 .ui-cookie splash-screen h1 {
-  font-family: "Press Start 2P", cursive;
-  text-align: center;
-  font-size: 1.5rem;
-  color: #fdd388;
-  font-weight: bold;
-  text-shadow: 1px 1px #7c3d18;
-  cursor: pointer;
-  animation: reveal forwards ease-out;
-}
-
-@keyframes reveal {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    font-family: "Press Start 2P", cursive;
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    font-weight: bold;
+    text-shadow: 1px 1px var(--text-color-dark);
+    cursor: pointer;
+    animation: reveal forwards ease-out;
 }
 
 @keyframes splash-screen {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  25% {
-    transform: translateY(-8px);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(-15px);
-    opacity: 1;
-  }
-  75% {
-    transform: translateY(-8px);
-    opacity: 0.8;
-  }
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    25% {
+        transform: translateY(-8px);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-15px);
+        opacity: 1;
+    }
+    75% {
+        transform: translateY(-8px);
+        opacity: 0.8;
+    }
 }
