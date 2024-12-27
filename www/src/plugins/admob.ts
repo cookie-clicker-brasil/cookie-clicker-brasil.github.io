@@ -6,7 +6,6 @@ import {
 import $ from "jquery";
 
 $(() => {
-
   if (window.Capacitor.getPlatform() !== "android") {
     console.log(
       `AdMob: Unsupported platform (${window.Capacitor.getPlatform()})`,
