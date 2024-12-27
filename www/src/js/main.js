@@ -1,9 +1,12 @@
 $(() => {
 
-  $("splash-screen img").on("click", () => {
-    $('#splash')[0].play();
-    $("splash-screen h1").slideUp()
-    $("splash-screen").slideUp(5000)
+    // Splash screen animation
+  $("splash-screen").on("click", () => {
+    $("#splash")[0].play();
+
+    setTimeout(() => {
+      $("splash-screen").remove();
+    }, 1000);
   });
 
 });

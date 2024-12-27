@@ -1,3 +1,2 @@
-import "./res/styles/scss/ui.scss";
-import "./res/plugins/admob.ts";
-import "./res/plugins/push-notifications.ts";
+import "./src/plugins/admob.ts";
+import "./src/plugins/push-notifications.ts";
