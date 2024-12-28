@@ -68,3 +68,91 @@ body {
         opacity: 0.8;
     }
 }
+
+.cookie img {
+  width: 15rem;
+  transition: transform 0.02s ease-in-out;
+  will-change: transform;
+  position: relative;
+}
+
+.cookie img:active {
+  transform: scale(0.8);
+}
+
+.click-effect {
+  position: absolute;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  pointer-events: none; 
+}
+
+/* Font Awesome for icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+
+/* Estilos para a tabela */
+.stats-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.stats-table {
+  width: 100%;
+  max-width: 400px;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: "Press Start 2P", cursive;
+  color: var(--text-color);
+  background-color: var(--table-row-bg);
+  border: 2px solid var(--table-border);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-table th, .stats-table td {
+  border: 2px solid var(--table-border);
+  padding: 10px;
+  text-align: center;
+}
+
+.stats-table th {
+  background-color: var(--table-header-bg);
+  font-size: 1em;
+}
+
+.stats-table td {
+  background-color: var(--table-row-bg);
+  position: relative;
+  font-size: 1.2em;
+}
+
+.stats-table td .label {
+  font-weight: bold;
+}
+
+.stats-table td .value {
+  display: block;
+  margin-top: 5px;
+}
+
+.stats-table td .animated-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: rise 1s ease-out;
+}
+
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

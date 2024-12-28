@@ -15,13 +15,45 @@
   <audio id="splash" preload="auto">
     <source src="./src/audio/start.mp3" type="audio/mp3">
   </audio>
- 
+ <!---
   <splash-screen class="d-flex flex-column justify-content-center align-items-center vh-100">
     <img src="https://raw.githubusercontent.com/sebastianjnuwu/app/refs/heads/android/android/app/src/main/res/drawable/splash_screen.png" alt="splash-screen" class="icon mb-5">
     <h1>Click...</h1>
-  </splash-screen>
+  </splash-screen> --->
+  
+<ui style="display: none;" class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
+  
+  <div class="stats-container">
+  <table class="stats-table">
+    <tbody>
+      <tr>
+        <th><i class="fas fa-mouse-pointer"></i> Clicks</th>
+        <td id="clicks" class="value">0</td>
+      </tr>
+      <tr>
+        <th><i class="fas fa-stopwatch"></i> Seconds</th>
+        <td id="seconds" class="value">0</td>
+      </tr>
+      <tr>
+        <th><i class="fas fa-cookie-bite"></i> Cookies</th>
+        <td id="cookies" class="value">0</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  
+  
+  <cookie class="cookie position-relative">
+    <img src="https://cdn.discordapp.com/attachments/1320553436646866994/1322299238599753818/7_Sem_Titulo_20241227172134.png?ex=67705ea1&is=676f0d21&hm=898542885adabfffe794a3e214beb8cd93b865cb4da0aee5280ed894e2481dfe&" 
+         alt="cookie" 
+         class="icon mb-4">
+         </cookie>
+</ui>
+
+  
        
   <script src="./src/js/main.js" defer></script>
+  <script src="./src/js/cookie/game.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
   
