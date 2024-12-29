@@ -25,8 +25,8 @@ $(".cookie").on("click", function (e) {
   const Y = e.pageY - offset.top;
 
   $effect.css({
-    left: X + "px",
-    top: Y + "px",
+    left: `${X}px`,
+    top: `${Y}px`,
     position: "absolute",
   });
 

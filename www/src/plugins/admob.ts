@@ -65,12 +65,12 @@ function $award() {
 }
 
 $(() => {
- /* if (window.Capacitor.getPlatform() !== "android") {
+  if (window.Capacitor.getPlatform() !== "android") {
     console.log(
       `AdMob: Unsupported platform (${window.Capacitor.getPlatform()})`,
     );
     return;
-  }*/
+  }
 
   AdMob.initialize()
     .then(() => {
