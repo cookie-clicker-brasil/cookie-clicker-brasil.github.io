@@ -2,21 +2,20 @@ let cookies = 0;
 let $cps = 0;
 
 const $update_cps = () => {
-  $('#cps').text($cps); 
-  $cps = 0;  
+  $("#cps").text($cps);
+  $cps = 0;
 };
 
 const $update_cookies = () => {
-  cookies++; 
+  cookies++;
   $cps++;
-  $('#click-cookie').text(`${cookies}`);
-  localStorage.setItem('cookie', cookies);
+  $("#click-cookie").text(`${cookies}`);
+  localStorage.setItem("cookie", cookies);
 };
 
 setInterval($update_cps, 1000);
 
-$('.cookie').on('click', function (e) {
-
+$(".cookie").on("click", function (e) {
   $update_cookies();
 
   const $effect = $(`<div class="click-effect">+1</div>`);
@@ -26,9 +25,9 @@ $('.cookie').on('click', function (e) {
   const Y = e.pageY - offset.top;
 
   $effect.css({
-    left: X + 'px',
-    top: Y + 'px',
-    position: 'absolute',
+    left: X + "px",
+    top: Y + "px",
+    position: "absolute",
   });
 
   $(this).append($effect);
@@ -36,11 +35,11 @@ $('.cookie').on('click', function (e) {
   $effect
     .animate(
       {
-        top: '-=2.5rem',
+        top: "-=2.5rem",
         opacity: 1,
-        fontSize: '1.5rem',
+        fontSize: "1.5rem",
       },
-      300
+      300,
     )
     .animate(
       {
@@ -49,6 +48,6 @@ $('.cookie').on('click', function (e) {
       200,
       function () {
         $(this).remove();
-      }
+      },
     );
 });

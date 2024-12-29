@@ -11,159 +11,160 @@
 @import url("https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap");
 
 :root {
-    --layout: #fffbde;
-    --layout-dark: #fbf0c1;
-    --text-color: #fdd388;
-    --text-color-dark: #7c3d18;
+  --layout: #fffbde;
+  --layout-dark: #fbf0c1;
+  --text-color: #fdd388;
+  --text-color-dark: #7c3d18;
 }
 
 *,
 *:before,
 *:after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
 }
 
 .ui-cookie splash-screen .icon {
-    width: 15rem;
-    animation: splash-screen 2s infinite ease-in-out;
+  width: 15rem;
+  animation: splash-screen 2s infinite ease-in-out;
 }
 
 .ui-cookie splash-screen h1 {
-    font-family: "Press Start 2P", cursive;
-    text-align: center;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    font-weight: bold;
-    text-shadow: 1px 1px var(--text-color-dark);
-    cursor: pointer;
-    animation: reveal forwards ease-out;
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  font-weight: bold;
+  text-shadow: 1px 1px var(--text-color-dark);
+  cursor: pointer;
+  animation: reveal forwards ease-out;
 }
 
 @keyframes splash-screen {
-    0%,
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    25% {
-        transform: translateY(-8px);
-        opacity: 0.8;
-    }
-    50% {
-        transform: translateY(-15px);
-        opacity: 1;
-    }
-    75% {
-        transform: translateY(-8px);
-        opacity: 0.8;
-    }
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-8px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-15px);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-8px);
+    opacity: 0.8;
+  }
 }
 
 start-screen .title {
-    font-family: "MedievalSharp", cursive;
-    font-size: 4.5rem;
-    font-weight: bold;
-    margin: 2rem;
-    color: var(--text-color);
-    text-shadow: 2px 2px 8px var(--text-color-dark);
-    animation: start-screen-title 1s ease-in-out;
+  font-family: "MedievalSharp", cursive;
+  font-size: 4.5rem;
+  font-weight: bold;
+  margin: 2rem;
+  color: var(--text-color);
+  text-shadow: 2px 2px 8px var(--text-color-dark);
+  animation: start-screen-title 1s ease-in-out;
 }
 
 start-screen .menu-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 start-screen .menu-buttons button {
-    font-size: 1.6rem;
-    padding: 0.8rem 3rem;
-    border: none;
-    border-radius: 50px;
-    font-weight: bold;
-    font-family: "MedievalSharp", cursive;
-    border: 0.5px solid var(--text-color-dark);
-    text-shadow: 1px 1px 0.5px var(--text-color-dark);
-    background-color: var(--layout-dark);
-    color: var(--text-color);
-    cursor: pointer;
-    transition: all 0.08s ease-in-out;
+  font-size: 1.6rem;
+  padding: 0.8rem 3rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  font-family: "MedievalSharp", cursive;
+  border: 0.5px solid var(--text-color-dark);
+  text-shadow: 1px 1px 0.5px var(--text-color-dark);
+  background-color: var(--layout-dark);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.08s ease-in-out;
 }
 
 start-screen .menu-buttons button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes start-screen-title {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 ui .cookie img {
-    width: 15rem;
-    transition: transform 0.02s ease-in-out;
-    will-change: transform;
-    position: relative;
+  width: 15rem;
+  transition: transform 0.02s ease-in-out;
+  will-change: transform;
+  position: relative;
 }
 
 ui .cookie img:active {
-    transform: scale(0.8);
+  transform: scale(0.8);
 }
 
 ui .click-effect {
-    position: absolute;
-    color: white;
-    font-size: 2rem;
-    font-weight: bold;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-    pointer-events: none;
+  position: absolute;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
 }
 
 ui .statistic {
-    text-align: center;
-    font-family: "Press Start 2P", cursive;
-    color: var(--text-color);
-    text-shadow: 1px 1px var(--text-color-dark);
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
+  color: var(--text-color);
+  text-shadow: 1px 1px var(--text-color-dark);
 }
 
-ui .statistic th, ui .statistic td {
-    padding: 5px;
-    text-align: center;
+ui .statistic th,
+ui .statistic td {
+  padding: 5px;
+  text-align: center;
 }
 
 ui .statistic th {
-    font-size: 0.8em;
+  font-size: 0.8em;
 }
 
 ui .statistic td {
-    position: relative;
-    font-size: 1em;
+  position: relative;
+  font-size: 1em;
 }
 
 ui .statistic td .label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 ui .statistic td .value {
-    display: block;
-    margin-top: 5px;
+  display: block;
+  margin-top: 5px;
 }
