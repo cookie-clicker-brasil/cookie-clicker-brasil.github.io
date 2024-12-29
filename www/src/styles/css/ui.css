@@ -89,70 +89,38 @@ body {
   pointer-events: none; 
 }
 
-/* Font Awesome for icons */
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
-
-/* Estilos para a tabela */
-.stats-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  padding: 0 10px;
-}
-
-.stats-table {
-  width: 100%;
-  max-width: 400px;
-  border-collapse: collapse;
-  text-align: left;
+.statistic {
+  text-align: center;
   font-family: "Press Start 2P", cursive;
   color: var(--text-color);
-  background-color: var(--table-row-bg);
-  border: 2px solid var(--table-border);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px var(--text-color-dark);
 }
 
-.stats-table th, .stats-table td {
-  border: 2px solid var(--table-border);
-  padding: 10px;
+.statistic th, .statistic td {
+  padding: 5px;
   text-align: center;
 }
 
-.stats-table th {
-  background-color: var(--table-header-bg);
+.statistic th {
+  font-size: 0.8em;
+}
+
+.statistic td {
+  position: relative;
   font-size: 1em;
 }
 
-.stats-table td {
-  background-color: var(--table-row-bg);
-  position: relative;
-  font-size: 1.2em;
-}
-
-.stats-table td .label {
+.statistic td .label {
   font-weight: bold;
 }
 
-.stats-table td .value {
+.statistic td .value {
   display: block;
   margin-top: 5px;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.stats-table td .animated-number {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: rise 1s ease-out;
-}
-
-@keyframes rise {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 50%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
+.statistic td .value.animate {
+  transform: scale(1.3);
+  color: #ff4500; 
 }
