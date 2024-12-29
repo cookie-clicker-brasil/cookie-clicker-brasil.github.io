@@ -1,36 +1,38 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
 
+@import url("https://fonts.cdnfonts.com/css/minecraftia");
+
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
 
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
 
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap");
 
 :root {
-  --layout: #fffbde;
-  --layout-dark: #fbf0c1;
-  --text-color: #fdd388;
-  --text-color-dark: #7c3d18;
+    --layout: #fffbde;
+    --layout-dark: #fbf0c1;
+    --text-color: #fdd388;
+    --text-color-dark: #7c3d18;
 }
 
 *,
 *:before,
 *:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
 }
 
 .ui-cookie splash-screen .icon {
@@ -69,58 +71,99 @@ body {
     }
 }
 
-.cookie img {
-  width: 15rem;
-  transition: transform 0.02s ease-in-out;
-  will-change: transform;
-  position: relative;
+start-screen .title {
+    font-family: "MedievalSharp", cursive;
+    font-size: 4.5rem;
+    font-weight: bold;
+    margin: 2rem;
+    color: var(--text-color);
+    text-shadow: 2px 2px 8px var(--text-color-dark);
+    animation: start-screen-title 1s ease-in-out;
 }
 
-.cookie img:active {
-  transform: scale(0.8);
+start-screen .menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-.click-effect {
-  position: absolute;
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-  pointer-events: none; 
+start-screen .menu-buttons button {
+    font-size: 1.6rem;
+    padding: 0.8rem 3rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-family: "MedievalSharp", cursive;
+    border: 0.5px solid var(--text-color-dark);
+    text-shadow: 1px 1px 0.5px var(--text-color-dark);
+    background-color: var(--layout-dark);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.08s ease-in-out;
 }
 
-.statistic {
-  text-align: center;
-  font-family: "Press Start 2P", cursive;
-  color: var(--text-color);
-  text-shadow: 1px 1px var(--text-color-dark);
+start-screen .menu-buttons button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
-.statistic th, .statistic td {
-  padding: 5px;
-  text-align: center;
+@keyframes start-screen-title {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.statistic th {
-  font-size: 0.8em;
+ui .cookie img {
+    width: 15rem;
+    transition: transform 0.02s ease-in-out;
+    will-change: transform;
+    position: relative;
 }
 
-.statistic td {
-  position: relative;
-  font-size: 1em;
+ui .cookie img:active {
+    transform: scale(0.8);
 }
 
-.statistic td .label {
-  font-weight: bold;
+ui .click-effect {
+    position: absolute;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    pointer-events: none;
 }
 
-.statistic td .value {
-  display: block;
-  margin-top: 5px;
-  transition: transform 0.2s ease, color 0.2s ease;
+ui .statistic {
+    text-align: center;
+    font-family: "Press Start 2P", cursive;
+    color: var(--text-color);
+    text-shadow: 1px 1px var(--text-color-dark);
 }
 
-.statistic td .value.animate {
-  transform: scale(1.3);
-  color: #ff4500; 
+ui .statistic th, ui .statistic td {
+    padding: 5px;
+    text-align: center;
+}
+
+ui .statistic th {
+    font-size: 0.8em;
+}
+
+ui .statistic td {
+    position: relative;
+    font-size: 1em;
+}
+
+ui .statistic td .label {
+    font-weight: bold;
+}
+
+ui .statistic td .value {
+    display: block;
+    margin-top: 5px;
 }

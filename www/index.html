@@ -11,16 +11,45 @@
 </head>
 
 <body class="ui-cookie">
-
+  
   <audio id="splash" preload="auto" loop>
     <source src="./src/audio/start.mp3" type="audio/mp3">
   </audio>
- 
+  
+  <audio id="click" preload="auto">
+    <source src="./src/audio/click.mp3" type="audio/mp3">
+  </audio>
+  
   <splash-screen class="d-flex flex-column justify-content-center align-items-center vh-100">
     <img src="https://raw.githubusercontent.com/sebastianjnuwu/app/refs/heads/android/android/app/src/main/res/drawable/splash_screen.png" alt="splash-screen" class="icon mb-5">
     <h1>Click...</h1>
   </splash-screen> 
   
+  <start-screen style="display: none !important;" class="d-flex flex-column justify-content-center align-items-center vh-100">
+  <h1 class="title">
+   <i class="fas fa-cookie-bite"></i> Cookie
+  </h1>
+<div class="menu-buttons">
+    <button id="play">
+        <i class="fas fa-gamepad"></i> Jogar
+    </button>
+    <button id="shop">
+        <i class="fas fa-store"></i> Loja
+    </button>
+    <button id="stats">
+        <i class="fas fa-chart-line"></i> Estatísticas
+    </button>
+    <button id="settings" disabled>
+        <i class="fas fa-cog"></i> Configurações
+    </button>
+    <button id="help">
+        <i class="fas fa-question-circle"></i> Ajuda
+    </button>
+</div>
+
+ </start-screen>
+ 
+ 
 <ui style="display: none !important;" class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
   
   <div class="text-center">
@@ -37,15 +66,13 @@
     </tbody>
   </table>
 </div>
-  
-  
+
   <cookie class="cookie position-relative">
     <img src="https://raw.githubusercontent.com/sebastianjnuwu/sebastianjnuwu/refs/heads/main/website/7_Sem_Titulo_20241227172134.png" 
          alt="cookie" 
          class="icon mb-4">
          </cookie>
 </ui>
-
   
   <script src="./src/js/main.js" defer></script>
   <script src="./src/js/cookie/game.js" defer></script>
