@@ -168,3 +168,108 @@ ui .statistic td .value {
   display: block;
   margin-top: 5px;
 }
+
+.room-code {
+    text-align: center;
+    background-color: #f4a460;
+    padding: 5px;
+    border: 1px solid #d2691e;
+    box-shadow: 1px 1px var(--text-color-dark);
+    border-radius: 16px;
+    width: 10rem;
+    margin: 0.5rem;
+    font-weight: bold;
+    opacity: 0; 
+    animation: slideIn 2s forwards;
+}
+.room-code h3 {
+    margin: 0;
+    padding: 0;
+    font-family: "minecraftia", cursive;
+    font-weight: bold;
+    font-size: 0.6rem;
+    color: #4b2e16;
+}
+.room-code p {
+    font-family: "minecraftia", cursive;
+    font-size: 1rem;
+    margin: 0;
+    background-color: #f4a460;
+    color: #4b2e16;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0); 
+        opacity: 1;
+    }
+}
+
+/*
+#ranking {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffdd99; 
+    border: 2px solid #d2691e;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    text-align: center;
+}
+
+#ranking h2 {
+    font-size: 1.8rem;
+    color: #4b2e16; 
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px;
+}
+
+#ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#ranking-list li {
+    background-color: #f4a460; 
+    color: #4b2e16;
+    border: 2px solid #d2691e;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+#ranking-list li span:first-child:before {
+    content: "🍪 "; /
+}
+
+#ranking-list li.new {
+    background-color: #ffdd99;
+    animation: pop 0.5s ease-out;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+*/

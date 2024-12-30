@@ -14,4 +14,5 @@ $(() => {
     $("start-screen").remove();
     $("ui").show();
   });
+
 });
