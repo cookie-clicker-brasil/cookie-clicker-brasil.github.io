@@ -6,12 +6,14 @@
   <title>Cookie</title>
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/sebastianjnuwu/app/refs/heads/android/android/app/src/main/res/drawable/splash_screen.png" type="image/x-icon">
   <link rel="stylesheet" href="./src/styles/css/ui.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.min.js" integrity="sha512-8ExARjWWkIllMlNzVg7JKq9RKWPlJABQUNq6YvAjE/HobctjH/NA+bSiDMDvouBVjp4Wwnf1VP1OEv7Zgjtuxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="module" src="./src/js/socket.js"></script>
   <script type="module" src="./main.ts"></script>
 </head>
 
 <body class="ui-cookie">
-  
+  <!---
   <audio id="splash" preload="auto" loop>
     <source src="./src/audio/start.mp3" type="audio/mp3">
   </audio>
@@ -44,90 +46,31 @@
     </button>
     <button id="help">
         <i class="fas fa-question-circle"></i> Ajuda
-    </button>-->
+    </button>
 </div>
  </start-screen>
 
+--->
 
-<!-- Botão para abrir o modal -->
-<button type="button" class="btn btn-primary position-fixed bottom-0 start-50 translate-middle-x mb-4" data-bs-toggle="modal" data-bs-target="#settingsModal">
-  Escolher Personagem
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
- <h5 class="modal-title" id="settingsModalLabel">
-   <i class="fas fa-cog"></i> Configurações</h5>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="nickname" class="form-label">Nickname:</label>
-          <input type="text" class="form-control" id="nickname" placeholder="Digite seu Nickname">
-        </div>
-
-        <div class="mb-3">
-          <label for="character" class="form-label">Escolha seu Personagem:</label>
-          <div id="characterSelect">
-            <div class="character-option" data-character="cookie1">
-              <img src="https://example.com/cookie1.png" alt="Biscoito 1">
-              <span>Biscoito 1</span>
-            </div>
-            <div class="character-option" data-character="cookie2">
-              <img src="https://example.com/cookie2.png" alt="Biscoito 2">
-              <span>Biscoito 2</span>
-            </div>
-            <div class="character-option" data-character="cookie3">
-              <img src="https://example.com/cookie3.png" alt="Biscoito 3">
-              <span>Biscoito 3</span>
-            </div>
-            <div class="character-option" data-character="cookie4">
-              <img src="https://example.com/cookie4.png" alt="Biscoito 4">
-              <span>Biscoito 4</span>
-            </div>
-            <div class="character-option" data-character="cookie5">
-              <img src="https://example.com/cookie5.png" alt="Biscoito 5">
-              <span>Biscoito 5</span>
-            </div>
-            <div class="character-option" data-character="cookie6">
-              <img src="https://example.com/cookie6.png" alt="Biscoito 6">
-              <span>Biscoito 6</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Novo campo para código da sala -->
-        <div class="mb-3">
-          <label for="roomCode" class="form-label">Código da Sala:</label>
-          <input type="text" class="form-control" id="roomCode" placeholder="Digite ou crie um código da sala (opcional)">
-        </div>
-
-        <div class="mb-3">
-          <label for="time" class="form-label">Tempo da Sala (em minutos):</label>
-          <input type="number" class="form-control" id="time" placeholder="Tempo em minutos" min="1" max="60">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary" id="startGameBtn">Iniciar Jogo</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<ui style="display: none !important;" class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
+<ui style="display: no !important;" class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
   
 <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
     <h3><i class="fas fa-key"></i> Código da Sala:</h3>
-    <p>ABCD1234</p>
+    <p id="current_code">
+   <i class="fas fa-wifi"></i>
+    </p>
+</div>
+
+<div class="waiting-room">
+  <h1><i class="fas fa-cookie-bite"></i> Aguardando...</h1>
+  <p>
+    <i class="fas fa-users"></i> <x id="online">1</x>/1
+  </p>
+  <button id="start-game"><i class="fas fa-play"></i> Começar</button>
 </div>
 
 
-  
+  <!--
   <div class="text-center">
   <table class="statistic">
     <tbody>
@@ -145,7 +88,7 @@
 
   <cookie class="cookie position-relative">
     <img src="https://raw.githubusercontent.com/sebastianjnuwu/sebastianjnuwu/refs/heads/main/website/7_Sem_Titulo_20241227172134.png" alt="cookie" class="icon mb-4">
-  </cookie>
+  </cookie> -->
       
 
 </ui>

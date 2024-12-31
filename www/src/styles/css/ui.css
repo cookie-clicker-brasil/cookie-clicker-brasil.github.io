@@ -212,6 +212,60 @@ ui .statistic td .value {
     }
 }
 
+.waiting-room {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'minecraftia', sans-serif;
+}
+
+.waiting-room h1 {
+  font-size: 2rem;
+  color: #8b4513;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px #d2691e;
+}
+
+.waiting-room p {
+  font-size: 1rem;
+  color: #8b4513;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#start-game {
+  background-color: #d2691e;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#start-game i {
+  font-size: 1.2rem;
+}
+
+#start-game:hover {
+  background-color: #8b4513;
+  transform: scale(1.1);
+}
+
+#start-game:active {
+  transform: scale(1);
+  background-color: #bf4f20;
+}
+
+
 /*
 #ranking {
     width: 100%;
