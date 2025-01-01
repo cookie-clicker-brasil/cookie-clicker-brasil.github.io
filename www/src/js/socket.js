@@ -1,18 +1,19 @@
-const socket = io('http://localhost:3000', {
+const socket = io('http://192.168.1.106:3000', {
   transports: ['websocket', 'polling']
 });
 
+const $countdown = $("#countdown-container");
+const countdown_text = $("#countdown");
 const code = $("#current_code");
 const online = $("#online");
 
-console.log(code.text());
 socket.emit("room", {
  code: null,
  nickname: "sebastianjnuwu",
 });
 
 socket.on("error", (err) => {
-  console.log(err.message);
+  alert(err.message);
 });
 
 socket.on('update_room', (room) => {
@@ -27,7 +28,21 @@ $("#start-game").on("click", () => {
 });
 
 socket.on("count_down", ({ countdown }) => {
-  console.log(countdown > 0 ? countdown : "GO!");
+ 
+   $(".waiting-room").remove();
+   $countdown.show();
+
+  if (countdown > 0) {
+    countdown_text.text(countdown); 
+  } else {
+    countdown_text.text("GO!"); 
+
+    setTimeout(() => {
+      $countdown.remove();
+      $(".game").show();
+    }, 1000);
+
+  }
 });
 
 socket.on("started_game", (oi) => {

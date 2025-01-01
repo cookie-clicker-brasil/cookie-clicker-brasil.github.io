@@ -35,7 +35,7 @@
     <button id="play" data-bs-toggle="modal" data-bs-target="#settings-game-start">
         <i class="fas fa-gamepad"></i> Jogar
     </button>
-    <!--- <button id="shop">
+    <button id="shop">
         <i class="fas fa-store"></i> Loja
     </button>
     <button id="stats">
@@ -61,6 +61,11 @@
     </p>
 </div>
 
+<div style="display: none !important;" id="countdown-container" class="countdown-overlay d-flex justify-content-center align-items-center">
+    <h1 id="countdown" class="countdown-text">3</h1>
+</div>
+  
+
 <div class="waiting-room">
   <h1><i class="fas fa-cookie-bite"></i> Aguardando...</h1>
   <p>
@@ -70,26 +75,24 @@
 </div>
 
 
-  <!--
-  <div class="text-center">
-  <table class="statistic">
-    <tbody>
-      <tr>
-        <th><i class="fas fa-cookie-bite"></i> Cookies</th>
-        <td id="click-cookie" class="value">0</td>
-      </tr>
-        <tr>
-        <th><i class="fas fa-stopwatch"></i> Seconds</th>
-        <td id="cps" class="value">0</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-  <cookie class="cookie position-relative">
-    <img src="https://raw.githubusercontent.com/sebastianjnuwu/sebastianjnuwu/refs/heads/main/website/7_Sem_Titulo_20241227172134.png" alt="cookie" class="icon mb-4">
-  </cookie> -->
+   <div style="display: none !important;" class="text-center game">
+      <table class="statistic">
+          <tbody>
+            <tr>
+              <th><i class="fas fa-cookie-bite"></i> Cookies</th>
+              <td id="click-cookie" class="value">0</td>
+            </tr>
+              <tr>
+              <th><i class="fas fa-stopwatch"></i> Seconds</th>
+              <td id="cps" class="value">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       
+   <cookie style="display: none !important;"  class="cookie position-relative game">
+     <img src="https://raw.githubusercontent.com/sebastianjnuwu/sebastianjnuwu/refs/heads/main/website/7_Sem_Titulo_20241227172134.png" alt="cookie" class="icon mb-4">
+   </cookie>
 
 </ui>
   

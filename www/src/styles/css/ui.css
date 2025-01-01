@@ -235,6 +235,46 @@ ui .statistic td .value {
   font-weight: bold;
 }
 
+.countdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+  }
+  
+  .countdown-text {
+    font-size: 8rem;
+    font-family: 'Minecraftia', cursive;
+    color: #f4a460;
+    text-shadow: 4px 4px 8px #d2691e;
+    animation: pulse 1s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 #start-game {
   background-color: #d2691e;
   color: #fff;
