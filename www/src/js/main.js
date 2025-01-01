@@ -11,9 +11,7 @@ $(() => {
   $("start-screen button").on("click", () => $("#click")[0].play());
 
   $("#play").on("click", () => {
-    
-   // $("start-screen").remove();
-  // $("ui").show();
+    // $("start-screen").remove();
+    // $("ui").show();
   });
-
 });

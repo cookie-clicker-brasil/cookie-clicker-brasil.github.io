@@ -170,46 +170,46 @@ ui .statistic td .value {
 }
 
 .room-code {
-    text-align: center;
-    background-color: #f4a460;
-    padding: 5px;
-    border: 1px solid #d2691e;
-    box-shadow: 1px 1px var(--text-color-dark);
-    border-radius: 16px;
-    width: 10rem;
-    margin: 0.5rem;
-    font-weight: bold;
-    opacity: 0; 
-    animation: slideIn 2s forwards;
+  text-align: center;
+  background-color: #f4a460;
+  padding: 5px;
+  border: 1px solid #d2691e;
+  box-shadow: 1px 1px var(--text-color-dark);
+  border-radius: 16px;
+  width: 10rem;
+  margin: 0.5rem;
+  font-weight: bold;
+  opacity: 0;
+  animation: slideIn 2s forwards;
 }
 .room-code h3 {
-    margin: 0;
-    padding: 0;
-    font-family: "minecraftia", cursive;
-    font-weight: bold;
-    font-size: 0.6rem;
-    color: #4b2e16;
+  margin: 0;
+  padding: 0;
+  font-family: "minecraftia", cursive;
+  font-weight: bold;
+  font-size: 0.6rem;
+  color: #4b2e16;
 }
 .room-code p {
-    font-family: "minecraftia", cursive;
-    font-size: 1rem;
-    margin: 0;
-    background-color: #f4a460;
-    color: #4b2e16;
-    border-radius: 5px;
-    font-weight: bold;
-    letter-spacing: 1px;
+  font-family: "minecraftia", cursive;
+  font-size: 1rem;
+  margin: 0;
+  background-color: #f4a460;
+  color: #4b2e16;
+  border-radius: 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 @keyframes slideIn {
-    0% {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0); 
-        opacity: 1;
-    }
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .waiting-room {
@@ -218,7 +218,7 @@ ui .statistic td .value {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: 'minecraftia', sans-serif;
+  font-family: "minecraftia", sans-serif;
 }
 
 .waiting-room h1 {
@@ -236,44 +236,32 @@ ui .statistic td .value {
 }
 
 .countdown-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.countdown-text {
+  font-size: 8rem;
+  font-family: "Minecraftia", cursive;
+  color: #f4a460;
+  text-shadow: 4px 4px 8px #d2691e;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
   }
-  
-  .countdown-text {
-    font-size: 8rem;
-    font-family: 'Minecraftia', cursive;
-    color: #f4a460;
-    text-shadow: 4px 4px 8px #d2691e;
-    animation: pulse 1s ease-in-out infinite;
+  50% {
+    transform: scale(1.2);
   }
-  
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.2);
-    }
-  }
-  
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 #start-game {
   background-color: #d2691e;
@@ -304,7 +292,6 @@ ui .statistic td .value {
   transform: scale(1);
   background-color: #bf4f20;
 }
-
 
 /*
 #ranking {
@@ -369,112 +356,113 @@ ui .statistic td .value {
 */
 
 .modal-dialog {
-    max-width: 100%;
-    height: 100vh;
-    padding: 0;
-    margin: 0;
+  max-width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
 }
 
 .modal-content {
-    height: 100%;
-    background-color: #f4a460;
-    color: #4b2e16;
-    font-family: "Minecraftia", cursive;
+  height: 100%;
+  background-color: #f4a460;
+  color: #4b2e16;
+  font-family: "Minecraftia", cursive;
 }
 
 .modal-header {
-    background-color: #d2691e;
-    color: white;
-    padding: 1rem;
+  background-color: #d2691e;
+  color: white;
+  padding: 1rem;
 }
 
 .modal-title {
-    font-size: 2rem;
-    font-weight: bold;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .modal-body {
-    background-color: #ffe4b5;
-    padding: 2rem;
-    overflow: auto;
-    height: calc(100% - 4rem);
+  background-color: #ffe4b5;
+  padding: 2rem;
+  overflow: auto;
+  height: calc(100% - 4rem);
 }
 
 #characterSelect {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 1rem;
-    gap: 15px;
-    scroll-snap-type: x mandatory;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  gap: 15px;
+  scroll-snap-type: x mandatory;
 }
 
 .character-option {
-    background-color: #f4a460;
-    border-radius: 10px;
-    border: 1px solid #d2691e;
-    padding: 0.75rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    scroll-snap-align: start;
-    flex-shrink: 0;
-    width: 120px;
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-color: #f4a460;
+  border-radius: 10px;
+  border: 1px solid #d2691e;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  width: 120px;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .character-option:hover {
-    transform: scale(1.1);
-    background-color: #d2691e;
+  transform: scale(1.1);
+  background-color: #d2691e;
 }
 
 .character-option img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 2px solid #4b2e16;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #4b2e16;
 }
 
 .character-option span {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #4b2e16;
-    text-transform: uppercase;
-    font-size: 1rem;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #4b2e16;
+  text-transform: uppercase;
+  font-size: 1rem;
 }
 
 .form-label {
-    font-weight: bold;
-    color: #4b2e16;
+  font-weight: bold;
+  color: #4b2e16;
 }
 
-.form-control, .form-select {
-    background-color: #f4a460;
-    color: #4b2e16;
-    border: 1px solid #d2691e;
-    border-radius: 8px;
-    font-family: "Minecraftia", cursive;
-    padding: 0.75rem;
-    font-size: 1rem;
+.form-control,
+.form-select {
+  background-color: #f4a460;
+  color: #4b2e16;
+  border: 1px solid #d2691e;
+  border-radius: 8px;
+  font-family: "Minecraftia", cursive;
+  padding: 0.75rem;
+  font-size: 1rem;
 }
 
 .modal-footer {
-    background-color: #d2691e;
-    padding: 1rem;
+  background-color: #d2691e;
+  padding: 1rem;
 }
 
 button.btn-primary {
-    background-color: #4b2e16;
-    border-color: #d2691e;
-    font-weight: bold;
+  background-color: #4b2e16;
+  border-color: #d2691e;
+  font-weight: bold;
 }
 
 button.btn-secondary {
-    background-color: #f4a460;
-    border-color: #d2691e;
-    font-weight: bold;
+  background-color: #f4a460;
+  border-color: #d2691e;
+  font-weight: bold;
 }
