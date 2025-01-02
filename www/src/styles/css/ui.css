@@ -35,12 +35,14 @@ body {
   background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
 }
 
-.ui-cookie splash-screen .icon {
+ /* SPLASH SCREEN - START */
+ 
+#splash-screen .icon {
   width: 15rem;
   animation: splash-screen 2s infinite ease-in-out;
 }
 
-.ui-cookie splash-screen h1 {
+#splash-screen h1 {
   font-family: "Press Start 2P", cursive;
   text-align: center;
   font-size: 1.5rem;
@@ -71,7 +73,12 @@ body {
   }
 }
 
-start-screen .title {
+ /* SPLASH SCREEN - END */
+ 
+ 
+ /* START SCREEN - START */
+  
+#start-screen .title {
   font-family: "MedievalSharp", cursive;
   font-size: 4.5rem;
   font-weight: bold;
@@ -81,13 +88,13 @@ start-screen .title {
   animation: start-screen-title 1s ease-in-out;
 }
 
-start-screen .menu-buttons {
+#start-screen .menu {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-start-screen .menu-buttons button {
+#start-screen .menu button {
   font-size: 1.6rem;
   padding: 0.8rem 3rem;
   border: none;
@@ -99,10 +106,11 @@ start-screen .menu-buttons button {
   background-color: var(--layout-dark);
   color: var(--text-color);
   cursor: pointer;
+  animation: start-screen-title 1s ease-in-out;
   transition: all 0.08s ease-in-out;
 }
 
-start-screen .menu-buttons button:hover {
+#start-screen .menu button:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
@@ -118,6 +126,9 @@ start-screen .menu-buttons button:hover {
   }
 }
 
+ /* START SCREEN - END */
+ 
+/*
 ui .cookie img {
   width: 15rem;
   transition: transform 0.02s ease-in-out;
@@ -355,114 +366,5 @@ ui .statistic td .value {
 }
 */
 
-.modal-dialog {
-  max-width: 100%;
-  height: 100vh;
-  padding: 0;
-  margin: 0;
-}
 
-.modal-content {
-  height: 100%;
-  background-color: #f4a460;
-  color: #4b2e16;
-  font-family: "Minecraftia", cursive;
-}
 
-.modal-header {
-  background-color: #d2691e;
-  color: white;
-  padding: 1rem;
-}
-
-.modal-title {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.modal-body {
-  background-color: #ffe4b5;
-  padding: 2rem;
-  overflow: auto;
-  height: calc(100% - 4rem);
-}
-
-#characterSelect {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding-bottom: 1rem;
-  gap: 15px;
-  scroll-snap-type: x mandatory;
-}
-
-.character-option {
-  background-color: #f4a460;
-  border-radius: 10px;
-  border: 1px solid #d2691e;
-  padding: 0.75rem;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  scroll-snap-align: start;
-  flex-shrink: 0;
-  width: 120px;
-  text-align: center;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.character-option:hover {
-  transform: scale(1.1);
-  background-color: #d2691e;
-}
-
-.character-option img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid #4b2e16;
-}
-
-.character-option span {
-  margin-top: 10px;
-  font-weight: bold;
-  color: #4b2e16;
-  text-transform: uppercase;
-  font-size: 1rem;
-}
-
-.form-label {
-  font-weight: bold;
-  color: #4b2e16;
-}
-
-.form-control,
-.form-select {
-  background-color: #f4a460;
-  color: #4b2e16;
-  border: 1px solid #d2691e;
-  border-radius: 8px;
-  font-family: "Minecraftia", cursive;
-  padding: 0.75rem;
-  font-size: 1rem;
-}
-
-.modal-footer {
-  background-color: #d2691e;
-  padding: 1rem;
-}
-
-button.btn-primary {
-  background-color: #4b2e16;
-  border-color: #d2691e;
-  font-weight: bold;
-}
-
-button.btn-secondary {
-  background-color: #f4a460;
-  border-color: #d2691e;
-  font-weight: bold;
-}

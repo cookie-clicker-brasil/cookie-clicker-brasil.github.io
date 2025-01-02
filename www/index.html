@@ -4,55 +4,54 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Cookie</title>
-  <link rel="shortcut icon" href="https://raw.githubusercontent.com/sebastianjnuwu/app/refs/heads/android/android/app/src/main/res/drawable/splash_screen.png" type="image/x-icon">
+  <link rel="shortcut icon" href="https://i.imgur.com/dGKQOJf.png" type="image/png">
   <link rel="stylesheet" href="./src/styles/css/ui.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.min.js" integrity="sha512-8ExARjWWkIllMlNzVg7JKq9RKWPlJABQUNq6YvAjE/HobctjH/NA+bSiDMDvouBVjp4Wwnf1VP1OEv7Zgjtuxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="./src/js/socket.js"></script>
   <script type="module" src="./main.ts"></script>
 </head>
 
-<body class="ui-cookie">
-  <!---
+<body class="d-flex flex-column justify-content-center align-items-center vh-100">
+
+  <!--- background sound  --->
   <audio id="splash" preload="auto" loop>
-    <source src="./src/audio/start.mp3" type="audio/mp3">
+   <source src="https://github.com/sebastianjnuwu/sebastianjnuwu/raw/refs/heads/main/CDN/start.mp3">
   </audio>
   
+  <!--- sound of button clicks --->
   <audio id="click" preload="auto">
-    <source src="./src/audio/click.mp3" type="audio/mp3">
+   <source src="https://github.com/sebastianjnuwu/sebastianjnuwu/raw/refs/heads/main/CDN/start.mp3">
   </audio>
   
-  <splash-screen class="d-flex flex-column justify-content-center align-items-center vh-100">
-    <img src="https://raw.githubusercontent.com/sebastianjnuwu/app/refs/heads/android/android/app/src/main/res/drawable/splash_screen.png" alt="splash-screen" class="icon mb-5">
+   <!--- (splash-screen) ---> 
+  <div id="splash-screen">
+    <img src="https://i.imgur.com/dGKQOJf.png" alt="splash-screen" class="icon mb-5">
     <h1>Click...</h1>
-  </splash-screen> 
+  </div> 
+   <!--- (splash-screen) ---> 
   
-  <start-screen style="display: none !important;" class="d-flex flex-column justify-content-center align-items-center vh-100">
+   <!--- (start-screen) ---> 
+  <div id="start-screen" style="display: none;">
   <h1 class="title">
    <i class="fas fa-cookie-bite"></i> Cookie
   </h1>
-  <div class="menu-buttons">
-    <button id="play" data-bs-toggle="modal" data-bs-target="#settings-game-start">
+  <div class="menu">
+    <button id="start-playing" data-bs-toggle="modal" data-bs-target="#gameModal">
         <i class="fas fa-gamepad"></i> Jogar
     </button>
-    <button id="shop">
-        <i class="fas fa-store"></i> Loja
+    <button id="game-settings">
+        <i class="fas fa-cog"></i> Configurações 
     </button>
-    <button id="stats">
-        <i class="fas fa-chart-line"></i> Estatísticas
+    <button id="exit-app">
+        <i class="fas fa-sign-out-alt"></i> Sair
     </button>
-    <button id="settings" disabled>
-        <i class="fas fa-cog"></i> Configurações
-    </button>
-    <button id="help">
-        <i class="fas fa-question-circle"></i> Ajuda
-    </button>
-</div>
- </start-screen>
+   </div>
+  </div>
+   <!--- (splash-screen) ---> 
 
---->
-
-<ui style="display: no !important;" class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
+<!---
+<ui style="display: none !important;" class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
   
 <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
     <h3><i class="fas fa-key"></i> Código da Sala:</h3>
@@ -95,6 +94,74 @@
    </cookie>
 
 </ui>
+  -->
+  
+
+<div class="modal fade" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="gameModalLabel">
+          <i class="fas fa-gamepad"></i> Configurações
+        </h5>
+      </div>
+      <div class="modal-body">
+        <form id="gameSettingsForm">
+          <!-- Nickname -->
+          <div class="mb-3">
+            <label for="nickname" class="form-label">
+              <i class="fas fa-user"></i> Nickname
+            </label>
+            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Digite seu nickname" required>
+          </div>
+
+          <!-- Opções de jogo -->
+          <div class="mb-3">
+            <label class="form-label">
+              <i class="fas fa-list-ul"></i> Escolha uma opção:
+            </label>
+            <div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gameOption" id="createRoom" value="create" checked>
+                <label class="form-check-label" for="createRoom">
+                  <i class="fas fa-plus-circle"></i> Criar uma sala
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gameOption" id="joinRoom" value="join">
+                <label class="form-check-label" for="joinRoom">
+                  <i class="fas fa-sign-in-alt"></i> Entrar em uma sala
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Código da sala -->
+          <div class="mb-3" id="roomCodeContainer" style="display: none;">
+            <label for="roomCode" class="form-label">
+              <i class="fas fa-key"></i> Código da Sala
+            </label>
+            <input type="text" class="form-control" id="roomCode" name="roomCode" placeholder="Digite o código da sala">
+          </div>
+
+          <!-- Tempo de jogo -->
+          <div class="mb-3" id="gameTimeContainer">
+            <label for="gameTime" class="form-label">
+              <i class="fas fa-clock"></i> Tempo de Jogo (em minutos)
+            </label>
+            <input type="number" class="form-control" id="gameTime" name="gameTime" placeholder="Ex.: 10" min="1" max="120">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" form="gameSettingsForm" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   
   <script type="module" src="./src/js/main.js" defer></script>
   <script type="module" src="./src/js/cookie/game.js" defer></script>

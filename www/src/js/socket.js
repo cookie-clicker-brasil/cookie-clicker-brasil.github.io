@@ -1,4 +1,4 @@
-const socket = io("http://192.168.1.106:3000", {
+const socket = io("http://localhost:3000", {
   transports: ["websocket", "polling"],
 });
 
@@ -8,7 +8,7 @@ const code = $("#current_code");
 const online = $("#online");
 
 socket.emit("room", {
-  code: null,
+  code: "M7ZGS5",
   nickname: "sebastianjnuwu",
 });
 
@@ -17,8 +17,13 @@ socket.on("error", (err) => {
 });
 
 socket.on("update_room", (room) => {
+
+  if (room.owner !== socket.id) {
+     $("#start-game").remove();
+  };
+  
   code.text(room.code);
-  online.text(room.players.length);
+  online.text(room.players.length)
 });
 
 $("#start-game").on("click", () => {
