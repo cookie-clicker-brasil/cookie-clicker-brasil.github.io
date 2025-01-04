@@ -128,7 +128,6 @@ body {
 
  /* START SCREEN - END */
  
-/*
 ui .cookie img {
   width: 15rem;
   transition: transform 0.02s ease-in-out;
@@ -274,7 +273,7 @@ ui .statistic td .value {
   }
 }
 
-#start-game {
+#start_game, #leave_room {
   background-color: #d2691e;
   color: #fff;
   font-size: 1.2rem;
@@ -290,16 +289,16 @@ ui .statistic td .value {
   gap: 10px;
 }
 
-#start-game i {
+#start_game i, #leave_room i {
   font-size: 1.2rem;
 }
 
-#start-game:hover {
+#start_game:hover, #leave_room:hover {
   background-color: #8b4513;
   transform: scale(1.1);
 }
 
-#start-game:active {
+#start_game:active, #leave_room:active {
   transform: scale(1);
   background-color: #bf4f20;
 }

@@ -6,6 +6,7 @@
   <title>Cookie</title>
   <link rel="shortcut icon" href="https://i.imgur.com/dGKQOJf.png" type="image/png">
   <link rel="stylesheet" href="./src/styles/css/ui.css">
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="./src/js/socket.js"></script>
@@ -50,8 +51,7 @@
   </div>
    <!--- (splash-screen) ---> 
 
-<!---
-<ui style="display: none !important;" class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
+<ui style="display: none;">
   
 <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
     <h3><i class="fas fa-key"></i> Código da Sala:</h3>
@@ -70,12 +70,20 @@
   <p>
     <i class="fas fa-users"></i> <x id="online">1</x>/1
   </p>
-  <button id="start-game"><i class="fas fa-play"></i> Começar</button>
+<div class="d-flex flex-column justify-content-center align-items-center gap-2">
+  <button id="start_game" class="btn btn-primary">
+    <i class="fas fa-play"></i> Começar
+  </button>
+  <button id="leave_room" class="btn btn-secondary">
+    <i class="fas fa-sign-out-alt"></i> Sair
+  </button>
+</div>
+
 </div>
 
 
-   <div style="display: none !important;" class="text-center game">
-      <table class="statistic">
+   <div style="display: none;" class="game">
+      <table class="statistic position-relative">
           <tbody>
             <tr>
               <th><i class="fas fa-cookie-bite"></i> Cookies</th>
@@ -89,14 +97,12 @@
         </table>
       </div>
       
-   <cookie style="display: none !important;"  class="cookie position-relative game">
+   <cookie style="display: none;"  class="cookie position-relative game">
      <img src="https://raw.githubusercontent.com/sebastianjnuwu/sebastianjnuwu/refs/heads/main/website/7_Sem_Titulo_20241227172134.png" alt="cookie" class="icon mb-4">
    </cookie>
 
 </ui>
-  -->
   
-
 <div class="modal fade" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -106,7 +112,7 @@
         </h5>
       </div>
       <div class="modal-body">
-        <form id="gameSettingsForm">
+        <form id="form_room">
           <!-- Nickname -->
           <div class="mb-3">
             <label for="nickname" class="form-label">
@@ -122,14 +128,14 @@
             </label>
             <div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="gameOption" id="createRoom" value="create" checked>
+                <input class="form-check-input" type="radio" name="option_game" id="createRoom" value="create" checked>
                 <label class="form-check-label" for="createRoom">
                   <i class="fas fa-plus-circle"></i> Criar uma sala
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="gameOption" id="joinRoom" value="join">
-                <label class="form-check-label" for="joinRoom">
+                <input class="form-check-input" type="radio" name="option_game" id="room_join" value="join">
+                <label class="form-check-label" for="room_join">
                   <i class="fas fa-sign-in-alt"></i> Entrar em uma sala
                 </label>
               </div>
@@ -137,31 +143,29 @@
           </div>
 
           <!-- Código da sala -->
-          <div class="mb-3" id="roomCodeContainer" style="display: none;">
-            <label for="roomCode" class="form-label">
+          <div class="mb-3" id="code_container" style="display: none;">
+            <label for="room_code" class="form-label">
               <i class="fas fa-key"></i> Código da Sala
             </label>
-            <input type="text" class="form-control" id="roomCode" name="roomCode" placeholder="Digite o código da sala">
+            <input type="text" class="form-control" id="room_code" name="room_code" placeholder="Digite o código da sala">
           </div>
 
           <!-- Tempo de jogo -->
-          <div class="mb-3" id="gameTimeContainer">
+          <div class="mb-3" id="game_container">
             <label for="gameTime" class="form-label">
               <i class="fas fa-clock"></i> Tempo de Jogo (em minutos)
             </label>
-            <input type="number" class="form-control" id="gameTime" name="gameTime" placeholder="Ex.: 10" min="1" max="120">
+            <input type="number" class="form-control" id="game_time" name="gameTime" placeholder="Ex.: 10" min="1" max="1">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" form="gameSettingsForm" class="btn btn-primary">Confirmar</button>
+        <button type="submit" form="form_room" class="btn btn-primary">Confirmar</button>
       </div>
     </div>
   </div>
 </div>
-
-
   
   <script type="module" src="./src/js/main.js" defer></script>
   <script type="module" src="./src/js/cookie/game.js" defer></script>
