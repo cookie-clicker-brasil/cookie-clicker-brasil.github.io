@@ -21,7 +21,7 @@ io.on("connection", (socket) => {
             date: new Date(),
             players: [],
             owner: room_player,
-            time: room_time,
+            time: room_time || 1,
             state: "waiting"
         };
     }

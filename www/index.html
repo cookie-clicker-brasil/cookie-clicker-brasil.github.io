@@ -6,10 +6,10 @@
   <title>Cookie</title>
   <link rel="shortcut icon" href="./src/img/icon.webp" type="image/webp">
   <link rel="stylesheet" href="./src/styles/css/ui.css">
-  <script src="./src/js/modules/js.cookie.min.js"></script>
-  <script src="./src/js/modules/socket.io.min.js"></script>
-  <script src="./src/js/modules/jquery.min.js"></script>
-  <script type="module" src="./src/js/socket.js"></script>
+  <script type="module" src="./src/js/modules/js.cookie.min.js"></script>
+  <script type="module" src="./src/js/modules/socket.io.min.js"></script>
+  <script type="module" src="./src/js/modules/jquery.min.js"></script>
+  <script type="module" src="./src/js/cookie/start.js"></script>
   <script type="module" src="./main.ts"></script>
 </head>
 
@@ -41,7 +41,7 @@
    <i class="fas fa-cookie-bite"></i> Cookie
   </h1>
   <div class="menu">
-    <button id="start-playing" data-bs-toggle="modal" data-bs-target="#gameModal">
+    <button id="start-playing" data-bs-toggle="modal" data-bs-target="#room_modal">
         <i class="fas fa-gamepad"></i> Jogar
     </button>
     <!-- <button id="game-settings">
@@ -54,6 +54,12 @@
   </div>
    <!--- (splash-screen /) ---> 
 
+    <!-- (countdown) -->
+  <div style="display: none;" id="countdown-container" class="countdown-overlay justify-content-center align-items-center">
+    <h1 id="countdown" class="countdown-text">3</h1>
+  </div>
+    <!-- (countdown /) -->
+    
   <!-- (layout-game) -->
  <ui style="display: none;">
   
@@ -71,18 +77,12 @@
    <h2><i class="fas fa-trophy"></i> Ranking</h2>
     <ul id="ranking-list"></ul>
     <div class="d-flex flex-column justify-content-center align-items-center gap-2">
-    <button id="leave_room" class="btn btn-secondary">
+    <button id="game_exit" class="btn btn-secondary">
      <i class="fas fa-sign-out-alt"></i> Sair
    </button>
    </div>
   </div>
     <!-- (ranking /) -->
-
-    <!-- (countdown) -->
-  <div style="display: none;" id="countdown-container" class="countdown-overlay justify-content-center align-items-center">
-    <h1 id="countdown" class="countdown-text">3</h1>
-  </div>
-    <!-- (countdown /) -->
     
     <!-- (Waiting room) -->
   <div class="waiting-room">
@@ -94,7 +94,7 @@
   <button id="start_game" class="btn btn-primary">
     <i class="fas fa-play"></i> Começar
   </button>
-    <button id="leave_room_2" class="btn btn-secondary">
+    <button id="leave_room" class="btn btn-secondary">
      <i class="fas fa-sign-out-alt"></i> Sair
    </button>
 </div>
@@ -137,22 +137,22 @@
   <!-- (layout-game /) -->
   
   <!-- (room settings) -->
-  <div class="modal fade" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
+  <div class="modal fade" id="room_modal" tabindex="-1" aria-labelledby="room_modalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="gameModalLabel">
+        <h5 class="modal-title" id="room_modalLabel">
           <i class="fas fa-gamepad"></i> Configurações
         </h5>
       </div>
       <div class="modal-body">
-        <form id="form_room">
+        <form id="form">
           <!-- Nickname -->
           <div class="mb-3">
             <label for="nickname" class="form-label">
               <i class="fas fa-user"></i> Nickname
             </label>
-            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Digite seu nickname" required>
+            <input type="text" class="form-control" id="room_name" name="nickname" placeholder="Digite seu nickname" required>
           </div>
 
           <!-- Opções de jogo -->
@@ -189,13 +189,13 @@
             <label for="gameTime" class="form-label">
               <i class="fas fa-clock"></i> Tempo de Jogo (em minutos)
             </label>
-            <input type="number" class="form-control" id="game_time" name="gameTime" placeholder="Ex.: 10" min="1" max="1">
+            <input type="number" class="form-control" id="room_time" name="gameTime" placeholder="Ex.: 10" min="1" max="1">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" form="form_room" class="btn btn-primary">Confirmar</button>
+        <button id="form_button" class="btn btn-primary">Confirmar</button>
       </div>
     </div>
   </div>
@@ -204,8 +204,7 @@
   
   <!--- (script) ---> 
   <script type="module" src="./src/js/main.js" defer></script>
-  <script type="module" src="./src/js/cookie/game.js" defer></script>
-  <script src="./src/js/modules/bootstrap.min.js"></script>
+  <script type="module" src="./src/js/modules/bootstrap.min.js"></script>
   <!--- (script /) ---> 
   
   </body>
