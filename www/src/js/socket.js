@@ -83,6 +83,7 @@ socket.on("count_down", ({ countdown }) => {
       $(".room-code").show();
       $countdown.remove();
       $(".game").show();
+      $(".game-time ").show();
     }, 1000);
   }
 
@@ -94,6 +95,39 @@ $("#start_game").on("click", () => {
     socket.emit("start_game", {
       room_code: Cookies.get('code'),
     });
-
     
+});
+
+socket.on("timer", ({ time_game }) => {
+  return $("#timer").text(time_game);
+});
+
+// Evento recebido do servidor com o ranking final
+socket.on("game_end", ({ ranking }) => {
+  
+  console.log(ranking);
+  
+  $(".room-code").hide();
+  $(".game").remove();
+  $(".game-time").hide();
+  
+  const $rankingContainer = $("#ranking");
+  const $rankingList = $("#ranking-list");
+
+  // Limpa a lista antes de adicionar novos jogadores
+  $rankingList.empty();
+
+  // Adiciona cada jogador ao ranking
+  ranking.forEach((player, index) => {
+    const isNewClass = index === 0 ? "new" : ""; // Destaque para o primeiro lugar
+    $rankingList.append(`
+      <li class="${isNewClass}">
+        <span><b>#${player.rank}</b> ${player.room_player} - ${player.cookies} </span>
+      </li>
+    `);
+  });
+
+  // Mostra o ranking
+  $rankingContainer.fadeIn();
+  
 });

@@ -10,7 +10,7 @@ $(() => {
     }, 1000);
   });
 
-  $("start-screen button").on("click", () => $("#click")[0].play());
+  $("#start-screen button").on("click", () => $("#click")[0].play());
 
   $('input[name="option_game"]').on('change', () => {
     if ($('#room_join').is(':checked')) {

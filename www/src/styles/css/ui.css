@@ -303,7 +303,6 @@ ui .statistic td .value {
   background-color: #bf4f20;
 }
 
-/*
 #ranking {
     width: 100%;
     max-width: 400px;
@@ -363,7 +362,44 @@ ui .statistic td .value {
         transform: scale(1);
     }
 }
-*/
 
+.game-time {
+  display: flex;
+  align-items: center;
+  background-color: #f4a460;
+  padding: 0.5rem;
+  border-radius: 16px;
+  border: 2px solid #d2691e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+  gap: 0.5rem;
+}
 
+.game-time h3 {
+  text-align: center;
+  font-size: 1rem;
+  margin: 0;
+  font-family: "minecraftia", cursive;
+  color: var(--text-color-dark);
+  font-weight: bold;
+}
 
+@keyframes slideUp {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

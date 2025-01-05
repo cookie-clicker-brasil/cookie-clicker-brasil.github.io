@@ -4,11 +4,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Cookie</title>
-  <link rel="shortcut icon" href="https://i.imgur.com/dGKQOJf.png" type="image/png">
+  <link rel="shortcut icon" href="./src/img/icon.webp" type="image/webp">
   <link rel="stylesheet" href="./src/styles/css/ui.css">
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="./src/js/modules/js.cookie.min.js"></script>
+  <script src="./src/js/modules/socket.io.min.js"></script>
+  <script src="./src/js/modules/jquery.min.js"></script>
   <script type="module" src="./src/js/socket.js"></script>
   <script type="module" src="./main.ts"></script>
 </head>
@@ -22,12 +22,12 @@
   
   <!--- sound of button clicks --->
   <audio id="click" preload="auto">
-   <source src="https://github.com/sebastianjnuwu/sebastianjnuwu/raw/refs/heads/main/CDN/start.mp3">
+   <source src="https://github.com/sebastianjnuwu/sebastianjnuwu/raw/refs/heads/main/CDN/click.mp3">
   </audio>
   
    <!--- (splash-screen) ---> 
   <div id="splash-screen">
-    <img src="https://i.imgur.com/dGKQOJf.png" alt="splash-screen" class="icon mb-5">
+    <img src="./src/img/icon.webp" alt="splash-screen" class="icon mb-5">
     <h1>Click...</h1>
   </div> 
    <!--- (splash-screen) ---> 
@@ -41,31 +41,35 @@
     <button id="start-playing" data-bs-toggle="modal" data-bs-target="#gameModal">
         <i class="fas fa-gamepad"></i> Jogar
     </button>
-    <button id="game-settings">
+    <!-- <button id="game-settings">
         <i class="fas fa-cog"></i> Configurações 
     </button>
     <button id="exit-app">
         <i class="fas fa-sign-out-alt"></i> Sair
-    </button>
+    </button> -->
    </div>
   </div>
    <!--- (splash-screen) ---> 
 
 <ui style="display: none;">
   
-<div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
+  <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
     <h3><i class="fas fa-key"></i> Código da Sala:</h3>
     <p id="current_code">
    <i class="fas fa-wifi"></i>
     </p>
 </div>
 
-<div style="display: none !important;" id="countdown-container" class="countdown-overlay d-flex justify-content-center align-items-center">
+  <div id="ranking" style="display: none;">
+  <h2>Ranking Final</h2>
+  <ul id="ranking-list"></ul>
+  </div>
+
+  <div id="countdown-container" class="countdown-overlay d-flex justify-content-center align-items-center" style="display: none !important;">
     <h1 id="countdown" class="countdown-text">3</h1>
 </div>
-  
 
-<div class="waiting-room">
+  <div class="waiting-room">
   <h1><i class="fas fa-cookie-bite"></i> Aguardando...</h1>
   <p>
     <i class="fas fa-users"></i> <x id="online">1</x>/1
@@ -81,9 +85,9 @@
 
 </div>
 
-
-   <div style="display: none;" class="game">
-      <table class="statistic position-relative">
+  <div style="display: none !important;" class="game d-flex flex-column justify-content-center align-items-center">
+    
+    <table class="statistic position-relative">
           <tbody>
             <tr>
               <th><i class="fas fa-cookie-bite"></i> Cookies</th>
@@ -95,13 +99,20 @@
             </tr>
           </tbody>
         </table>
-      </div>
       
-   <cookie style="display: none;"  class="cookie position-relative game">
-     <img src="https://raw.githubusercontent.com/sebastianjnuwu/sebastianjnuwu/refs/heads/main/website/7_Sem_Titulo_20241227172134.png" alt="cookie" class="icon mb-4">
+    <cookie class="cookie position-relative game">
+     <img src="./src/img/cookie.webp" alt="cookie" class="icon mb-4">
    </cookie>
+   
+  </div>
+   
+  <div class="game-time position-fixed bottom-0 start-50 translate-middle-x mb-4" style="display: none;">
+    <h3><i class="fas fa-stopwatch"> Tempo: </i> <span id="timer">0:00</span></h3>
+  </div>
+
 
 </ui>
+  
   
 <div class="modal fade" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -167,10 +178,11 @@
   </div>
 </div>
   
+  <!--- (script) ---> 
   <script type="module" src="./src/js/main.js" defer></script>
   <script type="module" src="./src/js/cookie/game.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="./src/js/modules/bootstrap.min.js"></script>
+  <!--- (script) ---> 
   
    </body>
 </html>
