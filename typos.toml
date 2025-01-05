@@ -3,8 +3,10 @@ check-filename = true
 
 [files]
 extend-exclude = [
+  "www/src/js/modules",
   "node_modules",
-  "android"
+  "android",
+  "socket"
 ]
 
 [default.extend-words]

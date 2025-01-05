@@ -13,24 +13,27 @@
   <script type="module" src="./main.ts"></script>
 </head>
 
+  <!-- (body) -->
 <body class="d-flex flex-column justify-content-center align-items-center vh-100">
 
-  <!--- background sound  --->
+  <!--- (background sound)  --->
   <audio id="splash" preload="auto" loop>
    <source src="https://github.com/sebastianjnuwu/sebastianjnuwu/raw/refs/heads/main/CDN/start.mp3">
   </audio>
+  <!--- (background sound /) --->
   
-  <!--- sound of button clicks --->
+  <!--- (sound of button clicks) --->
   <audio id="click" preload="auto">
    <source src="https://github.com/sebastianjnuwu/sebastianjnuwu/raw/refs/heads/main/CDN/click.mp3">
   </audio>
+  <!--- (sound of button clicks /) --->
   
    <!--- (splash-screen) ---> 
   <div id="splash-screen">
     <img src="./src/img/icon.webp" alt="splash-screen" class="icon mb-5">
     <h1>Click...</h1>
   </div> 
-   <!--- (splash-screen) ---> 
+   <!--- (splash-screen /) ---> 
   
    <!--- (start-screen) ---> 
   <div id="start-screen" style="display: none;">
@@ -49,26 +52,39 @@
     </button> -->
    </div>
   </div>
-   <!--- (splash-screen) ---> 
+   <!--- (splash-screen /) ---> 
 
-<ui style="display: none;">
+  <!-- (layout-game) -->
+ <ui style="display: none;">
   
+   <!-- (room code) -->
   <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
     <h3><i class="fas fa-key"></i> Código da Sala:</h3>
     <p id="current_code">
    <i class="fas fa-wifi"></i>
     </p>
 </div>
+   <!-- (room code /) -->
 
+    <!-- (ranking) -->
   <div id="ranking" style="display: none;">
-  <h2>Ranking Final</h2>
-  <ul id="ranking-list"></ul>
+   <h2><i class="fas fa-trophy"></i> Ranking</h2>
+    <ul id="ranking-list"></ul>
+    <div class="d-flex flex-column justify-content-center align-items-center gap-2">
+    <button id="leave_room" class="btn btn-secondary">
+     <i class="fas fa-sign-out-alt"></i> Sair
+   </button>
+   </div>
   </div>
+    <!-- (ranking /) -->
 
-  <div id="countdown-container" class="countdown-overlay d-flex justify-content-center align-items-center" style="display: none !important;">
+    <!-- (countdown) -->
+  <div style="display: none;" id="countdown-container" class="countdown-overlay justify-content-center align-items-center">
     <h1 id="countdown" class="countdown-text">3</h1>
-</div>
-
+  </div>
+    <!-- (countdown /) -->
+    
+    <!-- (Waiting room) -->
   <div class="waiting-room">
   <h1><i class="fas fa-cookie-bite"></i> Aguardando...</h1>
   <p>
@@ -78,43 +94,50 @@
   <button id="start_game" class="btn btn-primary">
     <i class="fas fa-play"></i> Começar
   </button>
-  <button id="leave_room" class="btn btn-secondary">
-    <i class="fas fa-sign-out-alt"></i> Sair
-  </button>
+    <button id="leave_room_2" class="btn btn-secondary">
+     <i class="fas fa-sign-out-alt"></i> Sair
+   </button>
 </div>
 
 </div>
+   <!-- (Waiting room /) -->
 
-  <div style="display: none !important;" class="game d-flex flex-column justify-content-center align-items-center">
-    
-    <table class="statistic position-relative">
-          <tbody>
-            <tr>
+  <div id="game" style="display: none;">
+
+   <!-- statistics table -->
+  <table class="d-flex flex-column justify-content-center align-items-center statistic position-relative">
+    <tbody>
+      <tr>
               <th><i class="fas fa-cookie-bite"></i> Cookies</th>
               <td id="click-cookie" class="value">0</td>
             </tr>
-              <tr>
+      <tr>
               <th><i class="fas fa-stopwatch"></i> Seconds</th>
               <td id="cps" class="value">0</td>
             </tr>
-          </tbody>
-        </table>
-      
-    <cookie class="cookie position-relative game">
-     <img src="./src/img/cookie.webp" alt="cookie" class="icon mb-4">
-   </cookie>
+    </tbody>
+  </table>
+   <!-- statistics table -->
+   
+    <!-- Clicking on the cookie -->
+  <cookie class="d-flex flex-column justify-content-center align-items-center cookie position-relative">
+    <img src="./src/img/cookie.webp" alt="cookie" class="icon mb-4">
+  </cookie>
+    <!-- Clicking on the cookie -->
    
   </div>
    
+    <!-- (room game time) -->
   <div class="game-time position-fixed bottom-0 start-50 translate-middle-x mb-4" style="display: none;">
     <h3><i class="fas fa-stopwatch"> Tempo: </i> <span id="timer">0:00</span></h3>
   </div>
-
+    <!-- (room game time /) -->
 
 </ui>
+  <!-- (layout-game /) -->
   
-  
-<div class="modal fade" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
+  <!-- (room settings) -->
+  <div class="modal fade" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -177,12 +200,15 @@
     </div>
   </div>
 </div>
+  <!-- (room settings /) -->
   
   <!--- (script) ---> 
   <script type="module" src="./src/js/main.js" defer></script>
   <script type="module" src="./src/js/cookie/game.js" defer></script>
   <script src="./src/js/modules/bootstrap.min.js"></script>
-  <!--- (script) ---> 
+  <!--- (script /) ---> 
   
-   </body>
+  </body>
+  <!-- (body /) -->
+
 </html>

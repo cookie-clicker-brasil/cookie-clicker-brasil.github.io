@@ -2,7 +2,6 @@ $(() => {
   
    // splash-screen
   $("#splash-screen").on("click", () => {
-    $("#splash")[0].volume = 0.1;
     $("#splash")[0].play();
     setTimeout(() => {
       $("#splash-screen").hide();
@@ -10,18 +9,24 @@ $(() => {
     }, 1000);
   });
 
-  $("#start-screen button").on("click", () => $("#click")[0].play());
+  // sound when clicking buttons 
+  $("#start-screen button").on("click", () => {
+    return $("#click")[0].play(); 
+  });
 
+  // add and remove add room field
   $('input[name="option_game"]').on('change', () => {
+   
+    $('#room_code').val("");
+      
     if ($('#room_join').is(':checked')) {
-      $('#room_code').val("");
       $('#code_container').show();
       $("#game_container").hide();
     } else {
-      $('#room_code').val("");
       $('#code_container').hide();
       $("#game_container").show();
-    }
+    };
+    
   });
 
 });

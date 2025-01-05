@@ -101,8 +101,6 @@ io.on("connection", (socket) => {
     // Log para fins de depuração
     console.log(`Socket ${socket.id} (${room_player}) saiu da sala ${room_code}`);
     
-    console.log(room);
-    
 });
 
    // rejoin_room
@@ -128,8 +126,6 @@ io.on("connection", (socket) => {
      // send the update to room.
     io.to(room_code).emit("update_room", { room_player, room });
     
-    console.log(room);
-    
   });
   
   socket.on("start_game", ({ room_code }) => {
@@ -137,7 +133,7 @@ io.on("connection", (socket) => {
     const room = ROOMS[room_code];
     room.state = "in_game";
 
-    let countdown = 3; // Contagem regressiva de 10 segundos
+    let countdown = 1; // Contagem regressiva de 10 segundos
     const countdownInterval = setInterval(() => {
         io.to(room_code).emit("count_down", { countdown });
 

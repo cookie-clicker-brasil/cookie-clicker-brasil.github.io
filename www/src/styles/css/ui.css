@@ -246,6 +246,7 @@ ui .statistic td .value {
 }
 
 .countdown-overlay {
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
@@ -273,7 +274,9 @@ ui .statistic td .value {
   }
 }
 
-#start_game, #leave_room {
+#start_game, 
+#leave_room,
+#leave_room_2 {
   background-color: #d2691e;
   color: #fff;
   font-size: 1.2rem;
@@ -289,23 +292,28 @@ ui .statistic td .value {
   gap: 10px;
 }
 
-#start_game i, #leave_room i {
+#start_game i,
+#leave_room i,
+#leave_room_2 i {
   font-size: 1.2rem;
 }
 
-#start_game:hover, #leave_room:hover {
+#start_game:hover, 
+#leave_room:hover,
+#leave_room_2:hover {
   background-color: #8b4513;
   transform: scale(1.1);
 }
 
-#start_game:active, #leave_room:active {
+#start_game:active,
+#leave_room:active, 
+#leave_room_2:active {
   transform: scale(1);
   background-color: #bf4f20;
 }
 
 #ranking {
     width: 100%;
-    max-width: 400px;
     background-color: #ffdd99; 
     border: 2px solid #d2691e;
     border-radius: 10px;
@@ -333,7 +341,7 @@ ui .statistic td .value {
     background-color: #f4a460; 
     color: #4b2e16;
     border: 2px solid #d2691e;
-    border-radius: 5px;
+    border-radius: 12px;
     margin: 10px 0;
     padding: 10px 15px;
     display: flex;
