@@ -210,7 +210,11 @@ socket.on("timer", ({ time_game }) => {
 });
 
 socket.on("game_end", ({ ranking }) => {
-  localStorage.setItem("cookie", 0);
+ 
+  $("#cps").text("0");
+  $("#click-cookie").text("0");
+  
+  localStorage.setItem("cookie", null);
   localStorage.setItem("code", null);
 
   $(".room-code").hide();
