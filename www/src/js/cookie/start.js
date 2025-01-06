@@ -29,6 +29,12 @@ const socket = io("https://socket-hj1h.onrender.com", {
 });
 
 let cookies = Number(localStorage.getItem("cookie")) || 0;
+
+if (cookies < 0) {
+  cookies = 0;
+  localStorage.setItem("cookie", cookies);
+}
+
 let $cps = 0;
 
 const $update_cps = () => {
@@ -183,6 +189,8 @@ $("#leave_room").on("click", () => {
 });
 
 $("#start_game").on("click", () => {
+  cookies = 0; 
+  localStorage.setItem("cookie", cookies); 
   socket.emit("start_game", {
     room_code: localStorage.getItem("code"),
   });
@@ -216,7 +224,8 @@ socket.on("game_end", ({ ranking }) => {
   $("#cps").text("0");
   $("#click-cookie").text("0");
   
-  localStorage.setItem("cookie", 0);
+  cookies = 0;
+  localStorage.setItem("cookie", cookies);
   localStorage.setItem("code", null);
 
   $(".room-code").hide();
