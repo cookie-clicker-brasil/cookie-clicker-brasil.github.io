@@ -21,7 +21,13 @@ function $message(text) {
 };
 
  // connect the server to the socket
+/*
 const socket = io("http://localhost:3000", {
+  transports: ["websocket", "polling"],
+});
+*/
+
+const socket = io("https://socket-hj1h.onrender.com", {
   transports: ["websocket", "polling"],
 });
 
