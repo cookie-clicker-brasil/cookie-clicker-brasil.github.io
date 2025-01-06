@@ -16,6 +16,14 @@
     "enabled": true
   },
   "files": {
-    "ignore": ["node_modules", "www/src/js/modules", "build", "dist", "android", "ios", "*.log"]
+    "ignore": [
+      "node_modules",
+      "www/src/js/modules",
+      "build",
+      "dist",
+      "android",
+      "ios",
+      "*.log"
+    ]
   }
 }

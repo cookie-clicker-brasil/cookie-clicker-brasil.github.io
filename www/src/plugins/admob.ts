@@ -83,5 +83,4 @@ $(() => {
   $("#start_game").on("click", () => $show_banner());
 
   $("#game_exit").on("click", () => $hide_banner());
-
 });

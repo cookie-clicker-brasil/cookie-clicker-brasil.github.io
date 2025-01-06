@@ -2,7 +2,9 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
   "assignees": ["sebastianjnuwu"],
-  "schedule": ["at the beginning of every 3 months on the last day of the month"],
+  "schedule": [
+    "at the beginning of every 3 months on the last day of the month"
+  ],
   "dependencyDashboard": false,
   "fetchReleaseNotes": true,
   "packageRules": [
