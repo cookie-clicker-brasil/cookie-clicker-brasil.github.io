@@ -17,14 +17,16 @@ function $message(text) {
     <div class="toast-body"> ${text}</div></div>`);
 }
 
+/*
  // connect the server to the socket
 const socket = io("http://0.0.0.0:3000", {
   transports: ["websocket", "polling"],
-});/*
+});
+*/
 
 const socket = io("https://socket-hj1h.onrender.com", {
   transports: ["websocket", "polling"],
-});*/
+});
 
 let cookies = Number(localStorage.getItem("cookie")) || 0;
 let $cps = 0;
