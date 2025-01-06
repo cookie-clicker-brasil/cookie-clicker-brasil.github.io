@@ -1,5 +1,7 @@
 {
+  "main": "src/main.js",
   "type": "module",
+  "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",
   "dependencies": {
     "socket.io": "^4.8.1"
   }

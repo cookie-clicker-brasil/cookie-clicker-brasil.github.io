@@ -80,16 +80,8 @@ $(() => {
       console.log("Error initializing AdMob: ", err.message);
     });
 
-  $("#start_game").on("click", () => {
-    // $show_video();
-    $show_banner();
-  });
+  $("#start_game").on("click", () => $show_banner());
 
-  $("#hide_banner").on("click", () => {
-    return $hide_banner();
-  });
+  $("#game_exit").on("click", () => $hide_banner());
 
-  $("#award").on("click", () => {
-    return $award();
-  });
 });

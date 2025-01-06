@@ -1,38 +1,108 @@
 
-  // Display a message with boostrap toast 
+ // Display a message with bootstrap toast
 function $message(text) {
 
   $('#message').html('');
 
-  setTimeout(() => {
-    $('#message').html('');
+   setTimeout(() => {
+     $('#message').html('');
   }, 10000);
   
-  return $('#message').html(`
+   return $('#message').html(`
     <div class="toast fade show">
-    <div class="toast-header">
-    <img style="width: 10%;" src="./src/img/icon.webp" class="rounded me-2">
-    <strong class="me-auto">Cookie</strong>
-    <small>Agora</small>
-    <button type="button" style="box-shadow: none; outline: none;" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+     <div class="toast-header">
+     <img style="width: 10%;" src="./src/img/icon.webp" class="rounded me-2">
+     <strong class="me-auto">Cookie</strong>
+     <small>Agora</small>
+     <button type="button" style="box-shadow: none; outline: none;" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body"> ${text}</div></div>`);
     
 };
-
- // connect the server to the socket
 /*
-const socket = io("http://localhost:3000", {
+ // connect the server to the socket
+const socket = io("http://0.0.0.0:3000", {
   transports: ["websocket", "polling"],
-});
-*/
+});*/
 
 const socket = io("https://socket-hj1h.onrender.com", {
   transports: ["websocket", "polling"],
 });
 
-let name = null;
-let code = null;
+let cookies = localStorage.getItem("cookie") || 0;
+let $cps = 0;
+
+const $update_cps = () => {
+  $("#cps").text($cps);
+  $cps = 0;
+};
+
+const $update_cookies = () => {
+  cookies++;
+  $cps++;
+  $("#click-cookie").text(`${cookies}`);
+  localStorage.setItem("cookie", cookies)
+  socket.emit('update_cookies', {
+    room_player: localStorage.getItem("name"),
+    room_code: localStorage.getItem('code'),
+    cookies: Number.parseInt(localStorage.getItem("cookie")),
+  });
+};
+
+setInterval($update_cps, 1000);
+
+$(".cookie").on("click", function (e) {
+  $update_cookies();
+
+  const $effect = $(`<div class="click-effect">+1</div>`);
+
+  const offset = $(this).offset();
+  const X = e.pageX - offset.left;
+  const Y = e.pageY - offset.top;
+
+  $effect.css({
+    left: `${X}px`,
+    top: `${Y}px`,
+    position: "absolute",
+  });
+
+  $(this).append($effect);
+
+  $effect
+    .animate(
+      {
+        top: "-=2.5rem",
+        opacity: 1,
+        fontSize: "1.5rem",
+      },
+      300,
+    )
+    .animate(
+      {
+        opacity: 0,
+      },
+      200,
+      function () {
+        $(this).remove();
+      },
+    );
+});
+
+/*
+const socket = io("https://socket-hj1h.onrender.com", {
+  transports: ["websocket", "polling"],
+});*/
+
+
+socket.emit('rejoin_room', { 
+  room_player: localStorage.getItem('name'), 
+  room_code: localStorage.getItem('code')
+});
+
+
+if (localStorage.getItem('name')) {
+  $('#room_name').val(localStorage.getItem('name'));
+};
 
  // form for creating the room 
 $('#form_button').on('click', () => {
@@ -58,38 +128,44 @@ $('#form_button').on('click', () => {
     return $message('<b><i class="fas fa-exclamation-circle"></i> Ops!</b> Parece que você foi desconectado do jogo Cookie!');
   }; 
   
+  localStorage.setItem('name', room_player);
+  
   socket.emit("room", { 
     room_code, room_time, room_player
   });
   
-  name = room_player;
-    
+  $('#room_modal').modal('hide');
+ 
 });
 
 socket.on("err_socket", ({ message }) => {
   $message(message)
 });
 
+
 socket.on("update_room", ({ 
   room_player, room
 }) => {
   
-  $('#room_modal').modal('hide');
+  $("#splash-screen").hide();
   $("#start-screen").hide();
   $("ui").show();
   
   if (room.state === "waiting") {
     $(".waiting-room").show();
     $(".room-code").show();
-  } else if (room.state = "in_game") {
+  } else if (room.state === "in_game") {
+    $(".waiting-room").hide();
     $("#game").show();
   };
   
-  if (room.owner !== name) {
+  if (room.owner === localStorage.getItem('name')) {
+    $("#start_game").show();
+  } else {
     $("#start_game").hide();
   };
  
-  code = room.code;
+  localStorage.setItem('code', room.code);
   
   $("#current_code").text(room.code);
   $("#online").text(room.players.length);
@@ -99,8 +175,8 @@ socket.on("update_room", ({
 $("#leave_room").on("click", () => {
   
   socket.emit("leave_room", {
-    room_code: code,
-    room_player: name
+    room_code: localStorage.getItem('code'),
+    room_player: localStorage.getItem('name')
   });
   
   $("ui").hide();
@@ -110,7 +186,7 @@ $("#leave_room").on("click", () => {
 
 $("#start_game").on("click", () => {
   socket.emit("start_game", {
-    room_code: code,
+    room_code: localStorage.getItem('code'),
   });
 });
 
@@ -139,9 +215,12 @@ socket.on("timer", ({ time_game }) => {
 });
 
 socket.on("game_end", ({ ranking }) => {
+  
+  localStorage.setItem("cookie", 0);
+  localStorage.setItem("code", null);
+  
   $(".room-code").hide();
   $("#game").hide();
-  
   $("#ranking").show();
   $("#ranking-list").empty();
 

@@ -63,8 +63,7 @@ io.on("connection", (socket) => {
         date: new Date(),
         socket: socket.id,
         player_date: { 
-            cps: 0, 
-            cookies: 0
+          cookies: null
         },
         room_player
     });
@@ -120,11 +119,14 @@ io.on("connection", (socket) => {
     if (!room) return;
 
      // trocar o socket id
-    room.players.forEach(x => {
-     if (x.room_player === room_player) {
-         x.socket = socket.id;
-      };
-    });
+    // Trocar o socket id
+for (const player of room.players) {
+  if (player.room_player === room_player) {
+    player.socket = socket.id;
+    break; // Se só um jogador precisa ser atualizado, encerra o loop
+  }
+}
+
        
      // enter the code room 
     socket.join(room_code);
@@ -135,53 +137,91 @@ io.on("connection", (socket) => {
   });
   
   socket.on("start_game", ({ room_code }) => {
-    
-    const room = ROOMS[room_code];
-    room.state = "in_game";
+  const room = ROOMS[room_code];
 
-    let countdown = 1; // Contagem regressiva de 10 segundos
-    const countdownInterval = setInterval(() => {
-        io.to(room_code).emit("count_down", { countdown });
+  // Verifica se a sala existe
+  if (!room) {
+    socket.emit("err_socket", { message: `Sala ${room_code} não encontrada.` });
+    return;
+  }
 
-        if (countdown === 0) {
-            clearInterval(countdownInterval);
+  // Altera o estado da sala para "in_game"
+  room.state = "in_game";
 
-            // Envia o início do jogo
-            io.to(room_code).emit("game_start");
+  let countdown = 3; // Contagem regressiva de 10 segundos
+  const countdownInterval = setInterval(() => {
+    io.to(room_code).emit("count_down", { countdown });
 
-            // Inicia o temporizador do jogo
-            let time_game = room.time * 1; // Converte minutos em segundos (60 ta em 1 para teste)
-            
-            const gameInterval = setInterval(() => {
-                time_game--;
+    if (countdown === 0) {
+      clearInterval(countdownInterval);
 
-                // Atualiza o tempo restante
-                io.to(room_code).emit("timer", { time_game });
+      // Envia o evento de início do jogo
+      io.to(room_code).emit("game_start");
 
-                if (time_game === 0) {
-                    clearInterval(gameInterval);
+      // Define o tempo de jogo em segundos
+      let time_game = room.time * 1; // Multiplica os minutos por 60 para converter para segundos
+      
+      const gameInterval = setInterval(() => {
+        time_game--;
 
-                    // Finaliza o jogo e envia o ranking
-                    const ranking = room.players
-                        .sort((a, b) => b.player_date.cookies - a.player_date.cookies) // Ordena por cookies
-                        .map((player, index) => ({
-                            rank: index + 1,
-                            room_player: player.room_player,
-                            cookies: player.player_date.cookies
-                        }));
+        // Envia o tempo restante para a sala
+        io.to(room_code).emit("timer", { time_game });
 
-                    // Atualiza o estado da sala e envia o ranking
-                    room.state = "finished";
-                    io.to(room_code).emit("game_end", { ranking });
+        if (time_game === 0) {
+          clearInterval(gameInterval);
 
-                    console.log(`Jogo na sala ${room_code} finalizado! Ranking:`, ranking);
-                }
-            }, 1000); // Atualiza a cada segundo
+          // Finaliza o jogo e gera o ranking
+          const ranking = room.players
+            .sort((a, b) => b.player_date.cookies - a.player_date.cookies) // Ordena por cookies
+            .map((player, index) => ({
+              rank: index + 1,
+              room_player: player.room_player,
+              cookies: player.player_date.cookies,
+            }));
+
+          // Atualiza o estado da sala
+          room.state = "finished";
+
+          // Envia o evento de fim do jogo com o ranking
+          io.to(room_code).emit("game_end", { ranking });
+
+          console.log(`Jogo na sala ${room_code} finalizado! Ranking:`, ranking);
         }
+      }, 1000); // Atualiza a cada segundo
+    }
 
-        countdown--;
-    }, 1000); // Atualiza a cada segundo
+    countdown--;
+  }, 1000); // Atualiza a cada segundo
 });
+
+
+  socket.on("update_cookies", ({ room_player, room_code, cookies }) => {
+  // Valida se o número de cookies recebido é válido
+  if (typeof cookies !== "number" || cookies < 0) {
+    console.error("Dados inválidos recebidos no evento update_cookies.");
+    return;
+  }
+
+  // Busca a sala diretamente pelo código
+  const room = ROOMS[room_code];
+
+  if (!room) {
+    console.error(`Sala ${room_code} não encontrada.`);
+    return;
+  }
+
+  // Busca o jogador dentro da sala
+  const player = room.players.find((player) => player.room_player === room_player);
+
+  // Verifica se o jogador existe e atualiza os cookies
+  if (player) {
+    player.player_date.cookies = cookies;
+    console.log(`Jogador ${room_player} na sala ${room_code} atualizou cookies para ${cookies}.`);
+  } else {
+    console.error(`Jogador ${room_player} não encontrado na sala ${room_code}.`);
+  }
+});
+
 
 });
 

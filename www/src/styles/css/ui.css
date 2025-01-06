@@ -279,7 +279,7 @@ ui .statistic td .value {
 
 #start_game,
 #leave_room,
-#leave_room_2 {
+#game_exit {
     background-color: #d2691e;
     color: #fff;
     font-size: 1.2rem;
@@ -297,20 +297,20 @@ ui .statistic td .value {
 
 #start_game i,
 #leave_room i,
-#leave_room_2 i {
+#game_exit i {
     font-size: 1.2rem;
 }
 
 #start_game:hover,
 #leave_room:hover,
-#leave_room_2:hover {
+#game_exit:hover {
     background-color: #8b4513;
     transform: scale(1.1);
 }
 
 #start_game:active,
 #leave_room:active,
-#leave_room_2:active {
+#game_exit:active {
     transform: scale(1);
     background-color: #bf4f20;
 }
