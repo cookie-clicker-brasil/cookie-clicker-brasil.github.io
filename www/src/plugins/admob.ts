@@ -64,7 +64,6 @@ function $award() {
     });
 }
 
-$(() => {
   if (window.Capacitor.getPlatform() !== "android") {
     console.log(
       `AdMob: Unsupported platform (${window.Capacitor.getPlatform()})`,
@@ -84,5 +83,3 @@ $(() => {
     $show_banner();
     $show_video();
    });
-
-});
