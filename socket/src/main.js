@@ -112,6 +112,7 @@ io.on("connection", (socket) => {
     const room = ROOMS[room_code];
 
     if (!room) return;
+    if (room.state === "finished") return;
 
     // trocar o socket id
     // Trocar o socket id

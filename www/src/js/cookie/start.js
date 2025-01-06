@@ -16,17 +16,17 @@ function $message(text) {
     </div>
     <div class="toast-body"> ${text}</div></div>`);
 }
-/*
+
  // connect the server to the socket
 const socket = io("http://0.0.0.0:3000", {
   transports: ["websocket", "polling"],
-});*/
+});/*
 
 const socket = io("https://socket-hj1h.onrender.com", {
   transports: ["websocket", "polling"],
-});
+});*/
 
-let cookies = localStorage.getItem("cookie") || 0;
+let cookies = Number(localStorage.getItem("cookie")) || 0;
 let $cps = 0;
 
 const $update_cps = () => {
@@ -42,7 +42,7 @@ const $update_cookies = () => {
   socket.emit("update_cookies", {
     room_player: localStorage.getItem("name"),
     room_code: localStorage.getItem("code"),
-    cookies: Number.parseInt(localStorage.getItem("cookie")),
+    cookies
   });
 };
 
@@ -214,7 +214,7 @@ socket.on("game_end", ({ ranking }) => {
   $("#cps").text("0");
   $("#click-cookie").text("0");
   
-  localStorage.setItem("cookie", null);
+  localStorage.setItem("cookie", 0);
   localStorage.setItem("code", null);
 
   $(".room-code").hide();
