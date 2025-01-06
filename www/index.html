@@ -6,28 +6,20 @@
   <title>Cookie</title>
   <link rel="shortcut icon" href="./src/img/icon.webp" type="image/webp">
   <link rel="stylesheet" href="./src/styles/css/ui.css">
-  <script type="module" src="./src/js/modules/js.cookie.min.js"></script>
   <script type="module" src="./src/js/modules/socket.io.min.js"></script>
   <script type="module" src="./src/js/modules/jquery.min.js"></script>
+  <script type="module" src="./src/js/main.js"></script>
   <script type="module" src="./src/js/cookie/start.js"></script>
   <script type="module" src="./main.ts"></script>
 </head>
 
   <!-- (body) -->
 <body class="d-flex flex-column justify-content-center align-items-center vh-100">
-
-  <!--- (background sound)  --->
-  <audio id="splash" preload="auto" loop>
-   <source src="https://github.com/sebastianjnuwu/sebastianjnuwu/raw/refs/heads/main/CDN/start.mp3">
-  </audio>
-  <!--- (background sound /) --->
   
-  <!--- (sound of button clicks) --->
-  <audio id="click" preload="auto">
-   <source src="https://github.com/sebastianjnuwu/sebastianjnuwu/raw/refs/heads/main/CDN/click.mp3">
-  </audio>
-  <!--- (sound of button clicks /) --->
-  
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+   <div id="message"></div>
+  </div>
+ 
    <!--- (splash-screen) ---> 
   <div id="splash-screen">
     <img src="./src/img/icon.webp" alt="splash-screen" class="icon mb-5">
@@ -54,25 +46,16 @@
   </div>
    <!--- (splash-screen /) ---> 
 
-    <!-- (countdown) -->
+   <!-- (countdown) -->
   <div style="display: none;" id="countdown-container" class="countdown-overlay justify-content-center align-items-center">
     <h1 id="countdown" class="countdown-text">3</h1>
   </div>
-    <!-- (countdown /) -->
+   <!-- (countdown /) -->
     
   <!-- (layout-game) -->
  <ui style="display: none;">
   
-   <!-- (room code) -->
-  <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
-    <h3><i class="fas fa-key"></i> Código da Sala:</h3>
-    <p id="current_code">
-   <i class="fas fa-wifi"></i>
-    </p>
-</div>
-   <!-- (room code /) -->
-
-    <!-- (ranking) -->
+   <!-- (ranking) -->
   <div id="ranking" style="display: none;">
    <h2><i class="fas fa-trophy"></i> Ranking</h2>
     <ul id="ranking-list"></ul>
@@ -82,8 +65,17 @@
    </button>
    </div>
   </div>
-    <!-- (ranking /) -->
-    
+   <!-- (ranking /) -->
+
+   <!-- (room code) -->
+  <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
+    <h3><i class="fas fa-key"></i> Código da Sala:</h3>
+    <p id="current_code">
+   <i class="fas fa-wifi"></i>
+    </p>
+</div>
+   <!-- (room code /) -->
+   
     <!-- (Waiting room) -->
   <div class="waiting-room">
   <h1><i class="fas fa-cookie-bite"></i> Aguardando...</h1>
@@ -104,8 +96,8 @@
 
   <div id="game" style="display: none;">
 
-   <!-- statistics table -->
-  <table class="d-flex flex-column justify-content-center align-items-center statistic position-relative">
+    <!-- statistics table -->
+   <table class="d-flex flex-column justify-content-center align-items-center statistic position-relative">
     <tbody>
       <tr>
               <th><i class="fas fa-cookie-bite"></i> Cookies</th>
@@ -117,21 +109,22 @@
             </tr>
     </tbody>
   </table>
-   <!-- statistics table -->
+    <!-- statistics table -->
    
     <!-- Clicking on the cookie -->
-  <cookie class="d-flex flex-column justify-content-center align-items-center cookie position-relative">
+   <cookie class="d-flex flex-column justify-content-center align-items-center cookie position-relative">
     <img src="./src/img/cookie.webp" alt="cookie" class="icon mb-4">
   </cookie>
     <!-- Clicking on the cookie -->
    
-  </div>
-   
     <!-- (room game time) -->
-  <div class="game-time position-fixed bottom-0 start-50 translate-middle-x mb-4" style="display: none;">
+   <div class="game-time position-fixed bottom-0 start-50 translate-middle-x mb-4">
     <h3><i class="fas fa-stopwatch"> Tempo: </i> <span id="timer">0:00</span></h3>
   </div>
     <!-- (room game time /) -->
+    
+ </div>
+
 
 </ui>
   <!-- (layout-game /) -->
@@ -194,8 +187,12 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button id="form_button" class="btn btn-primary">Confirmar</button>
+     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+  <i class="fas fa-times"></i> Cancelar
+</button>
+<button id="form_button" class="btn btn-primary">
+  <i class="fas fa-check"></i> Confirmar
+</button>
       </div>
     </div>
   </div>
@@ -203,7 +200,6 @@
   <!-- (room settings /) -->
   
   <!--- (script) ---> 
-  <script type="module" src="./src/js/main.js" defer></script>
   <script type="module" src="./src/js/cookie/game.js" defer></script>
   <script type="module" src="./src/js/modules/bootstrap.min.js"></script>
   <!--- (script /) ---> 
