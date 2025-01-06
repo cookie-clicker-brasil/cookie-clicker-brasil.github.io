@@ -7,6 +7,7 @@ import {
 const io = new Server();
 const ROOMS = {};
 
+
 io.on("connection", (socket) => {
  
    // room 
@@ -31,22 +32,27 @@ io.on("connection", (socket) => {
     
     // Verifica se a sala existe
     if (!room) {
-        console.log(`O "${room_player}" tentou entrar em uma sala "${room_code}" que não existe!`);
-        return;
+      socket.emit('err_socket', { 
+       message: `O "${room_player}" tentou entrar em uma sala "${room_code}" que não existe!`
+      });
+      return;
     }
 
     // Verifica se a sala está no estado "waiting"
     if (room.state !== "waiting") {
-        console.log(`O "${room_player}" tentou entrar em uma sala "${room_code}" que está com status: ${room.state}`);
-        return;
-    }
+      socket.emit('err_socket', { 
+        message: `O "${room_player}" tentou entrar em uma sala "${room_code}" que está com status: ${room.state}`
+      });
+      return;
+    };
 
     // Verifica se já existe um jogador com o mesmo nickname na sala
-    const existingPlayer = room.players.find(player => player.room_player === room_player);
-    if (existingPlayer) {
-        console.log("Já existe um jogador com este nick na sala!");
-        return;
-    }
+    if (room.players.find(player => player.room_player === room_player)) {
+      socket.emit('err_socket', { 
+        message: `Ja existe um jogador com este nickname (${room_player}) na sala`
+      });
+      return;
+    };
 
     // Adiciona o socket à sala
     socket.join(room_code);
@@ -67,8 +73,8 @@ io.on("connection", (socket) => {
     io.to(room_code).emit("update_room", { room_player, room });
 
     // Log para depuração
-    console.log(`Jogador "${room_player}" entrou na sala "${room_code}".`);
-    console.log(`Estado da sala:`, room);
+    console.log(`Jogador "${room_player}" entrou na sala "${room_code}". Estado da sala:`, room);
+
 });
  
    // leave_room
