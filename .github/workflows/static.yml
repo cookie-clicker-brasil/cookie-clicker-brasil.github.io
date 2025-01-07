@@ -1,64 +1,39 @@
-# Simple workflow for deploying static content to GitHub Pages with Vite
-name: Deploy Vite project to GitHub Pages
+name: Vite build and deploy
 
 on:
-  # Runs on pushes targeting the "android" branch
   push:
-    branches: ["android"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches:
+      - android  # A branch onde o deploy será feito
+  pull_request:
+    branches:
+      - android  # Quando um PR for feito na branch android
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step to checkout your repository
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      # Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'  # Specify Node.js version, Vite works well with this
+    # Setup Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # Ou a versão do Node.js que seu projeto usa
 
-      # Install dependencies
-      - name: Install dependencies
-        run: npm install
+    # Instalar as dependências
+    - name: Install dependencies
+      run: npm install
 
-      # Build the Vite project
-      - name: Build Vite project
-        run: npm run build
+    # Gerar build com Vite
+    - name: Build project with Vite
+      run: npm run build
 
-      # Setup Pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      # Upload the build artifact (output folder from Vite build)
-      - name: Upload build artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './build'  # Vite build output directory
-
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    # Fazer deploy no GitHub Pages (se você estiver usando GitHub Pages)
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages  # A branch para onde o site será enviado
+        folder: build     # A pasta gerada pelo Vite para deploy
         
