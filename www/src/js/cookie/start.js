@@ -50,7 +50,7 @@ const $update_cookies = () => {
   socket.emit("update_cookies", {
     room_player: localStorage.getItem("name"),
     room_code: localStorage.getItem("code"),
-    cookies
+    cookies,
   });
 };
 
@@ -189,8 +189,8 @@ $("#leave_room").on("click", () => {
 });
 
 $("#start_game").on("click", () => {
-  cookies = 0; 
-  localStorage.setItem("cookie", cookies); 
+  cookies = 0;
+  localStorage.setItem("cookie", cookies);
   socket.emit("start_game", {
     room_code: localStorage.getItem("code"),
   });
@@ -220,10 +220,9 @@ socket.on("timer", ({ time_game }) => {
 });
 
 socket.on("game_end", ({ ranking }) => {
- 
   $("#cps").text("0");
   $("#click-cookie").text("0");
-  
+
   cookies = 0;
   localStorage.setItem("cookie", cookies);
   localStorage.setItem("code", null);

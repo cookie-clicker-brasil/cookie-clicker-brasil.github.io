@@ -2,7 +2,7 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting the "android" branch
   push:
     branches: ["android"]
 
@@ -22,22 +22,43 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      # Step to checkout your repository
+      - name: Checkout code
         uses: actions/checkout@v4
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Specify the Node.js version you need
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build the project
+      - name: Build project
+        run: npm run build
+
+      # Setup Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload artifact
+
+      # Upload the build artifact (output folder from your build)
+      - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: './www'
+          path: './build'  # Assuming 'build' is the directory where your build output is located
+
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        

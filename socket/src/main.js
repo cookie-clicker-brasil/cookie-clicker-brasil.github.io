@@ -180,11 +180,11 @@ io.on("connection", (socket) => {
 
             // Envia o evento de fim do jogo com o ranking
             io.to(room_code).emit("game_end", { ranking });
-            
-          if (room.state === "finished") {
+
+            if (room.state === "finished") {
               delete ROOMS[room_code];
               console.log(`Sala ${room_code} foi deletada.`);
-          }
+            }
 
             console.log(
               `Jogo na sala ${room_code} finalizado! Ranking:`,
