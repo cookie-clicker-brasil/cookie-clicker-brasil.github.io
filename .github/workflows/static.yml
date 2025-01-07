@@ -55,7 +55,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './build'  # Ensure this path is correct for your build output folder
+          path: '../build'  # Ensure this path is correct for your build output folder
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
