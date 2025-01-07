@@ -9,7 +9,7 @@ function $message(text) {
   return $("#message").html(`
     <div class="toast fade show">
      <div class="toast-header">
-     <img style="width: 10%;" src="./src/img/icon.webp" class="rounded me-2">
+     <img style="width: 10%;" src="https://i.imgur.com/EOzKknx.png" class="rounded me-2">
      <strong class="me-auto">Cookie</strong>
      <small>Agora</small>
      <button type="button" style="box-shadow: none; outline: none;" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
