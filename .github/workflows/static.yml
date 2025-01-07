@@ -36,4 +36,6 @@ jobs:
       with:
         branch: gh-pages  # A branch para onde o site será enviado
         folder: build     # A pasta gerada pelo Vite para deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Garantir que o token de acesso está configurado
         
