@@ -1,5 +1,5 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Simple workflow for deploying static content to GitHub Pages with Vite
+name: Deploy Vite project to GitHub Pages
 
 on:
   # Runs on pushes targeting the "android" branch
@@ -37,25 +37,25 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Updated Node.js version (recommended)
+          node-version: '18'  # Specify Node.js version, Vite works well with this
 
       # Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Build the project
-      - name: Build project
+      # Build the Vite project
+      - name: Build Vite project
         run: npm run build
 
       # Setup Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # Upload the build artifact (output folder from your build)
+      # Upload the build artifact (output folder from Vite build)
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '../build'  # Ensure this path is correct for your build output folder
+          path: './build'  # Vite build output directory
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
