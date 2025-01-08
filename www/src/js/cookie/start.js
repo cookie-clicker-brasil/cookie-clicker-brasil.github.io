@@ -127,6 +127,7 @@ $("#form_button").on("click", () => {
   }
 
   const time_check = parseInt(room_time, 10);
+  
   if (isNaN(time_check) || time_check <= 10 || time_check > 600) {
     return $message(
       '<b><i class="fas fa-exclamation-circle"></i> Ops!</b> O tempo da sala deve ser maior que 10 segundos e menor ou igual a 10 minutos!',
