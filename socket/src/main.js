@@ -156,7 +156,7 @@ io.on("connection", (socket) => {
       io.to(room_code).emit("game_start");
 
       // Define o tempo de jogo em segundos
-      let time_game = room.time * 60; // Multiplica os minutos por 60 para converter para segundos
+      let time_game = room.time * 1; // <fix> Multiplica os minutos por 60 para converter para segundos
 
       const gameInterval = setInterval(() => {
         // Envia o tempo restante para a sala
