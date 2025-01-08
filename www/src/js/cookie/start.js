@@ -235,7 +235,7 @@ socket.on("game_end", ({ ranking }) => {
   ranking.forEach((player, index) => {
     $("#ranking-list").append(`
       <li class="${index === 0 ? "new" : ""}">
-        <span><b>#${player.rank}</b> ${player.room_player} - ${player.cookies} </span>
+        <span><b>#${player.rank}</b> ${player.room_player} - ${player.cookies || 0} </span>
       </li>
     `);
   });
