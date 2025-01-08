@@ -32,6 +32,7 @@ function $hide_banner() {
     });
 }
 
+/*
 function $show_video() {
   const adId = "ca-app-pub-6690516270288705/7898187843";
   AdMob.prepareRewardVideoAd({ adId })
@@ -63,6 +64,7 @@ function $award() {
       console.log("Error displaying interstitial ad: ", err.message);
     });
 }
+*/
 
 AdMob.initialize()
   .then(() => {
@@ -72,7 +74,6 @@ AdMob.initialize()
     console.log("Error initializing AdMob: ", err.message);
   });
 
-$("#form_button").on("click", () => {
-  $show_banner();
-  $show_video();
-});
+$("#form_button").on("click", () => $show_banner());
+
+$("#game_exit").on("click", () => $hide_banner());
