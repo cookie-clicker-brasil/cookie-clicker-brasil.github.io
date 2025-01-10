@@ -30,7 +30,7 @@ import es from "@lang/es-ES.ts";
 
 let lang: TFunction | undefined;
 
-switch ("en-US" || window.navigator.language) {
+switch (window.navigator.language) {
   case "pt-BR":
     lang = i18next.getFixedT("pt-BR");
     break;
