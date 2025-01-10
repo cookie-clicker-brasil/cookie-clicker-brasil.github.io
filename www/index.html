@@ -40,7 +40,9 @@
    <link rel="shortcut icon" href="https://i.imgur.com/EOzKknx.webp" type="image/webp">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/eruda/3.4.1/eruda.min.js" integrity="sha512-3RVqOZtMevFOLeXCp0/Wl7np/l3J3MMysaFDUhNh+hdKx+Wb0lMXuHwA6CZ/+4DfYZM01Om1as8g+mnTaQH9vA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script>
+ if (localStorage.getItem("VITE_DEBUG")) {
      eruda.init();
+ };
    </script>
    <script type="module" src="./main.ts" defer></script>
   </head>
