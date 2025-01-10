@@ -15,7 +15,7 @@ AdMob.initialize()
 
 function $show_banner() {
   AdMob.showBanner({
-    adId: "ca-app-pub-6690516270288705/1043067086",
+    adId: "ca-app-pub-6690516270288705/6940688181",
     adSize: BannerAdSize.FULL_BANNER,
     position: BannerAdPosition.BOTTOM_CENTER,
     margin: 0,
@@ -38,7 +38,7 @@ function $remove_banner() {
     .catch((err) => {
       return console.error("Error hiding banner: ", err.message);
     });
-}
+};
 
 function $show_video() {
   const adId = "ca-app-pub-6690516270288705/7898187843";
@@ -53,9 +53,9 @@ function $show_video() {
     .catch((err) => {
       console.error("Error displaying rewarded interstitial: ", err.message);
     });
-}
+};
 
-$("#form_button").on("click", () => $show_banner());
+$("#splash-screen").on("click", () => $show_banner());
 
 $("#start_game").on("click", () => $remove_banner());
 
