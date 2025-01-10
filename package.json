@@ -27,7 +27,12 @@
     "@capacitor/core": "^6.2.0",
     "@capacitor/push-notifications": "^6.0.3",
     "@capacitor/splash-screen": "^6.0.3",
-    "jquery": "^3.7.1"
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
+    "i18next": "^24.2.1",
+    "jquery": "^3.7.1",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -43,6 +48,7 @@
     "core-js": "^3.39.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.1.7",
+    "sass": "^1.83.1",
     "sass-embedded": "^1.83.0",
     "typescript": "^5.7.2",
     "vite": "^6.0.0",
@@ -51,5 +57,9 @@
   "engines": {
     "npm": ">=8",
     "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebastianjnuwu/cookie.git"
   }
 }

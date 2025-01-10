@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { $generate_code, $generate_uuid } from "./functions/functions.js";
+import { $generate_code, $generate_uuid } from "#functions";
 
 const io = new Server();
 const ROOMS = {};
@@ -8,7 +8,6 @@ const ROOMS = {};
  * Event listener for a new connection from a client.
  */
 io.on("connection", (socket) => {
-  
   /**
    * Handles room creation or joining a room.
    * @param {Object} data - The data for the room.
@@ -77,7 +76,7 @@ io.on("connection", (socket) => {
 
     console.log(
       `Player "${room_player}" joined room "${room_code}". Room state:`,
-      room
+      room,
     );
   });
 
@@ -95,7 +94,7 @@ io.on("connection", (socket) => {
 
     // Remove the player from the room
     room.players = room.players.filter(
-      (player) => player.room_player !== room_player
+      (player) => player.room_player !== room_player,
     );
 
     // Delete the room if it is empty
@@ -114,9 +113,7 @@ io.on("connection", (socket) => {
     // Send updated room state to all players
     io.to(room_code).emit("update_room", { room_player, room });
 
-    console.log(
-      `Socket ${socket.id} (${room_player}) left room ${room_code}`
-    );
+    console.log(`Socket ${socket.id} (${room_player}) left room ${room_code}`);
   });
 
   /**
@@ -204,7 +201,10 @@ io.on("connection", (socket) => {
               console.log(`Room ${room_code} has been deleted.`);
             }
 
-            console.log(`Game in room ${room_code} finished! Ranking:`, ranking);
+            console.log(
+              `Game in room ${room_code} finished! Ranking:`,
+              ranking,
+            );
 
             return; // Prevent further execution
           }
@@ -238,18 +238,16 @@ io.on("connection", (socket) => {
     }
 
     const player = room.players.find(
-      (player) => player.room_player === room_player
+      (player) => player.room_player === room_player,
     );
 
     if (player) {
       player.player_date.cookies = cookies;
       console.log(
-        `Player ${room_player} in room ${room_code} updated cookies to ${cookies}.`
+        `Player ${room_player} in room ${room_code} updated cookies to ${cookies}.`,
       );
     } else {
-      console.error(
-        `Player ${room_player} not found in room ${room_code}.`
-      );
+      console.error(`Player ${room_player} not found in room ${room_code}.`);
     }
   });
 });

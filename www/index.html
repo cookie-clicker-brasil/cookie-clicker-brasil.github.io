@@ -1,281 +1,208 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
- <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Cookie Clicker</title>
+    <meta name="theme-color" content="#FBF0C1">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/EOzKknx.webp" />
+    <link rel="shortcut icon" href="https://i.imgur.com/EOzKknx.webp" type="image/webp">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/eruda/3.4.1/eruda.min.js" integrity="sha512-3RVqOZtMevFOLeXCp0/Wl7np/l3J3MMysaFDUhNh+hdKx+Wb0lMXuHwA6CZ/+4DfYZM01Om1as8g+mnTaQH9vA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      eruda.init();
+    </script>
+    <script type="module" src="./main.ts" defer></script>
+  </head>
+
+  <body class="d-flex flex-column justify-content-center align-items-center vh-100">
   
-  <!-- Títulos -->
-  <title>Cookie Clicker Brasil</title>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="message"></div>
+    </div>
 
-  <meta name="theme-color" content="#FBF0C1">
+    <div id="splash-screen">
+      <img src="https://i.imgur.com/EOzKknx.webp" alt="splash-screen" class="icon mb-5">
+      <h1><i18next i18next-id="splashScreen.splashClick">Click...</i18next></h1>
+    </div> 
   
-  <!-- Controle de indexação -->
-  <meta name="robots" content="index, follow">
+    <div id="start-screen" style="display: none;">
+      <h1 class="title">
+        <i class="fas fa-cookie-bite"></i> 
+        <i18next i18next-id="menu.cookieTitle">Cookie</i18next>
+      </h1>
+      <div class="menu">
+        <button id="start-playing" data-bs-toggle="modal" data-bs-target="#room_modal">
+          <i class="fas fa-gamepad"></i> 
+          <i18next i18next-id="menu.playButton">Play</i18next>
+        </button>
+      </div>
+    </div> 
 
-  <!-- Descrição e palavras-chave em português -->
-  <meta name="description" content="Cookie Clicker Brasil - Jogo viciante onde você precisa clicar para ganhar cookies. Não confie em ímpar ou par, ou cara ou coroa!" />
-  <meta name="keywords" content="Cookie Clicker, Jogo de clicar, cookies, jogo viciante, jogo de navegador, clicar para ganhar, jogos online, JavaScript, CSS, HTML, TypeScript, Open Source, GitHub" />
+    <div style="display: none;" id="countdown-container" class="countdown-overlay justify-content-center align-items-center">
+      <h1 id="countdown" class="countdown-text">3</h1>
+    </div>
 
-  <!-- Descrição e palavras-chave em inglês -->
-  <meta name="description" lang="en" content="Cookie Clicker Brazil - Addictive game where you need to click to earn cookies. Don’t rely on ODD or EVEN, or HEADS or TAILS!" />
-  <meta name="keywords" lang="en" content="Cookie Clicker, Click game, cookies, addictive game, browser game, click to win, online games, JavaScript, CSS, HTML, TypeScript, Open Source, GitHub" />
-
-  <!-- Descrição e palavras-chave em espanhol -->
-  <meta name="description" lang="es" content="Cookie Clicker Brasil - Juego adictivo donde necesitas hacer clic para ganar galletas. ¡No confíes en IMPAR o PAR, ni en CARA o CRUZ!" />
-  <meta name="keywords" lang="es" content="Cookie Clicker, Juego de clic, galletas, juego adictivo, juego de navegador, hacer clic para ganar, juegos en línea, JavaScript, CSS, HTML, TypeScript, Open Source, GitHub" />
-
-  <!-- SEO Multilíngue com hreflang -->
-  <link rel="alternate" hreflang="pt-br" href="https://cookie-clicker-brasil.vercel.app" />
-  <link rel="alternate" hreflang="en" href="https://cookie-clicker-brasil.vercel.app" />
-  <link rel="alternate" hreflang="es" href="https://cookie-clicker-brasil.vercel.app" />
-
-  <!-- Open Graph Metadata (melhorado para cada idioma) -->
+    <ui style="display: none;">
   
-  <!-- Português -->
-  <meta property="og:site_name" content="Cookie Clicker Brasil">
-  <meta property="og:title" content="Cookie Clicker Brasil">
-  <meta property="og:description" content="Cookie Clicker Brasil - Jogo viciante onde você precisa clicar para ganhar cookies. Não confie em ímpar ou par, ou cara ou coroa!">
-  <meta property="og:image" content="https://i.imgur.com/EOzKknx.webp"> <!-- Imagem otimizada para social media -->
-  <meta property="og:url" content="https://cookie-clicker-brasil.vercel.app">
-  <meta property="og:locale" content="pt_BR">
-  <meta property="og:type" content="website">
+      <div id="ranking" style="display: none;">
+        <h2>
+          <i class="fas fa-trophy"></i> 
+          <i18next i18next-id="ranking.rankingTitle">Ranking</i18next>
+        </h2>
+        <ul id="ranking-list"></ul>
+        <div class="d-flex flex-column justify-content-center align-items-center gap-2">
+          <button id="game_exit" class="btn btn-secondary">
+            <i class="fas fa-sign-out-alt"></i> 
+            <i18next i18next-id="ranking.leaveButton">Exit</i18next>
+          </button>
+        </div>
+      </div>
 
-  <!-- Inglês -->
-  <meta property="og:title" lang="en" content="Cookie Clicker Brazil - Addictive Game of Clicking to Earn Cookies">
-  <meta property="og:description" lang="en" content="Cookie Clicker Brazil - Addictive game where you need to click to earn cookies. Don’t rely on ODD or EVEN, or HEADS or TAILS!">
-  <meta property="og:image" lang="en" content="https://i.imgur.com/EOzKknx.webp">
-  <meta property="og:url" lang="en" content="https://cookie-clicker-brasil.vercel.app">
-  <meta property="og:locale" lang="en" content="en_US">
-  <meta property="og:type" lang="en" content="website">
+      <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
+        <h3>
+          <i class="fas fa-key"></i> 
+          <i18next i18next-id="ranking.roomCode">Room Code:</i18next>
+        </h3>
+        <p id="current_code">
+          <i class="fas fa-wifi"></i>
+        </p>
+      </div>
 
-  <!-- Espanhol -->
-  <meta property="og:title" lang="es" content="Cookie Clicker Brasil - Juego Adictivo de Hacer Clic para Ganar Galletas">
-  <meta property="og:description" lang="es" content="Cookie Clicker Brasil - Juego adictivo donde necesitas hacer clic para ganar galletas. ¡No confíes en IMPAR o PAR, ni en CARA o CRUZ!">
-  <meta property="og:image" lang="es" content="https://i.imgur.com/EOzKknx.webp">
-  <meta property="og:url" lang="es" content="https://cookie-clicker-brasil.vercel.app">
-  <meta property="og:locale" lang="es" content="es_ES">
-  <meta property="og:type" lang="es" content="website">
+      <div class="waiting-room">
+        <h1>
+          <i class="fas fa-cookie-bite"></i> 
+          <i18next i18next-id="ranking.waiting">Waiting...</i18next>
+        </h1>
+        <p>
+          <i class="fas fa-users"></i> 
+          <x id="online">1</x>/1
+        </p>
+        <div class="d-flex flex-column justify-content-center align-items-center gap-2">
+          <button id="start_game" class="btn btn-primary">
+            <i class="fas fa-play"></i> 
+            <i18next i18next-id="ranking.startButton">Start</i18next>
+          </button>
+          <button id="leave_room" class="btn btn-secondary">
+            <i class="fas fa-sign-out-alt"></i> 
+            <i18next i18next-id="ranking.leaveButton">Leave</i18next>
+          </button>
+        </div>
+      </div>
 
-  <!-- Dados Estruturados (Schema.org) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Cookie Clicker Brasil",
-    "url": "https://cookie-clicker-brasil.vercel.app",
-    "description": "Cookie Clicker Brasil - Jogo viciante onde você precisa clicar para ganhar cookies. Não confie em ímpar ou par, ou cara ou coroa!",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Cookie Clicker Brasil"
-    }
-  }
-  </script>
-  
-  <!-- Link Canonical -->
-  <link rel="canonical" href="https://cookie-clicker-brasil.vercel.app">
-
-  <link rel="apple-touch-icon" href="https://i.imgur.com/EOzKknx.webp" />
-  <link rel="shortcut icon" href="https://i.imgur.com/EOzKknx.webp" type="image/webp">
-  <link rel="stylesheet" href="./src/styles/css/ui.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <!--- (script) ---> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.min.js" integrity="sha512-8ExARjWWkIllMlNzVg7JKq9RKWPlJABQUNq6YvAjE/HobctjH/NA+bSiDMDvouBVjp4Wwnf1VP1OEv7Zgjtuxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script type="module" src="./src/js/main.js" defer></script>
-  <script type="module" src="./src/js/cookie/start.js" defer></script>
-   <script type="module" src="./main.ts"></script>
-  <!--- (script /) ---> 
-</head>
-
-  <!-- (body) -->
-<body class="d-flex flex-column justify-content-center align-items-center vh-100">
-  
-  <div class="toast-container position-fixed bottom-0 end-0 p-3">
-   <div id="message"></div>
-  </div>
- 
-   <!--- (splash-screen) ---> 
-  <div id="splash-screen">
-    <img src="https://i.imgur.com/EOzKknx.webp" alt="splash-screen" class="icon mb-5">
-    <h1>Click...</h1>
-  </div> 
-   <!--- (splash-screen /) ---> 
-  
-   <!--- (start-screen) ---> 
-  <div id="start-screen" style="display: none;">
-  <h1 class="title">
-   <i class="fas fa-cookie-bite"></i> Cookie
-  </h1>
-  <div class="menu">
-    <button id="start-playing" data-bs-toggle="modal" data-bs-target="#room_modal">
-        <i class="fas fa-gamepad"></i> Jogar
-    </button>
-    <!-- <button id="game-settings">
-        <i class="fas fa-cog"></i> Configurações 
-    </button>
-    <button id="exit-app">
-        <i class="fas fa-sign-out-alt"></i> Sair
-    </button> -->
-   </div>
-  </div>
-   <!--- (splash-screen /) ---> 
-
-   <!-- (countdown) -->
-  <div style="display: none;" id="countdown-container" class="countdown-overlay justify-content-center align-items-center">
-    <h1 id="countdown" class="countdown-text">3</h1>
-  </div>
-   <!-- (countdown /) -->
-    
-  <!-- (layout-game) -->
- <ui style="display: none;">
-  
-   <!-- (ranking) -->
-  <div id="ranking" style="display: none;">
-   <h2><i class="fas fa-trophy"></i> Ranking</h2>
-    <ul id="ranking-list"></ul>
-    <div class="d-flex flex-column justify-content-center align-items-center gap-2">
-    <button id="game_exit" class="btn btn-secondary">
-     <i class="fas fa-sign-out-alt"></i> Sair
-   </button>
-   </div>
-  </div>
-   <!-- (ranking /) -->
-
-   <!-- (room code) -->
-  <div class="room-code position-fixed top-0 start-50 translate-middle-x mt-4">
-    <h3><i class="fas fa-key"></i> Código da Sala:</h3>
-    <p id="current_code">
-   <i class="fas fa-wifi"></i>
-    </p>
-</div>
-   <!-- (room code /) -->
-   
-    <!-- (Waiting room) -->
-  <div class="waiting-room">
-  <h1><i class="fas fa-cookie-bite"></i> Aguardando...</h1>
-  <p>
-    <i class="fas fa-users"></i> <x id="online">1</x>/1
-  </p>
-<div class="d-flex flex-column justify-content-center align-items-center gap-2">
-  <button id="start_game" class="btn btn-primary">
-    <i class="fas fa-play"></i> Começar
-  </button>
-    <button id="leave_room" class="btn btn-secondary">
-     <i class="fas fa-sign-out-alt"></i> Sair
-   </button>
-</div>
-
-</div>
-   <!-- (Waiting room /) -->
-
-  <div id="game" style="display: none;">
-
-    <!-- statistics table -->
-   <table class="d-flex flex-column justify-content-center align-items-center statistic position-relative">
-    <tbody>
-      <tr>
-              <th><i class="fas fa-cookie-bite"></i> Cookies</th>
+      <div id="game" style="display: none;">
+        <table class="d-flex flex-column justify-content-center align-items-center statistic position-relative">
+          <tbody>
+            <tr>
+              <th>
+                <i class="fas fa-cookie-bite"></i> 
+                <i18next i18next-id="general.cookies">Cookies</i18next>
+              </th>
               <td id="click-cookie" class="value">0</td>
             </tr>
-      <tr>
-              <th><i class="fas fa-stopwatch"></i> Seconds</th>
+            <tr>
+              <th>
+                <i class="fas fa-stopwatch"></i> 
+                <i18next i18next-id="general.seconds">Seconds</i18next>
+              </th>
               <td id="cps" class="value">0</td>
             </tr>
-    </tbody>
-  </table>
-    <!-- statistics table -->
-   
-    <!-- Clicking on the cookie -->
-   <cookie class="d-flex flex-column justify-content-center align-items-center cookie position-relative">
-    <img src="https://i.imgur.com/7sokHGX.webp" alt="cookie" class="icon mb-4">
-  </cookie>
-    <!-- Clicking on the cookie -->
-   
-    <!-- (room game time) -->
-   <div class="game-time position-fixed bottom-0 start-50 translate-middle-x mb-4">
-    <h3><i class="fas fa-stopwatch"> Tempo: </i> <span id="timer">0:00</span></h3>
-  </div>
-    <!-- (room game time /) -->
-    
- </div>
-
-
-</ui>
-  <!-- (layout-game /) -->
+          </tbody>
+        </table>
+        <cookie class="d-flex flex-column justify-content-center align-items-center cookie position-relative">
+          <img src="https://i.imgur.com/7sokHGX.webp" alt="cookie" class="icon mb-4">
+        </cookie>
+        <div class="game-time position-fixed bottom-0 start-50 translate-middle-x mb-4">
+          <h3>
+            <i class="fas fa-stopwatch"></i> 
+            <i18next i18next-id="general.timeLabel">Time:</i18next> 
+            <span id="timer">0:00</span>
+          </h3>
+        </div>
+      </div>
   
-  <!-- (room settings) -->
-  <div class="modal fade" id="room_modal" tabindex="-1" aria-labelledby="room_modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="room_modalLabel">
-          <i class="fas fa-gamepad"></i> Configurações
-        </h5>
-      </div>
-      <div class="modal-body">
-        <form id="form">
-          <!-- Nickname -->
-          <div class="mb-3">
-            <label for="nickname" class="form-label">
-              <i class="fas fa-user"></i> Nickname
-            </label>
-            <input type="text" class="form-control" id="room_name" name="nickname" placeholder="Digite seu nickname" required>
+    </ui>
+  
+    <div class="modal fade" id="room_modal" tabindex="-1" aria-labelledby="room_modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="room_modalLabel">
+              <i class="fas fa-gamepad"></i> 
+              <i18next i18next-id="menu.settings">Settings</i18next>
+            </h5>
           </div>
-
-          <!-- Opções de jogo -->
-          <div class="mb-3">
-            <label class="form-label">
-              <i class="fas fa-list-ul"></i> Escolha uma opção:
-            </label>
-            <div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="option_game" id="createRoom" value="create" checked>
-                <label class="form-check-label" for="createRoom">
-                  <i class="fas fa-plus-circle"></i> Criar uma sala
+          <div class="modal-body">
+            <form id="form">
+              <div class="mb-3">
+                <label for="nickname" class="form-label">
+                  <i class="fas fa-user"></i> 
+                  <i18next i18next-id="game.nicknameLabel">Nickname</i18next>
                 </label>
+                <input type="text" class="form-control" id="room_name" name="nickname" placeholder="Scooby-Doo" required>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="option_game" id="room_join" value="join">
-                <label class="form-check-label" for="room_join">
-                  <i class="fas fa-sign-in-alt"></i> Entrar em uma sala
+
+              <div class="mb-3">
+                <label class="form-label">
+                  <i class="fas fa-list-ul"></i> 
+                  <i18next i18next-id="game.gameOptionLabel">Choose an option:</i18next>
                 </label>
+                <div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="option_game" id="randomRoom" value="random" disabled>
+  <label class="form-check-label" for="randomRoom">
+    <i class="fas fa-random"></i> 
+    <i18next i18next-id="game.randomRoom">Join a random room</i18next>
+  </label>
+</div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="option_game" id="createRoom" value="create" checked>
+                    <label class="form-check-label" for="createRoom">
+                      <i class="fas fa-plus-circle"></i> 
+                      <i18next i18next-id="game.createRoom">Create a room</i18next>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="option_game" id="room_join" value="join">
+                    <label class="form-check-label" for="room_join">
+                      <i class="fas fa-sign-in-alt"></i> 
+                      <i18next i18next-id="game.joinRoom">Join a room</i18next>
+                    </label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Código da sala -->
-          <div class="mb-3" id="code_container" style="display: none;">
-            <label for="room_code" class="form-label">
-              <i class="fas fa-key"></i> Código da Sala
-            </label>
-            <input type="text" class="form-control" id="room_code" name="room_code" placeholder="Digite o código da sala">
-          </div>
+              <div class="mb-3" id="code_container" style="display: none;">
+                <label for="room_code" class="form-label">
+                  <i class="fas fa-key"></i> 
+                  <i18next i18next-id="game.roomCodeLabel">Room Code</i18next>
+                </label>
+                <input type="text" class="form-control" id="room_code" name="room_code" placeholder="XN4ZXP">
+              </div>
 
-          <!-- Tempo de jogo -->
-          <div class="mb-3" id="game_container">
-            <label for="gameTime" class="form-label">
-              <i class="fas fa-clock"></i> Tempo de Jogo (em segundos)
-            </label>
-            <input type="number" class="form-control" id="room_time" name="gameTime" placeholder="Ex.: 10" min="1" max="1">
+              <div class="mb-3" id="game_container">
+                <label for="gameTime" class="form-label">
+                  <i class="fas fa-clock"></i> 
+                  <i18next i18next-id="game.gameTimeLabel">Game Time (in seconds)</i18next>
+                </label>
+                <input type="number" class="form-control" id="room_time" name="gameTime" placeholder="e.g. 11">
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-  <i class="fas fa-times"></i> Cancelar
-</button>
-<button id="form_button" class="btn btn-primary">
-  <i class="fas fa-check"></i> Confirmar
-</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              <i class="fas fa-times"></i> 
+              <i18next i18next-id="modal.cancel">Cancel</i18next>
+            </button>
+            <button id="form_button" class="btn btn-primary">
+              <i class="fas fa-check"></i> 
+              <i18next i18next-id="modal.confirm">Confirm</i18next>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-  <!-- (room settings /) -->
- 
+  
   </body>
-  <!-- (body /) -->
-
 </html>

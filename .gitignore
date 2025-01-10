@@ -42,3 +42,8 @@ out/
 
 # Test coverage reports
 coverage/
+
+# Environment
+.env
+.env.development
+.env.local
