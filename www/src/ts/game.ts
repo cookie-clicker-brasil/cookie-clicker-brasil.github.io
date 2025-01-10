@@ -25,16 +25,19 @@ function showMessage(text: string): void {
      <div class="toast-header">
      <img style="width: 10%;" src="https://i.imgur.com/EOzKknx.webp" class="rounded me-2">
      <strong class="me-auto">Cookie</strong>
-     <small><i18next i18next-id="general.message_now">${lang('general.message_now')}</i18next></small>
+     <small><i18next i18next-id="general.message_now">${lang("general.message_now")}</i18next></small>
      <button type="button" style="box-shadow: none; outline: none;" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body">${text}</div></div>`);
 }
 
 // Create socket connection
-const socket: Socket = io(import.meta.env.VITE_SOCKET_URL || 'https://socket-hj1h.onrender.com', {
-  transports: ["websocket", "polling"],
-});
+const socket: Socket = io(
+  import.meta.env.VITE_SOCKET_URL || "https://socket-hj1h.onrender.com",
+  {
+    transports: ["websocket", "polling"],
+  },
+);
 
 // Initialize cookies count and handle local storage
 let cookies: number = Number(localStorage.getItem("cookie")) || 0;
@@ -128,29 +131,39 @@ $("#form_button").on("click", () => {
   const roomTime = $("#room_time").val() as string | null;
 
   if (!roomPlayer) {
-    return showMessage(`<i class="fas fa-exclamation-circle"></i> ${lang('room.no_room_player')}`);
+    return showMessage(
+      `<i class="fas fa-exclamation-circle"></i> ${lang("room.no_room_player")}`,
+    );
   }
 
   // Verificação do tempo só se a opção for "create"
   if (option === "create") {
     if (!roomTime) {
-      return showMessage(`<i class="fas fa-exclamation-circle"></i> ${lang('room.no_room_time')}`);
+      return showMessage(
+        `<i class="fas fa-exclamation-circle"></i> ${lang("room.no_room_time")}`,
+      );
     }
 
-    const timeCheck = roomTime ? Number.parseInt(roomTime, 10) : NaN;
+    const timeCheck = roomTime ? Number.parseInt(roomTime, 10) : Number.NaN;
 
     if (Number.isNaN(timeCheck) || timeCheck <= 10 || timeCheck > 600) {
-      return showMessage(`<i class="fas fa-exclamation-circle"></i> ${lang('room.time_check')}`);
+      return showMessage(
+        `<i class="fas fa-exclamation-circle"></i> ${lang("room.time_check")}`,
+      );
     }
   }
 
   // Verificação do código da sala só se a opção for "join"
   if (option === "join" && !roomCode) {
-    return showMessage(`<i class="fas fa-exclamation-circle"></i> ${lang('room.no_room_code')}`);
+    return showMessage(
+      `<i class="fas fa-exclamation-circle"></i> ${lang("room.no_room_code")}`,
+    );
   }
 
   if (!socket.connected) {
-    return showMessage(`<i class="fas fa-exclamation-circle"></i> ${lang('room.no_connected')}`);
+    return showMessage(
+      `<i class="fas fa-exclamation-circle"></i> ${lang("room.no_connected")}`,
+    );
   }
 
   $room_modal.hide();
@@ -226,7 +239,7 @@ socket.on("count_down", ({ countdown }: { countdown: number }) => {
   if (countdown > 0) {
     $("#countdown").text(countdown);
   } else {
-    $("#countdown").text(lang('general.start'));
+    $("#countdown").text(lang("general.start"));
 
     setTimeout(() => {
       $("#countdown-container").hide();
@@ -259,7 +272,9 @@ socket.on("game_end", ({ ranking }: { ranking: any[] }) => {
 
   // Show trophy icon before ranking
   $("#countdown-container").show();
-  $("#countdown").html('<i class="fas fa-trophy" style="color: #f4a261; font-size: 10rem; text-align: center;"></i>');
+  $("#countdown").html(
+    '<i class="fas fa-trophy" style="color: #f4a261; font-size: 10rem; text-align: center;"></i>',
+  );
 
   setTimeout(() => {
     $("#countdown-container").hide();
@@ -272,7 +287,7 @@ socket.on("game_end", ({ ranking }: { ranking: any[] }) => {
         </li>
       `);
     });
-  }, 1200); 
+  }, 1200);
 });
 
 // Game exit functionality

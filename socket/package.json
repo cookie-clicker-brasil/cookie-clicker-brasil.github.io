@@ -6,9 +6,6 @@
   "type": "module",
   "license": "Apache-2.0",
   "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",
-  "imports": {
-    "#functions": "./functions/functions.js"
-  },
   "dependencies": {
     "socket.io": "^4.8.1"
   },

@@ -1,8 +1,17 @@
 import { Server } from "socket.io";
-import { $generate_code, $generate_uuid } from "#functions";
-
 const io = new Server();
 const ROOMS = {};
+let roomIdCounter = 0;
+
+function $generate_uuid() {
+  roomIdCounter += 1;
+  return roomIdCounter;
+}
+
+// code
+function $generate_code() {
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
+}
 
 /**
  * Event listener for a new connection from a client.

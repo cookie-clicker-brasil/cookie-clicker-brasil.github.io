@@ -1,11 +1,11 @@
 // @lang/en-US
-export const translation = {
+const translation = {
   general: {
     cookies: "Cookies",
     seconds: "Seconds",
     timeLabel: "Time:",
     start: "GO!",
-    message_now: "Now"
+    message_now: "Now",
   },
   splashScreen: {
     splashClick: "Click...",
@@ -31,16 +31,18 @@ export const translation = {
     roomCodeLabel: "Room Code",
     gameTimeLabel: "Game Time (in seconds)",
   },
-room: {
+  room: {
     no_room_player: "It seems you haven't set your nickname!",
     no_room_time: "It seems you haven't set the room time!",
-    time_check: "The room time must be greater than 10 seconds and less than or equal to 10 minutes!",
+    time_check:
+      "The room time must be greater than 10 seconds and less than or equal to 10 minutes!",
     no_room_code: "It seems you haven't added the room code!",
-    no_connected: "It seems you've been disconnected from the Cookie game!"
-},
-
+    no_connected: "It seems you've been disconnected from the Cookie game!",
+  },
   modal: {
     cancel: "Cancel",
     confirm: "Confirm",
   },
 };
+
+export default translation;

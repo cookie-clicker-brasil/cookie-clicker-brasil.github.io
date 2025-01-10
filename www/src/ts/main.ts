@@ -1,11 +1,10 @@
 import $ from "jquery";
-    
+
 /**
  * This function runs when the document is ready.
  * It initializes interactions with the splash screen and handles the game room code visibility logic.
  */
 $(() => {
-
   /**
    * Event handler for clicking on the splash screen.
    * Hides the splash screen and shows the start screen after a 1-second delay.
