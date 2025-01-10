@@ -24,7 +24,7 @@
 
 <h2>Overview</h2>
 <p>
-  Cookie Clicker Brasil is an incremental game where players produce cookies by clicking on a large cookie on the
+  <b>Cookie Clicker Brasil</b> is an incremental game where players produce cookies by clicking on a large cookie on the
   screen. The game includes:
 </p>
 <ul>
