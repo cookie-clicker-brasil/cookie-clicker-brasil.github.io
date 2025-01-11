@@ -181,8 +181,10 @@ $("#form_button").on("click", () => {
 socket.on("err_socket", ({ err_socket }: { err_socket: string }) => {
   if (err_socket === 'ROOM_NOT_FOUND') { 
      showMessage(lang("err_message.ROOM_NOT_FOUND"));
-  } else if (err_socket === 'ROOM_STATE_ERROR') {
-    showMessage(lang("err_message.ROOM_STATE_ERROR"));
+  } else if (err_socket === 'ROOM_STATE_ERROR_IN_GAME') {
+    showMessage(lang("err_message.ROOM_STATE_ERROR_IN_GAME"));
+  } else if (err_socket === 'ROOM_STATE_ERROR_FINISHED') {
+    showMessage(lang("err_message.ROOM_STATE_ERROR_FINISHED"));
   } else if (err_socket === 'PLAYER_EXISTS') {
     showMessage(lang("err_message.PLAYER_EXISTS"));
   } else if (err_socket === 'INVALID_COOKIES') {

@@ -1,9 +1,9 @@
 {
-  "name": "cookie-app",
+  "name": "@cookie-clicker-brasil",
   "private": true,
   "version": "1.0.1",
   "type": "module",
-  "description": "Cookie...",
+  "license": "Apache-2.0",
   "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",
   "scripts": {
     "test": "echo \"Test: yes that was a test!\" && exit 1",

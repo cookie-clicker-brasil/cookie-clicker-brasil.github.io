@@ -46,7 +46,8 @@ const translation = {
   },
   err_message: {
   ROOM_NOT_FOUND: "¡La sala no fue encontrada!",
-  ROOM_STATE_ERROR: "¡La sala está en el estado incorrecto!",
+  ROOM_STATE_ERROR_IN_GAME: "El partido ya ha comenzado.",
+  ROOM_STATE_ERROR_FINISHED: "El partido ya termino",
   PLAYER_EXISTS: "Ya existe un jugador con ese nombre en la sala.",
   INVALID_COOKIES: "Datos de cookies inválidos recibidos.",
   ROOM_CODE_NOT_FOUND: "No se encontró el código de la sala."

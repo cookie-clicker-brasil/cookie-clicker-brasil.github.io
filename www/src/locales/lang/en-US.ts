@@ -45,7 +45,8 @@ const translation = {
     },
     err_message: {
         ROOM_NOT_FOUND: "The room was not found!",
-        ROOM_STATE_ERROR: "The room is in the wrong state!",
+        ROOM_STATE_ERROR_IN_GAME: "The game has already started",
+    ROOM_STATE_ERROR_FINISHED: "The match is over",
         PLAYER_EXISTS: "A player with this name already exists in the room.",
         INVALID_COOKIES: "Invalid cookies data received.",
         ROOM_CODE_NOT_FOUND: "The room code was not found."

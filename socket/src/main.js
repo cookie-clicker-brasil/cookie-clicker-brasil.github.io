@@ -56,8 +56,13 @@ io.on("connection", (socket) => {
       return;
     }
 
-    if (room.state !== "waiting") {
-      socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR" });
+    if (room.state === "in_game") {
+      socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_IN_GAME" });
+      return;
+    }
+    
+    if (room.state === "finished") {
+      socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_FINISHED" });
       return;
     }
 
@@ -127,7 +132,7 @@ io.on("connection", (socket) => {
     }
 
     if (room.state === "finished") {
-      socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR" });
+      socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_FINISHED" });
       return;
     }
 
