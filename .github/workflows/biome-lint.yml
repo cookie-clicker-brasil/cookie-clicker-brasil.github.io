@@ -8,6 +8,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,9 +23,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: |
-          npm install 
+        run: npm install
 
       - name: Run Biome Linter
-        run: |
-          npx @biomejs/biome format --write
+        run: npx @biomejs/format biome --write
