@@ -1,7 +1,7 @@
 {
   "name": "cookie-app",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Cookie...",
   "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",

@@ -1,208 +1,187 @@
 import { Server } from "socket.io";
+
+// Inicialização do servidor
 const io = new Server();
 const ROOMS = {};
 let roomIdCounter = 0;
 
+/**
+ * Gera um identificador único para cada jogador.
+ * @returns {number} O identificador gerado.
+ */
 function $generate_uuid() {
   roomIdCounter += 1;
   return roomIdCounter;
 }
 
-// code
+/**
+ * Gera um código de sala aleatório.
+ * @returns {string} O código gerado para a sala.
+ */
 function $generate_code() {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
 /**
- * Event listener for a new connection from a client.
+ * Evento de conexão de um novo cliente.
+ * @param {Socket} socket - O objeto socket que representa a conexão do cliente.
  */
 io.on("connection", (socket) => {
+
   /**
-   * Handles room creation or joining a room.
-   * @param {Object} data - The data for the room.
-   * @param {string} data.room_code - The code of the room.
-   * @param {number} data.room_time - The time duration for the room in minutes.
-   * @param {string} data.room_player - The name of the player joining the room.
+   * Manipula a criação ou entrada de um jogador em uma sala.
+   * @param {Object} data - Dados para criação ou entrada na sala.
+   * @param {string} [data.room_code] - O código da sala. Se não fornecido, uma nova sala será criada.
+   * @param {number} data.room_time - A duração da sala em minutos.
+   * @param {string} data.room_player - O nome do jogador entrando na sala.
+   * @throws {Error} Se a sala não existir ou se o jogador já estiver na sala.
    */
   socket.on("room", ({ room_code, room_time, room_player }) => {
-    // Generate a room code if not provided
     if (!room_code) {
-      const new_room_code = $generate_code(); // Ensure $generate_code is defined
-      room_code = new_room_code;
+      room_code = $generate_code();
       ROOMS[room_code] = {
         code: room_code,
         date: new Date(),
         players: [],
         owner: room_player,
-        time: room_time || 11, // Default to 11 seconds if no time is provided
+        time: room_time || 11,
         state: "waiting",
       };
     }
 
-    // Select the room by its code
     const room = ROOMS[room_code];
 
-    // Check if the room exists
     if (!room) {
-      socket.emit("err_socket", {
-        message: `The room "${room_code}" doesn't exist!`,
-      });
+      socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
       return;
     }
 
-    // Check if the room is in "waiting" state
     if (room.state !== "waiting") {
-      socket.emit("err_socket", {
-        message: `The room "${room_code}" is currently in "${room.state}" state.`,
-      });
+      socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR" });
       return;
     }
 
-    // Check if the player with the same nickname is already in the room
     if (room.players.find((player) => player.room_player === room_player)) {
-      socket.emit("err_socket", {
-        message: `A player with the nickname "${room_player}" already exists in the room.`,
-      });
+      socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
       return;
     }
 
-    // Add the player to the room
     socket.join(room_code);
 
-    // Register the player in the room
     room.players.push({
-      id: $generate_uuid(), // Ensure $generate_uuid is defined
+      id: $generate_uuid(),
       date: new Date(),
       socket: socket.id,
-      player_date: {
-        cookies: null,
-      },
+      player_data: { cookies: null },
       room_player,
     });
 
-    // Send room update to all players
     io.to(room_code).emit("update_room", { room_player, room });
-
-    console.log(
-      `Player "${room_player}" joined room "${room_code}". Room state:`,
-      room,
-    );
+    console.log(`Player "${room_player}" joined room "${room_code}". Room state:`, room);
   });
 
   /**
-   * Handles player leaving a room.
-   * @param {Object} data - The data for leaving the room.
-   * @param {string} data.room_code - The code of the room.
-   * @param {string} data.room_player - The name of the player leaving the room.
+   * Manipula a saída de um jogador de uma sala.
+   * @param {Object} data - Dados para sair da sala.
+   * @param {string} data.room_code - O código da sala.
+   * @param {string} data.room_player - O nome do jogador que está saindo.
+   * @throws {Error} Se a sala ou o jogador não forem encontrados.
    */
   socket.on("leave_room", ({ room_code, room_player }) => {
     const room = ROOMS[room_code];
 
-    // Check if the room exists
-    if (!room) return;
+    if (!room) {
+      socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
+      return;
+    }
 
-    // Remove the player from the room
-    room.players = room.players.filter(
-      (player) => player.room_player !== room_player,
-    );
+    room.players = room.players.filter(player => player.room_player !== room_player);
 
-    // Delete the room if it is empty
     if (room.players.length === 0) {
       delete ROOMS[room_code];
       console.log(`Room ${room_code} has been deleted.`);
     } else if (room.owner === room_player) {
-      // Update the owner if necessary
       room.owner = room.players[0]?.room_player || null;
       console.log(`New owner of room ${room_code}: ${room.owner}`);
     }
 
-    // Remove the socket from the room
     socket.leave(room_code);
-
-    // Send updated room state to all players
     io.to(room_code).emit("update_room", { room_player, room });
 
-    console.log(`Socket ${socket.id} (${room_player}) left room ${room_code}`);
+    console.log(`Player ${room_player} (Socket ID: ${socket.id}) left room ${room_code}`);
   });
 
   /**
-   * Handles player rejoining a room.
-   * @param {Object} data - The data for rejoining the room.
-   * @param {string} data.room_player - The name of the player rejoining the room.
-   * @param {string} data.room_code - The code of the room.
+   * Manipula o retorno de um jogador para uma sala.
+   * @param {Object} data - Dados para retornar à sala.
+   * @param {string} data.room_player - O nome do jogador retornando.
+   * @param {string} data.room_code - O código da sala.
+   * @throws {Error} Se a sala não for encontrada ou o jogador não estiver na sala.
    */
   socket.on("rejoin_room", ({ room_player, room_code }) => {
     const room = ROOMS[room_code];
 
-    if (!room) return;
-    if (room.state === "finished") return;
-
-    // Update the socket ID for the player
-    for (const player of room.players) {
-      if (player.room_player === room_player) {
-        player.socket = socket.id;
-        break; // Exit the loop after updating the player's socket
-      }
+    if (!room) {
+      socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
+      return;
     }
 
-    // Player joins the room again
-    socket.join(room_code);
+    if (room.state === "finished") {
+      socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR" });
+      return;
+    }
 
-    // Send updated room state to all players
-    io.to(room_code).emit("update_room", { room_player, room });
+    const player = room.players.find(player => player.room_player === room_player);
+    if (player) {
+      player.socket = socket.id;
+      socket.join(room_code);
+      io.to(room_code).emit("update_room", { room_player, room });
+      console.log(`Player "${room_player}" rejoined room "${room_code}".`);
+    } else {
+      socket.emit("err_socket", { err_socket: "PLAYER_NOT_FOUND" });
+    }
   });
 
   /**
-   * Starts the game in a room.
-   * @param {Object} data - The data for starting the game.
-   * @param {string} data.room_code - The code of the room.
+   * Inicia o jogo em uma sala.
+   * @param {Object} data - Dados para iniciar o jogo.
+   * @param {string} data.room_code - O código da sala.
+   * @throws {Error} Se a sala não existir.
    */
   socket.on("start_game", ({ room_code }) => {
     const room = ROOMS[room_code];
 
-    // Check if the room exists
     if (!room) {
-      socket.emit("err_socket", {
-        message: `Room ${room_code} not found.`,
-      });
+      socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
       return;
     }
 
-    // Change the room state to "in_game"
     room.state = "in_game";
+    let countdown = 3;
 
-    let countdown = 3; // Countdown for 3 seconds
     const countdownInterval = setInterval(() => {
-      // Send the current countdown to the room
       io.to(room_code).emit("count_down", { countdown });
 
       if (countdown <= 0) {
         clearInterval(countdownInterval);
-
-        // Start the game
         io.to(room_code).emit("game_start");
 
-        let time_game = room.time * 1; // Convert time from minutes to seconds
-
+        let time_game = room.time * 1;
         const gameInterval = setInterval(() => {
-          // Send the remaining game time to the room
           io.to(room_code).emit("timer", { time_game });
 
           if (time_game <= 0) {
             clearInterval(gameInterval);
 
-            // End the game and generate the ranking
             const ranking = room.players
-              .sort((a, b) => b.player_date.cookies - a.player_date.cookies) // Sort by cookies
+              .sort((a, b) => b.player_data.cookies - a.player_data.cookies)
               .map((player, index) => ({
                 rank: index + 1,
                 room_player: player.room_player,
-                cookies: player.player_date.cookies,
+                cookies: player.player_data.cookies,
               }));
 
             room.state = "finished";
-
-            // Send the game end event with the ranking
             io.to(room_code).emit("game_end", { ranking });
 
             if (room.state === "finished") {
@@ -210,56 +189,49 @@ io.on("connection", (socket) => {
               console.log(`Room ${room_code} has been deleted.`);
             }
 
-            console.log(
-              `Game in room ${room_code} finished! Ranking:`,
-              ranking,
-            );
-
-            return; // Prevent further execution
+            console.log(`Game in room "${room_code}" finished! Ranking:`, ranking);
+            return;
           }
 
-          time_game--; // Decrement the game time
-        }, 1000); // Update every second
+          time_game--;
+        }, 1000); 
       }
 
-      countdown--; // Decrement the countdown
-    }, 1000); // Update every second
+      countdown--;
+    }, 1000); 
   });
 
   /**
-   * Updates the number of cookies for a player in the room.
-   * @param {Object} data - The data for updating cookies.
-   * @param {string} data.room_player - The name of the player.
-   * @param {string} data.room_code - The code of the room.
-   * @param {number} data.cookies - The number of cookies to update.
+   * Atualiza o número de cookies de um jogador na sala.
+   * @param {Object} data - Dados para atualizar os cookies.
+   * @param {string} data.room_player - O nome do jogador.
+   * @param {string} data.room_code - O código da sala.
+   * @param {number} data.cookies - O número de cookies a ser atualizado.
+   * @throws {Error} Se a sala ou o jogador não forem encontrados ou se o valor de cookies for inválido.
    */
   socket.on("update_cookies", ({ room_player, room_code, cookies }) => {
     if (typeof cookies !== "number" || cookies < 0) {
-      console.error("Invalid cookie data received.");
+      socket.emit("err_socket", { err_socket: "INVALID_COOKIES" });
       return;
     }
 
     const room = ROOMS[room_code];
 
     if (!room) {
-      console.error(`Room ${room_code} not found.`);
+      socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
       return;
     }
 
-    const player = room.players.find(
-      (player) => player.room_player === room_player,
-    );
+    const player = room.players.find(player => player.room_player === room_player);
 
     if (player) {
-      player.player_date.cookies = cookies;
-      console.log(
-        `Player ${room_player} in room ${room_code} updated cookies to ${cookies}.`,
-      );
+      player.player_data.cookies = cookies;
+      console.log(`Player "${room_player}" in room "${room_code}" updated cookies to ${cookies}.`);
     } else {
-      console.error(`Player ${room_player} not found in room ${room_code}.`);
+      socket.emit("err_socket", { err_socket: "PLAYER_NOT_FOUND" });
     }
   });
 });
 
-// Start listening on port 3000
+// Inicia o servidor na porta 3000
 io.listen(3000);

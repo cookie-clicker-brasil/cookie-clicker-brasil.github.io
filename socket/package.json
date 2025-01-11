@@ -7,6 +7,7 @@
   "license": "Apache-2.0",
   "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",
   "dependencies": {
+    "chalk": "^5.4.1",
     "socket.io": "^4.8.1"
   },
   "engines": {
@@ -17,5 +18,9 @@
     "type": "git",
     "url": "https://github.com/sebastianjnuwu/cookie.git"
   },
-  "keywords": ["cookie-clicker", "socket", "real-time"]
+  "keywords": [
+    "cookie-clicker",
+    "socket",
+    "real-time"
+  ]
 }

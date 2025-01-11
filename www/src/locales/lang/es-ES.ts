@@ -44,6 +44,13 @@ const translation = {
     cancel: "Cancelar",
     confirm: "Confirmar",
   },
+  err_message: {
+  ROOM_NOT_FOUND: "¡La sala no fue encontrada!",
+  ROOM_STATE_ERROR: "¡La sala está en el estado incorrecto!",
+  PLAYER_EXISTS: "Ya existe un jugador con ese nombre en la sala.",
+  INVALID_COOKIES: "Datos de cookies inválidos recibidos.",
+  ROOM_CODE_NOT_FOUND: "No se encontró el código de la sala."
+}
 };
 
 export default translation;

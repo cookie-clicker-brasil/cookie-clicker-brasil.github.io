@@ -178,8 +178,18 @@ $("#form_button").on("click", () => {
 });
 
 // Handle socket errors
-socket.on("err_socket", ({ message }: { message: string }) => {
-  showMessage(message);
+socket.on("err_socket", ({ err_socket }: { err_socket: string }) => {
+  if (err_socket === 'ROOM_NOT_FOUND') { 
+     showMessage(lang("err_message.ROOM_NOT_FOUND"));
+  } else if (err_socket === 'ROOM_STATE_ERROR') {
+    showMessage(lang("err_message.ROOM_STATE_ERROR"));
+  } else if (err_socket === 'PLAYER_EXISTS') {
+    showMessage(lang("err_message.PLAYER_EXISTS"));
+  } else if (err_socket === 'INVALID_COOKIES') {
+    showMessage(lang("err_message.INVALID_COOKIES"));
+  } else if (err_socket === 'ROOM_CODE_NOT_FOUND') {
+    showMessage(lang("err_message.ROOM_CODE_NOT_FOUND"));
+  }
 });
 
 // Handle room updates
