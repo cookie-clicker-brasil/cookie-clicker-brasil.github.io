@@ -1,0 +1,80 @@
+# Set line endings configuration
+# Ensure text files use LF line endings in the repository, but CRLF for Windows users
+* text=auto
+
+# Force specific files to use LF (Unix) line endings
+*.sh text eol=lf
+*.py text eol=lf
+*.java text eol=lf
+
+# Force specific files to use CRLF (Windows) line endings
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Configure binary files to be treated as binaries (not text)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.zip binary
+*.tar binary
+*.rar binary
+*.pdf binary
+*.exe binary
+
+# Ignore binary file diffs
+*.pdf diff=astextplain
+*.doc diff=astextplain
+
+# Custom merge strategy
+# Lock files like package-lock.json or yarn.lock will use the "ours" merge strategy during merge
+*.lock merge=ours
+
+# Image files (avoid merging)
+*.png merge=binary
+*.jpg merge=binary
+
+# Files that should be treated as binary (despite being text)
+*.xlsx binary
+*.docx binary
+*.pptx binary
+
+# Configure text attributes for common text file types
+*.md text
+*.html text
+*.css text
+*.js text
+*.json text
+*.xml text
+
+# Configure attributes for certain configuration or build files
+*.yml text
+*.yaml text
+*.toml text
+*.ini text
+
+# Language-specific configurations for source code
+*.go text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+
+# Add support for automatic code formatting, like `clang-format` for C++ files
+*.cpp filter=clang-format
+*.h filter=clang-format
+
+# Configurations for IDE-specific files (avoid diff/merge)
+*.sublime-workspace binary
+*.sublime-project binary
+*.idea/* binary
+*.vscode/* binary
+
+# Git LFS (Large File Storage) for handling large files
+# If you're using Git LFS for large files, add this configuration:
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+
+# Avoid treating minified files as text
+*.min.js binary
+*.min.css binary
+*.min.html binary

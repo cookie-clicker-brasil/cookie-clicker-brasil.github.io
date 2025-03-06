@@ -1,0 +1,3 @@
+npm run lint
+npm run format
+echo "Ready to continue..."

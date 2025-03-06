@@ -1,0 +1,65 @@
+name: 🚀 Build App (Android)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🏗️ Build files
+        run: npm run build
+
+      - name: ☕ Set up Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 🤖 Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 34
+          build-tools: 34.0.0
+          ndk: false
+          
+      - name: 🏗️ Build APK
+        run: |
+          npx cap sync android
+          cd android
+          chmod +x ./gradlew
+          ./gradlew clean assembleRelease
+      - name: 🔑 Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > android/app/release-key.jks
+      - name: 🔏 Sign APK
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+            --ks android/app/release-key.jks \
+            --ks-key-alias ${{ secrets.ALIAS }} \
+            --ks-pass pass:${{ secrets.STORE_PASSWORD }} \
+            --key-pass pass:${{ secrets.KEY_PASSWORD }} \
+            --out android/app/build/outputs/apk/release/app-release-signed.apk \
+            android/app/build/outputs/apk/release/app-release-unsigned.apk
+      - name: ☁️ Upload Signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: android/app/build/outputs/apk/release/app-release-signed.apk
+          

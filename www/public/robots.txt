@@ -1,0 +1,75 @@
+User-agent: *
+Allow: /
+
+# Google Search
+User-agent: Googlebot
+Allow: /
+
+# Google Ads
+User-agent: AdsBot-Google
+Allow: /
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /
+
+# Google News
+User-agent: Googlebot-News
+Allow: /
+
+# Google Videos
+User-agent: Googlebot-Video
+Allow: /
+
+# Google Mobile
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Bing (Microsoft)
+User-agent: Bingbot
+Allow: /
+
+# Bing Ads
+User-agent: AdIdxBot
+Allow: /
+User-agent: BingPreview
+Allow: /
+
+# Yahoo
+User-agent: Slurp
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Baidu (China)
+User-agent: Baiduspider
+Allow: /
+
+# Yandex (Rússia)
+User-agent: Yandex
+Allow: /
+
+# Sogou (China)
+User-agent: Sogou
+Allow: /
+
+# Naver (Coreia)
+User-agent: NaverBot
+Allow: /
+User-agent: Yeti
+Allow: /
+
+# Seznam (República Tcheca)
+User-agent: SeznamBot
+Allow: /
+
+# Archive.org (Wayback Machine)
+User-agent: archive.org_bot
+Allow: /
+
+# Sitemap 
+Sitemap: https://cookie-clicker-brasil.vercel.app/sitemap.xml

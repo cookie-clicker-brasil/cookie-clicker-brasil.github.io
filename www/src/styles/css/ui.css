@@ -1,0 +1,335 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+
+@import url("https://fonts.cdnfonts.com/css/minecraftia");
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap");
+
+:root {
+  --layout: #fffbde;
+  --layout-dark: #fbf0c1;
+  --text-color: #fdd388;
+  --text-color-dark: #7c3d18;
+  --btn-secondary-bg: #b08968;
+  --btn-secondary-hover-bg: #8d6e54;
+  --btn-primary-bg: #f4a261;
+  --btn-primary-hover-bg: #e76f51;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
+}
+
+ui .cookie img {
+  width: 15rem;
+  transition: transform 0.02s ease-in-out;
+  will-change: transform;
+  position: relative;
+}
+
+ui .cookie img:active {
+  transform: scale(0.8);
+}
+
+ui .click-effect {
+  position: absolute;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+}
+
+ui .statistic {
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
+  color: var(--text-color);
+  text-shadow: 1px 1px var(--text-color-dark);
+}
+
+ui .statistic th,
+ui .statistic td {
+  padding: 5px;
+  text-align: center;
+}
+
+ui .statistic th {
+  font-size: 0.8em;
+}
+
+ui .statistic td {
+  position: relative;
+  font-size: 1em;
+}
+
+ui .statistic td .label {
+  font-weight: bold;
+}
+
+ui .statistic td .value {
+  display: block;
+  margin-top: 5px;
+}
+
+.room-code {
+  text-align: center;
+  background-color: #f4a460;
+  padding: 5px;
+  border: 1px solid #d2691e;
+  box-shadow: 1px 1px var(--text-color-dark);
+  border-radius: 16px;
+  width: 10rem;
+  margin: 0.5rem;
+  font-weight: bold;
+  opacity: 0;
+  animation: slideIn 2s forwards;
+}
+.room-code h3 {
+  margin: 0;
+  padding: 0;
+  font-family: "minecraftia", cursive;
+  font-weight: bold;
+  font-size: 0.6rem;
+  color: #4b2e16;
+}
+.room-code p {
+  font-family: "minecraftia", cursive;
+  font-size: 1rem;
+  margin: 0;
+  background-color: #f4a460;
+  color: #4b2e16;
+  border-radius: 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.waiting-room {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "minecraftia", sans-serif;
+}
+
+.waiting-room h1 {
+  font-size: 2rem;
+  color: #8b4513;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px #d2691e;
+}
+
+.waiting-room p {
+  font-size: 1rem;
+  color: #8b4513;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.countdown-overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.countdown-text {
+  font-size: 8rem;
+  font-family: "Minecraftia", cursive;
+  color: #f4a460;
+  text-shadow: 4px 4px 8px #d2691e;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+#start_game,
+#leave_room,
+#game_exit {
+  background-color: #d2691e;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#start_game i,
+#leave_room i,
+#game_exit i {
+  font-size: 1.2rem;
+}
+
+#start_game:hover,
+#leave_room:hover,
+#game_exit:hover {
+  background-color: #8b4513;
+  transform: scale(1.1);
+}
+
+#start_game:active,
+#leave_room:active,
+#game_exit:active {
+  transform: scale(1);
+  background-color: #bf4f20;
+}
+
+#ranking {
+  width: 100%;
+  background-color: #ffdd99;
+  border: 2px solid #d2691e;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+#ranking h2 {
+  font-size: 1.8rem;
+  color: #4b2e16;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 15px;
+}
+
+#ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#ranking-list li {
+  background-color: #f4a460;
+  color: #4b2e16;
+  border: 2px solid #d2691e;
+  border-radius: 12px;
+  margin: 10px 0;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+#ranking-list li span:first-child:before {
+  content: "🍪 ";
+}
+
+#ranking-list li.new {
+  background-color: #ffdd99;
+  animation: pop 0.5s ease-out;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.game-time {
+  display: flex;
+  align-items: center;
+  background-color: #f4a460;
+  padding: 0.5rem;
+  border-radius: 16px;
+  border: 2px solid #d2691e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+.game-time h3 {
+  text-align: center;
+  font-size: 1rem;
+  margin: 0;
+  font-family: "minecraftia", cursive;
+  color: var(--text-color-dark);
+  font-weight: bold;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* END - MODAL FOOTER BUTTON STYLE */
+
+.toast,
+.toast .toast-header,
+.toast .btn-close {
+  background-color: var(--layout);
+  color: var(--text-color-dark) !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
