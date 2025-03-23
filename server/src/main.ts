@@ -125,6 +125,7 @@ io.on("connection", (socket: Socket) => {
         socket: socket.id,
         player_data: { cookies: null },
         room_player,
+        ip: client_ip
       });
 
       io.to(room_code).emit("update_room", { room_player, room });
@@ -208,6 +209,7 @@ io.on("connection", (socket: Socket) => {
       socket: socket.id,
       player_data: { cookies: null },
       room_player,
+      ip: client_ip
     });
 
     io.to(randomRoom.code).emit("update_room", {
