@@ -26,4 +26,4 @@ jobs:
         run: npm install
 
       - name: Run Biome Linter
-        run: npx @biomejs/biome format --write
+        run: npx @biomejs/biome lint --write

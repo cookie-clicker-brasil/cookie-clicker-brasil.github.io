@@ -1,4 +1,5 @@
 # Node.js dependencies
+server/node_modules/
 node_modules/
 
 # Build output
@@ -20,11 +21,13 @@ Thumbs.db
 .idea/
 
 # Environment files
+server/.env
 .env
 .env.local
 .env.*.local
 
 # package-lock.json can be excluded if using yarn or another package manager
+server/package-lock.json
 package-lock.json
 
 # Typescript build output (if using TypeScript)
@@ -42,8 +45,3 @@ out/
 
 # Test coverage reports
 coverage/
-
-# Environment
-.env
-.env.development
-.env.local
