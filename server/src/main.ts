@@ -97,6 +97,10 @@ io.on("connection", (socket: Socket) => {
         socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
         return;
       }
+      if (room.players.length >= 10) {
+        socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
+        return;
+      }
 
       if (room.state === "in_game") {
         socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_IN_GAME" });
@@ -243,7 +247,7 @@ io.on("connection", (socket: Socket) => {
   socket.on("start_game", ({ room_code }: StartGameData) => {
     const room = ROOMS[room_code];
 
-    if (!room || room.state != "waiting") {
+    if (!room || room.state !== "waiting") {
       socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
       return;
     }
