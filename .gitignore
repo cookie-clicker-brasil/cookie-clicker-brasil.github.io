@@ -45,3 +45,6 @@ out/
 
 # Test coverage reports
 coverage/
+
+# Bun
+bun.lock

@@ -35,7 +35,7 @@ function showMessage(text: string): void {
 
 // Create socket connection
 const socket: Socket = io(
-    import.meta.env.VITE_SOCKET_URL || "https://socket-hj1h.onrender.com",
+    localStorage.getItem("wsURL") || import.meta.env.VITE_SOCKET_URL || "https://socket-hj1h.onrender.com",
     {
         transports: ["websocket", "polling"],
     },
@@ -305,7 +305,7 @@ socket.on("game_end", ({ ranking }: { ranking: any[] }) => {
         ranking.forEach((player, index) => {
             $("#ranking-list").append(`
         <li class="${index === 0 ? "new" : ""}">
-          <span><b>#${player.rank}</b> ${player.room_player} - ${player.cookies || 0}</span>
+          <span><b>#${player.rank}</b> ${player.room_player.replaceAll("<", "&lt;").replaceAll(">", "&gt;")} - ${player.cookies || 0}</span>
         </li>
       `);
         });

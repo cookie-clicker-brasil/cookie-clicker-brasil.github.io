@@ -52,7 +52,9 @@ function generateUuid(): number {
  * @returns The generated room code.
  */
 function generateCode(): string {
-  return Math.random().toString(36).substring(2, 8).toUpperCase();
+  const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+  if (ROOMS[code]) return generateCode()
+  return code;
 }
 
 /**
@@ -84,7 +86,7 @@ io.on("connection", (socket: Socket) => {
           players: [],
           owner: room_player,
           public: room_public,
-          time: room_time || 11,
+          time: Math.max(11, Math.min(room_time || 11, 600)),
           state: "waiting",
         };
       }
@@ -241,7 +243,7 @@ io.on("connection", (socket: Socket) => {
   socket.on("start_game", ({ room_code }: StartGameData) => {
     const room = ROOMS[room_code];
 
-    if (!room) {
+    if (!room || room.state != "waiting") {
       socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
       return;
     }
@@ -300,15 +302,15 @@ io.on("connection", (socket: Socket) => {
   socket.on(
     "update_cookies",
     ({ room_player, room_code, cookies }: UpdateCookiesData) => {
-      if (typeof cookies !== "number" || cookies < 0) {
+      if (typeof cookies !== "number") {
         socket.emit("err_socket", { err_socket: "INVALID_COOKIES" });
         return;
       }
-
       const room = ROOMS[room_code];
 
       if (!room) return;
 
+      cookies = Math.max(Math.min(60*room.time,cookies), 0)
       const player = room.players.find(
         (player) => player.room_player === room_player,
       );
