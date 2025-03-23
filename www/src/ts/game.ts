@@ -276,7 +276,7 @@ socket.on("timer", ({ time_game }: { time_game: number }) => {
 // Handle game end and ranking
 socket.on("game_end", ({ ranking }: { ranking: any[] }) => {
 
-    if (!Array.isArray(ranking) || ranking.some(p => !p.room_player || !p.cookies || !p.rank)) {
+    if (!Array.isArray(ranking) || ranking.some(p => !p.room_player)) {
         return;
     };
 
