@@ -120,7 +120,7 @@ io.on("connection", (socket: Socket) => {
         return;
       }
 
-      if (room.players.find((player) => player.ip === clientIp)) {
+      if (room.players.find((player) => player.ip === client_ip)) {
          socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
          return;
        }
