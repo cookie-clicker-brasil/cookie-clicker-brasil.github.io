@@ -1,5 +1,6 @@
+import ptbrtranslation from "./pt-BR"
 // @lang/en-US
-const translation = {
+const enUSTranslation = {
   general: {
     cookies: "Cookies",
     seconds: "Clicks",
@@ -46,6 +47,7 @@ const translation = {
   },
   err_message: {
     ROOM_NOT_FOUND: "The room was not found!",
+    ROOM_FULL: "The room is full!",
     ROOM_STATE_ERROR_IN_GAME: "The game has already started",
     ROOM_STATE_ERROR_FINISHED: "The match is over",
     PLAYER_EXISTS: "A player with this name already exists in the room.",
@@ -54,6 +56,6 @@ const translation = {
       "There are no public rooms available at the moment.",
     ROOM_CODE_NOT_FOUND: "The room code was not found.",
   },
-};
+} satisfies typeof ptbrtranslation;
 
-export default translation;
+export default enUSTranslation;
