@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import OAuth from "discord-oauth2";
+import { TokenData } from "../types/authentication";
 
 /**
  * Sign user data

@@ -14,6 +14,7 @@ import colors from "colors";
 import "dotenv/config";
 import { oauth, oauthScope, sign, verify } from "./functions/authentication";
 import cors from "cors"
+import { TokenData } from "./types/authentication";
 /**
  * Initializes the Express application.
  */
@@ -203,7 +204,7 @@ io.on("connection", (socket: Socket) => {
      * Otherwise, the player is added to a random room and the room is updated.
      * @param {string} room_player - The name/identifier of the player.
      */
-    socket.on("join_random_room", ({ room_player }: { room_player: TokenData | string }) => {
+    socket.on("join_random_room", ({ room_player }: RejoinRoomData) => {
         room_player = verify(room_player as string)
         if (!room_player) return;
         // Filters public rooms that are in "waiting" state and have less than 10 players
