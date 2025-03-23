@@ -46,6 +46,7 @@ const translation = {
   },
   err_message: {
     ROOM_NOT_FOUND: "A sala não foi encontrada!",
+    ROOM_FULL: "A sala está cheia!",
     ROOM_STATE_ERROR_IN_GAME: "A partida ja começou",
     ROOM_STATE_ERROR_FINISHED: "A partida ja terminou",
     PLAYER_EXISTS: "Já existe um jogador com esse nome na sala.",

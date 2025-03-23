@@ -93,29 +93,21 @@ io.on("connection", (socket: Socket) => {
 
       const room = ROOMS[room_code];
 
-      if (!room) {
-        socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
-        return;
-      }
-      if (room.players.length >= 10) {
-        socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
-        return;
-      }
+      if (!room)
+        return socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
+      if (room.players.length >= 10)
+        return socket.emit("err_socket", { err_socket: "ROOM_FULL" });
 
-      if (room.state === "in_game") {
-        socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_IN_GAME" });
-        return;
-      }
+      if (room.state === "in_game")
+        return socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_IN_GAME" });
 
-      if (room.state === "finished") {
-        socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_FINISHED" });
-        return;
-      }
 
-      if (room.players.find((player) => player.room_player === room_player)) {
-        socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
-        return;
-      }
+      if (room.state === "finished")
+        return socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_FINISHED" });
+
+
+      if (room.players.find((player) => player.room_player === room_player))
+        return socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
 
       socket.join(room_code);
 
@@ -314,7 +306,7 @@ io.on("connection", (socket: Socket) => {
 
       if (!room) return;
 
-      cookies = Math.max(Math.min(60*room.time,cookies), 0)
+      cookies = Math.max(Math.min(60 * room.time, cookies), 0)
       const player = room.players.find(
         (player) => player.room_player === room_player,
       );
