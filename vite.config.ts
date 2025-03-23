@@ -30,6 +30,8 @@ export default defineConfig({
   },
   server: {
     host: process.env.VITE_WEB_HOST,
-    port: process.env.VITE_WEB_PORT,
+    port: +process.env.VITE_WEB_PORT!,
+    cors: true,
+    allowedHosts:["beatles-wooden-asian-hypothesis.trycloudflare.com"]
   },
 });
