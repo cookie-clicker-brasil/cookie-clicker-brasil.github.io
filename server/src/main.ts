@@ -88,7 +88,7 @@ app.get("/discord", async (req, res) => {
     res.redirect(`${process.env.GAME_URL}?token=${token}`)
 })
 /**
- * Verfiy a JWT
+ * Verify a JWT
  */
 app.get("/jwt", (req, res) => {
     if (!req.headers.authorization) return;
