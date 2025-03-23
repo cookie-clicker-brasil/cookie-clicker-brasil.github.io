@@ -1,4 +1,4 @@
-import ptbrtranslation from "./pt-BR"
+import type ptbrtranslation from "./pt-BR"
 // @lang/en-US
 const enUSTranslation = {
   general: {
@@ -24,7 +24,8 @@ const enUSTranslation = {
     leaveButton: "Leave",
   },
   game: {
-    nicknameLabel: "Nickname",
+    discordLoginLabel: "Discord Login",
+    discordLoginButton: "Click here to login With Discord",
     gameOptionLabel: "Choose an option:",
     randomRoom: "Join a random room",
     publicRoomLabel: "Public room:",

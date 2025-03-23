@@ -1,10 +1,12 @@
 import { io, type Socket } from "socket.io-client";
+// @ts-ignore
 import { lang } from "@language/main.ts";
 import { Modal } from "bootstrap";
 import $ from "jquery";
-
+import type { TokenData } from "../../../server/src/types/authentication";
+// @ts-ignore
 const $room_modal = new Modal($("#room_modal"));
-
+let user : TokenData;
 /**
  * Display a message with bootstrap toast
  * @param text - The message to display
@@ -68,7 +70,7 @@ const updateCookies = (): void => {
     localStorage.setItem("cookie", cookies.toString());
 
     socket.emit("update_cookies", {
-        room_player: localStorage.getItem("name"),
+        room_player: localStorage.getItem("token"),
         room_code: localStorage.getItem("code"),
         cookies,
     });
@@ -83,8 +85,8 @@ $(".cookie").on("click", function (e) {
 
     const $effect = $('<div class="click-effect">+1</div>');
     const offset = $(this).offset();
-    const X = e.pageX - offset.left;
-    const Y = e.pageY - offset.top;
+    const X = e.pageX - (offset?.left ?? 0);
+    const Y = e.pageY - (offset?.top ?? 0);
 
     $effect.css({
         left: `${X}px`,
@@ -114,21 +116,41 @@ $(".cookie").on("click", function (e) {
         );
 });
 
-// Rejoin room if necessary
-socket.emit("rejoin_room", {
-    room_player: localStorage.getItem("name"),
-    room_code: localStorage.getItem("code"),
-});
-
-// Set room name if available
-if (localStorage.getItem("name")) {
-    $("#room_name").val(localStorage.getItem("name"));
+async function main() {
+    // Rejoin room if necessary
+    socket.emit("rejoin_room", {
+        room_player: localStorage.getItem("token"),
+        room_code: localStorage.getItem("code"),
+    });
+    const search = new URLSearchParams(location.search.slice(1))
+    const token = search.get("token")
+    if(token){
+        localStorage.setItem("token", token)
+        location.href = "/"
+    }
+    if(localStorage.getItem("token")){
+        try{
+            const jwt = await fetch(`${import.meta.env.VITE_API_URL}/jwt`, {
+                headers: {
+                    authorization: localStorage.getItem("token") as string
+                }
+            }).then(p=>p.json().catch(()=>{}))
+            if(!jwt) return;
+            $(".discord-login-name").text(`@${jwt.username}`)
+            user = jwt;
+        }catch(e){}
+    }
 }
+main()
+$("#discordlogin").on("click", (handle) => {
+    handle.preventDefault()
+    location.href = `${import.meta.env.VITE_API_URL}/discord`
+})
 
 // Form for creating the room
 $("#form_button").on("click", () => {
     const option = $('input[name="option_game"]:checked').val() as string;
-    const roomPlayer = $("#room_name").val() as string;
+    const roomPlayer = user?.username;
     const roomCode = $("#room_code").val() as string;
     const roomPublic = $("#room_public").prop("checked") as boolean;
     const roomTime = $("#room_time").val() as string | null;
@@ -142,10 +164,8 @@ $("#form_button").on("click", () => {
     if (option === "room_random") {
         $room_modal.hide();
 
-        localStorage.setItem("name", roomPlayer);
-
         socket.emit("join_random_room", {
-            room_player: roomPlayer,
+            room_player: localStorage.getItem("token"),
         });
 
         return;
@@ -183,13 +203,11 @@ $("#form_button").on("click", () => {
 
     $room_modal.hide();
 
-    localStorage.setItem("name", roomPlayer);
-
     socket.emit("room", {
         room_public: roomPublic,
         room_code: roomCode,
         room_time: roomTime,
-        room_player: roomPlayer,
+        room_player: localStorage.getItem("token"),
     });
 });
 
@@ -200,7 +218,7 @@ socket.on("err_socket", ({ err_socket }: { err_socket: string }) => {
 // Handle room updates
 socket.on(
     "update_room",
-    ({ room_player, room }: { room_player: string; room: any }) => {
+    ({ room }: { room_player: string; room: any }) => {
         $("#splash-screen").hide();
         $("#start-screen").hide();
         $("ui").show();
@@ -213,7 +231,7 @@ socket.on(
             $("#game").show();
         }
 
-        if (room.owner === localStorage.getItem("name")) {
+        if (room.owner === user?.username) {
             $("#start_game").show();
         } else {
             $("#start_game").hide();
@@ -230,9 +248,9 @@ socket.on(
 $("#leave_room").on("click", () => {
     socket.emit("leave_room", {
         room_code: localStorage.getItem("code"),
-        room_player: localStorage.getItem("name"),
+        room_player: localStorage.getItem("token"),
     });
-
+    //@ts-ignore
     localStorage.setItem("code", null);
 
     $("ui").hide();
@@ -245,6 +263,7 @@ $("#start_game").on("click", () => {
     localStorage.setItem("cookie", cookies.toString());
     socket.emit("start_game", {
         room_code: localStorage.getItem("code"),
+        room_player: localStorage.getItem("token")
     });
 });
 
@@ -285,6 +304,7 @@ socket.on("game_end", ({ ranking }: { ranking: any[] }) => {
 
     cookies = 0;
     localStorage.setItem("cookie", cookies.toString());
+    //@ts-ignore
     localStorage.setItem("code", null);
 
     $(".room-code").hide();

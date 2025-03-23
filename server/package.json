@@ -14,16 +14,21 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.10.5",
-    "@types/socket.io": "^3.0.1",
     "ts-node-dev": "^2.0.0",
     "tslib": "^2.8.1",
     "typescript": "^5.7.3"
   },
   "dependencies": {
     "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "discord-oauth2": "^2.12.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "socket.io": "^4.8.1",
     "winston": "^3.17.0"
   },
