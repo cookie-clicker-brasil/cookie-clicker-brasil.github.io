@@ -75,6 +75,9 @@ io.on("connection", (socket: Socket) => {
    * Handles player joining or creating a room.
    * @param data - The data for creating or joining a room.
    */
+
+  const client_ip = socket.handshake.address;
+
   socket.on(
     "room",
     ({ room_public, room_code, room_time, room_player }: RoomData) => {
@@ -108,6 +111,11 @@ io.on("connection", (socket: Socket) => {
 
       if (room.players.find((player) => player.room_player === room_player))
         return socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
+
+      if (room.players.find((player) => player.ip === client_ip)) {
+         socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
+         return;
+       }
 
       socket.join(room_code);
 
