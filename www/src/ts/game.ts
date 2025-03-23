@@ -3,6 +3,7 @@ import { io, type Socket } from "socket.io-client";
 import { lang } from "@language/main.ts";
 import { Modal } from "bootstrap";
 import $ from "jquery";
+import type { TokenData } from "../../../server/src/types/authentication";
 // @ts-ignore
 const $room_modal = new Modal($("#room_modal"));
 let user : TokenData;
@@ -83,9 +84,9 @@ $(".cookie").on("click", function (e) {
     updateCookies();
 
     const $effect = $('<div class="click-effect">+1</div>');
-    const offset = $(this).offset()!;
-    const X = e.pageX - offset.left;
-    const Y = e.pageY - offset.top;
+    const offset = $(this).offset();
+    const X = e.pageX - (offset?.left ?? 0);
+    const Y = e.pageY - (offset?.top ?? 0);
 
     $effect.css({
         left: `${X}px`,
@@ -121,16 +122,17 @@ async function main() {
         room_player: localStorage.getItem("token"),
         room_code: localStorage.getItem("code"),
     });
-    let search = new URLSearchParams(location.search.slice(1))
-    if(search.get("token")){
-        localStorage.setItem("token", search.get("token")!)
+    const search = new URLSearchParams(location.search.slice(1))
+    const token = search.get("token")
+    if(token){
+        localStorage.setItem("token", token)
         location.href = "/"
     }
     if(localStorage.getItem("token")){
         try{
-            let jwt = await fetch(`${import.meta.env.VITE_API_URL}/jwt`, {
+            const jwt = await fetch(`${import.meta.env.VITE_API_URL}/jwt`, {
                 headers: {
-                    authorization: localStorage.getItem("token")!
+                    authorization: localStorage.getItem("token") as string
                 }
             }).then(p=>p.json().catch(()=>{}))
             if(!jwt) return;
@@ -144,10 +146,6 @@ $("#discordlogin").on("click", (handle) => {
     handle.preventDefault()
     location.href = `${import.meta.env.VITE_API_URL}/discord`
 })
-// Set room name if available
-if (user!) {
-    $("#room_name").val(user.username);
-}
 
 // Form for creating the room
 $("#form_button").on("click", () => {
@@ -167,7 +165,7 @@ $("#form_button").on("click", () => {
         $room_modal.hide();
 
         socket.emit("join_random_room", {
-            room_player: localStorage.getItem("token")!,
+            room_player: localStorage.getItem("token"),
         });
 
         return;
@@ -209,7 +207,7 @@ $("#form_button").on("click", () => {
         room_public: roomPublic,
         room_code: roomCode,
         room_time: roomTime,
-        room_player: localStorage.getItem("token")!,
+        room_player: localStorage.getItem("token"),
     });
 });
 
@@ -252,8 +250,8 @@ $("#leave_room").on("click", () => {
         room_code: localStorage.getItem("code"),
         room_player: localStorage.getItem("token"),
     });
-
-    localStorage.setItem("code", null!);
+    //@ts-ignore
+    localStorage.setItem("code", null);
 
     $("ui").hide();
     $("#start-screen").show();
@@ -265,7 +263,7 @@ $("#start_game").on("click", () => {
     localStorage.setItem("cookie", cookies.toString());
     socket.emit("start_game", {
         room_code: localStorage.getItem("code"),
-        room_player: localStorage.getItem("token")!
+        room_player: localStorage.getItem("token")
     });
 });
 
@@ -306,7 +304,8 @@ socket.on("game_end", ({ ranking }: { ranking: any[] }) => {
 
     cookies = 0;
     localStorage.setItem("cookie", cookies.toString());
-    localStorage.setItem("code", null!);
+    //@ts-ignore
+    localStorage.setItem("code", null);
 
     $(".room-code").hide();
     $("#game").hide();

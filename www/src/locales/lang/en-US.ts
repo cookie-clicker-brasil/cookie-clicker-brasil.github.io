@@ -1,4 +1,4 @@
-import ptbrtranslation from "./pt-BR"
+import type ptbrtranslation from "./pt-BR"
 // @lang/en-US
 const enUSTranslation = {
   general: {

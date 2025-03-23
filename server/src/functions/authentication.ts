@@ -7,7 +7,7 @@ import OAuth from "discord-oauth2";
  * @returns A JWT
  */
 export function sign(id: string, username: string) {
-    return jwt.sign(JSON.stringify({ id, username, expiresIn: Date.now()+(3600*24*7*1000) }), process.env.JWT_SECRET!)
+    return jwt.sign(JSON.stringify({ id, username, expiresIn: Date.now()+(3600*24*7*1000) }), process.env.JWT_SECRET)
 }
 /**
  * Verify if token is real
@@ -16,7 +16,7 @@ export function sign(id: string, username: string) {
  */
 export function verify(token: string) : TokenData | null {
     try {
-        const data = (jwt.verify(token, process.env.JWT_SECRET!) as unknown) as TokenData
+        const data = (jwt.verify(token, process.env.JWT_SECRET) as unknown) as TokenData
         if (!data || data.expiresIn < Date.now()) return null;
         return data
     } catch (e) {
@@ -28,8 +28,8 @@ export function verify(token: string) : TokenData | null {
  * Discord Oauth2 Methods
  */
 export const oauth = new OAuth({
-    clientId: process.env.CLIENT_ID!,
-    clientSecret: process.env.CLIENT_SECRET!,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
     redirectUri: process.env.CLIENT_REDIRECT
 })
 /**
