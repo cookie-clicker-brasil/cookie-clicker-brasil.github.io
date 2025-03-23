@@ -44,6 +44,7 @@
     "@capacitor/cli": "^7.0.1",
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
+    "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.32",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "core-js": "^3.41.0",
