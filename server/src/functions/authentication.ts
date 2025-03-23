@@ -17,7 +17,7 @@ export function sign(id: string, username: string) {
  */
 export function verify(token: string) : TokenData | null {
     try {
-        const data = (jwt.verify(token, process.env.JWT_SECRET) as unknown) as TokenData
+        const data = (jwt.verify(token ?? '', process.env.JWT_SECRET) as unknown) as TokenData
         if (!data || data.expiresIn < Date.now()) return null;
         return data
     } catch (e) {
