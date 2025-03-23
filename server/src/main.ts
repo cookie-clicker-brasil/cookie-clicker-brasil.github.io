@@ -92,7 +92,6 @@ app.get("/discord", async (req, res) => {
  * Verify a JWT
  */
 app.get("/jwt", (req, res) => {
-    if (!req.headers.authorization) return;
     res.json(verify(req.headers.authorization))
 })
 /**
