@@ -13,29 +13,10 @@ import type {
 import colors from "colors";
 import "dotenv/config";
 
-/**
- * Initializes the Express application.
- */
 const app = express();
-
-/**
- * Creates an HTTP server using the Express application.
- */
 const HTTP = createServer(app);
-
-/**
- * Initializes Socket.IO with the HTTP server.
- */
 const io = new Server(HTTP);
-
-/**
- * Stores active rooms on the server.
- */
 const ROOMS: Record<string, Room> = {};
-
-/**
- * Counter to generate unique identifiers for players.
- */
 let roomIdCounter = 0;
 
 /**
@@ -62,7 +43,8 @@ function generateCode(): string {
  * Returns "pong" as the response.
  */
 app.get("/ping", (req, res) => {
-  res.status(200).send({
+  res.status(200).json({
+    status: true,
     message: "pong!",
   });
 });

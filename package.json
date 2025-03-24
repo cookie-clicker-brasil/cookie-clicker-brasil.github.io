@@ -46,6 +46,7 @@
     "@commitlint/config-conventional": "^19.8.0",
     "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.32",
+    "@types/node": "^22.13.11",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "core-js": "^3.41.0",
     "cz-conventional-changelog": "^3.3.0",
