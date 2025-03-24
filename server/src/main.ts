@@ -163,7 +163,7 @@ io.on("connection", (socket: Socket) => {
   socket.on("join_random_room", ({ room_player }: { room_player: string }) => {
     // Filters public rooms that are in "waiting" state and have less than 10 players
     const availableRooms = Object.values(ROOMS).filter(
-      (room) => room.public && room.state === "waiting" && room.playerLimit != room.players.length,
+      (room) => room.public && room.state === "waiting" && room.playerLimit !== room.players.length,
     );
 
     // If no available public rooms

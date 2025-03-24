@@ -4,7 +4,11 @@ import { Modal } from "bootstrap";
 import $ from "jquery";
 //@ts-ignore
 const $room_modal = new Modal($("#room_modal"));
-
+/**
+ * Game Start Song
+ */
+export const startSong = document.createElement("audio");
+startSong.src = "/beeps.mp3";
 /**
  * Display a message with bootstrap toast
  * @param text - The message to display
@@ -264,7 +268,9 @@ $("#start_game").on("click", () => {
 socket.on("count_down", ({ countdown }: { countdown: number }) => {
   $("ui").hide();
   $("#countdown-container").show();
-
+    if(countdown === 3){
+        startSong.play()
+    }
   if (countdown > 0) {
     $("#countdown").text(countdown);
   } else {

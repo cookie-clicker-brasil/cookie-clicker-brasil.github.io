@@ -1,5 +1,6 @@
 import $ from "jquery";
 
+
 /**
  * This function runs when the document is ready.
  * It initializes interactions with the splash screen and handles the game room code visibility logic.
