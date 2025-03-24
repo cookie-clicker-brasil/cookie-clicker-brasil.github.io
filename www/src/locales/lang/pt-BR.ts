@@ -27,6 +27,7 @@ const translation = {
     gameOptionLabel: "Escolha uma opção:",
     randomRoom: "Entre em uma sala aleatória",
     publicRoomLabel: "Sala pública:",
+    gamePlayerLimit: "Limite de Jogadores",
     createRoom: "Criar uma sala",
     joinRoom: "Entrar em uma sala",
     roomCodeLabel: "Código da Sala",

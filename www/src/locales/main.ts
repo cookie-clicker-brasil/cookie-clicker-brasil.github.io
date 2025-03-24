@@ -1,8 +1,8 @@
 import i18next, { type TFunction } from "i18next";
 import $ from "jquery";
 
-import pt from "@lang/pt-BR.ts";
-import en from "@lang/en-US.ts";
+import pt from "./lang/pt-BR.ts";
+import en from "./lang/en-US.ts";
 
 i18next.init({
   lng: "pt-BR",

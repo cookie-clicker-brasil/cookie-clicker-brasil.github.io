@@ -1,8 +1,8 @@
 import { io, type Socket } from "socket.io-client";
-import { lang } from "@language/main.ts";
+import { lang } from "../locales/main";
 import { Modal } from "bootstrap";
 import $ from "jquery";
-
+//@ts-ignore
 const $room_modal = new Modal($("#room_modal"));
 
 /**
@@ -131,10 +131,10 @@ if (localStorage.getItem("name")) {
 $("#form_button").on("click", () => {
   const option = $('input[name="option_game"]:checked').val() as string;
   const roomPlayer = $("#room_name").val() as string;
+  const playerLimit = $("#player_limit").val() as string;
   const roomCode = $("#room_code").val() as string;
   const roomPublic = $("#room_public").prop("checked") as boolean;
   const roomTime = $("#room_time").val() as string | null;
-
   if (!roomPlayer) {
     return showMessage(
       `<i class="fas fa-exclamation-circle"></i> ${lang("room.no_room_player")}`,
@@ -190,6 +190,7 @@ $("#form_button").on("click", () => {
   socket.emit("room", {
     room_public: roomPublic,
     room_code: roomCode,
+    player_limit: playerLimit,
     room_time: roomTime,
     room_player: roomPlayer,
   });
@@ -200,6 +201,16 @@ socket.on("err_socket", ({ err_socket }: { err_socket: string }) => {
 });
 
 // Handle room updates
+socket.on(
+  "room",
+  ({
+    room_player,
+    room,
+  }: { room_player: string; room: { playerLimit: number } }) => {
+    console.log(room);
+    $("#max").text(room.playerLimit);
+  },
+);
 socket.on(
   "update_room",
   ({ room_player, room }: { room_player: string; room: any }) => {

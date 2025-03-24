@@ -5,6 +5,7 @@ export interface Room {
   code: string;
   date: Date;
   players: Player[];
+  playerLimit: number;
   owner: string;
   time: number;
   public: boolean;
@@ -26,6 +27,7 @@ export interface Player {
 /** Data received to create or join a room */
 export interface RoomData {
   room_public?: boolean;
+  player_limit?: number;
   room_code?: string;
   room_time: number;
   room_player: string;
