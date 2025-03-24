@@ -23,8 +23,7 @@ const translation = {
     leaveButton: "Sair",
   },
   game: {
-    discordLoginLabel: "Login pelo Discord",
-    discordLoginButton: "Clique aqui para logar pelo Discord",
+    nicknameLabel: "Nome do Jogador",
     gameOptionLabel: "Escolha uma opção:",
     randomRoom: "Entre em uma sala aleatória",
     publicRoomLabel: "Sala pública:",
