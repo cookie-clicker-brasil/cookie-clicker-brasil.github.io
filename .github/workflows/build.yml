@@ -26,10 +26,10 @@ jobs:
       - name: 🏗️ Build files
         run: npm run build
 
-      - name: ☕ Set up Java JDK 17
+      - name: ☕ Set up Java JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: 🤖 Set up Android SDK
