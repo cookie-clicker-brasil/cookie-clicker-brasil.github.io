@@ -34,6 +34,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  user-select: none;
   background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
 }
 
