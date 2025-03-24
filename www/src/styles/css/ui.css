@@ -111,6 +111,7 @@ ui .statistic td .value {
   color: #4b2e16;
 }
 .room-code p {
+  user-select: text;
   font-family: "minecraftia", cursive;
   font-size: 1rem;
   margin: 0;
@@ -149,7 +150,6 @@ ui .statistic td .value {
 }
 
 .waiting-room p {
-  user-select: text;
   font-size: 1rem;
   color: #8b4513;
   margin-bottom: 20px;
