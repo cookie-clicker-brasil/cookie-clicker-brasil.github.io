@@ -12,6 +12,7 @@ import type {
 } from "./types/rooms";
 import colors from "colors";
 import "dotenv/config";
+import { randomInt } from "node:crypto";
 
 const app = express();
 const HTTP = createServer(app);
@@ -58,8 +59,6 @@ io.on("connection", (socket: Socket) => {
    * @param data - The data for creating or joining a room.
    */
 
-  const client_ip = socket.handshake.address;
-
   socket.on(
     "room",
     ({
@@ -103,11 +102,6 @@ io.on("connection", (socket: Socket) => {
       if (room.players.find((player) => player.room_player === room_player))
         return socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
 
-      if (room.players.find((player) => player.ip === client_ip)) {
-        socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
-        return;
-      }
-
       socket.join(room_code);
 
       room.players.push({
@@ -115,8 +109,7 @@ io.on("connection", (socket: Socket) => {
         date: new Date(),
         socket: socket.id,
         player_data: { cookies: null },
-        room_player,
-        ip: client_ip,
+        room_player
       });
       socket.emit("room", { room_player, room });
       io.to(room_code).emit("update_room", { room_player, room });
@@ -170,7 +163,7 @@ io.on("connection", (socket: Socket) => {
   socket.on("join_random_room", ({ room_player }: { room_player: string }) => {
     // Filters public rooms that are in "waiting" state and have less than 10 players
     const availableRooms = Object.values(ROOMS).filter(
-      (room) => room.public && room.state === "waiting",
+      (room) => room.public && room.state === "waiting" && room.playerLimit != room.players.length,
     );
 
     // If no available public rooms
@@ -181,7 +174,7 @@ io.on("connection", (socket: Socket) => {
 
     // Randomly select a room from the available rooms
     const randomRoom =
-      availableRooms[Math.floor(Math.random() * availableRooms.length)];
+      availableRooms[randomInt(availableRooms.length)];
 
     // Check if the player is already in the selected room
     if (
@@ -200,8 +193,7 @@ io.on("connection", (socket: Socket) => {
       date: new Date(),
       socket: socket.id,
       player_data: { cookies: null },
-      room_player,
-      ip: client_ip,
+      room_player
     });
 
     io.to(randomRoom.code).emit("update_room", {

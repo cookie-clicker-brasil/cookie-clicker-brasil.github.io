@@ -20,7 +20,6 @@ export interface Player {
   player_data: {
     cookies: number | null;
   };
-  ip: string;
   room_player: string;
 }
 
