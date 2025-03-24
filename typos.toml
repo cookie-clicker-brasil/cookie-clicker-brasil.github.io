@@ -6,6 +6,7 @@ extend-exclude = [
   "www/src/js/modules",
   "www/src/locales/lang",
   "node_modules",
+  "ios",
   "android",
   "socket"
 ]
