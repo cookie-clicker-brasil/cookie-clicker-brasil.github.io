@@ -20,7 +20,7 @@ export interface Player {
     cookies: number | null;
   };
   ip: string;
-  room_player: string | TokenData;
+  room_player: string;
 }
 
 /** Data received to create or join a room */
@@ -28,30 +28,29 @@ export interface RoomData {
   room_public?: boolean;
   room_code?: string;
   room_time: number;
-  room_player: string | TokenData;
+  room_player: string;
 }
 
 /** Data for leaving a room */
 export interface LeaveRoomData {
   room_code: string;
-  room_player: string | TokenData;
+  room_player: string;
 }
 
 /** Data for rejoining a room */
 export interface RejoinRoomData {
   room_code: string;
-  room_player: string | TokenData;
+  room_player: string;
 }
 
 /** Data for starting a game */
 export interface StartGameData {
   room_code: string;
-  room_player: string | TokenData;
 }
 
 /** Data for updating cookies */
 export interface UpdateCookiesData {
   room_code: string;
-  room_player: string | TokenData;
+  room_player: string;
   cookies: number;
 }
