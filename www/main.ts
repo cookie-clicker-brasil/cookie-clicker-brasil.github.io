@@ -1,5 +1,4 @@
 import "@language/main.ts";
-import "@plugin/admob.ts";
 import "@scss/ui.scss";
 import "@scss/modal.scss";
 import "@ts/main.ts";
