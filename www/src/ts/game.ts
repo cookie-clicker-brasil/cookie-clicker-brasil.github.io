@@ -204,7 +204,6 @@ socket.on("err_socket", ({ err_socket }: { err_socket: string }) => {
 socket.on(
   "room",
   ({
-    room_player,
     room,
   }: { room_player: string; room: { playerLimit: number } }) => {
     console.log(room);
@@ -213,7 +212,7 @@ socket.on(
 );
 socket.on(
   "update_room",
-  ({ room_player, room }: { room_player: string; room: any }) => {
+  ({ room }: { room_player: string; room: any }) => {
     $("#splash-screen").hide();
     $("#start-screen").hide();
     $("ui").show();
