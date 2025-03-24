@@ -62,13 +62,20 @@ io.on("connection", (socket: Socket) => {
 
   socket.on(
     "room",
-    ({ room_public, room_code, room_time, room_player }: RoomData) => {
+    ({
+      room_public,
+      room_code,
+      room_time,
+      room_player,
+      player_limit,
+    }: RoomData) => {
       if (!room_code) {
         room_code = generateCode();
         ROOMS[room_code] = {
           code: room_code,
           date: new Date(),
           players: [],
+          playerLimit: Math.max(2, Math.min(player_limit || 2, 50)),
           owner: room_player,
           public: room_public,
           time: Math.max(11, Math.min(room_time || 11, 600)),
@@ -80,7 +87,7 @@ io.on("connection", (socket: Socket) => {
 
       if (!room)
         return socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
-      if (room.players.length >= 10)
+      if (room.players.length >= room.playerLimit)
         return socket.emit("err_socket", { err_socket: "ROOM_FULL" });
 
       if (room.state === "in_game")
@@ -111,7 +118,7 @@ io.on("connection", (socket: Socket) => {
         room_player,
         ip: client_ip,
       });
-
+      socket.emit("room", { room_player, room });
       io.to(room_code).emit("update_room", { room_player, room });
 
       logger.info(
@@ -186,6 +193,7 @@ io.on("connection", (socket: Socket) => {
 
     // Add the player to the selected room
     socket.join(randomRoom.code);
+    socket.emit("room", { room_player, room: randomRoom });
 
     randomRoom.players.push({
       id: generateUuid(),
@@ -222,6 +230,7 @@ io.on("connection", (socket: Socket) => {
       player.socket = socket.id;
       socket.join(room_code);
       io.to(room_code).emit("update_room", { room_player, room });
+      socket.emit("room", { room_player, room });
       logger.info(`Player "${room_player}" rejoined room "${room_code}".`);
     }
   });
@@ -233,11 +242,14 @@ io.on("connection", (socket: Socket) => {
   socket.on("start_game", ({ room_code }: StartGameData) => {
     const room = ROOMS[room_code];
 
-    if (!room || room.state !== "waiting") {
+    if (!room) {
       socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
       return;
     }
-
+    if (room.state !== "waiting")
+      return socket.emit("err_socket", {
+        err_socket: "ROOM_STATE_ERROR_IN_GAME",
+      });
     room.state = "in_game";
     let countdown = 3;
 
