@@ -19,5 +19,5 @@
     "noImplicitAny": true,
     "strictFunctionTypes": true,
     "strictNullChecks": false
-  },
+  }
 }
