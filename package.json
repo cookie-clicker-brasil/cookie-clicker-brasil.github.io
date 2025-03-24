@@ -70,6 +70,7 @@
     "@firebase/util",
     "@parcel/watcher",
     "core-js",
+    "esbuild",
     "protobufjs"
   ]
 }
