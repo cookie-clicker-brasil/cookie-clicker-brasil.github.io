@@ -29,7 +29,7 @@ export default defineConfig({
     },
   },
   server: {
-    host: process.env.VITE_WEB_HOST ?? "localhost" as string,
-    port: process.env.VITE_WEB_PORT ?? 8080 as number
+    host: process.env.VITE_WEB_HOST ?? ("localhost" as string),
+    port: process.env.VITE_WEB_PORT ?? (8080 as number),
   },
 });

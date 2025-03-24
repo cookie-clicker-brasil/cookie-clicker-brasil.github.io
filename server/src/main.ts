@@ -34,7 +34,7 @@ function generateUuid(): number {
  */
 function generateCode(): string {
   const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-  if (ROOMS[code]) return generateCode()
+  if (ROOMS[code]) return generateCode();
   return code;
 }
 
@@ -84,20 +84,22 @@ io.on("connection", (socket: Socket) => {
         return socket.emit("err_socket", { err_socket: "ROOM_FULL" });
 
       if (room.state === "in_game")
-        return socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_IN_GAME" });
-
+        return socket.emit("err_socket", {
+          err_socket: "ROOM_STATE_ERROR_IN_GAME",
+        });
 
       if (room.state === "finished")
-        return socket.emit("err_socket", { err_socket: "ROOM_STATE_ERROR_FINISHED" });
-
+        return socket.emit("err_socket", {
+          err_socket: "ROOM_STATE_ERROR_FINISHED",
+        });
 
       if (room.players.find((player) => player.room_player === room_player))
         return socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
 
       if (room.players.find((player) => player.ip === client_ip)) {
-         socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
-         return;
-       }
+        socket.emit("err_socket", { err_socket: "PLAYER_EXISTS" });
+        return;
+      }
 
       socket.join(room_code);
 
@@ -107,7 +109,7 @@ io.on("connection", (socket: Socket) => {
         socket: socket.id,
         player_data: { cookies: null },
         room_player,
-        ip: client_ip
+        ip: client_ip,
       });
 
       io.to(room_code).emit("update_room", { room_player, room });
@@ -191,7 +193,7 @@ io.on("connection", (socket: Socket) => {
       socket: socket.id,
       player_data: { cookies: null },
       room_player,
-      ip: client_ip
+      ip: client_ip,
     });
 
     io.to(randomRoom.code).emit("update_room", {
@@ -298,7 +300,7 @@ io.on("connection", (socket: Socket) => {
 
       if (!room) return;
 
-      cookies = Math.max(Math.min(60 * room.time, cookies), 0)
+      cookies = Math.max(Math.min(60 * room.time, cookies), 0);
       const player = room.players.find(
         (player) => player.room_player === room_player,
       );
