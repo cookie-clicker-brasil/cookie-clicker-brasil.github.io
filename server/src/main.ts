@@ -81,11 +81,17 @@ app.get("/ping", (req, res) => {
 app.get("/discord", async (req, res) => {
     const oauthUrl = oauth.generateAuthUrl({ scope: oauthScope })
     if (!req.query.code || typeof req.query.code !== "string") return res.redirect(oauthUrl)
+    logger.info(`1`)
     const tokenRequest = await oauth.tokenRequest({ code: req.query.code, grantType: "authorization_code", scope: oauthScope }).catch(() => { })
+    logger.info(`2`)
     if (!tokenRequest) return res.redirect(oauthUrl);
+    logger.info(`3`, tokenRequest)
     const user = await oauth.getUser(tokenRequest.access_token).catch(() => { })
+    logger.info(`4`)
     if (!user) return res.redirect(oauthUrl)
+    logger.info(`5`)
     const token = sign(user.id, user.username)
+    logger.info(`6`)
     res.redirect(`${process.env.GAME_URL}?token=${token}`)
 })
 /**
@@ -183,7 +189,7 @@ io.on("connection", (socket: Socket) => {
             logger.info(`Room ${room_code} has been deleted.`);
         } else if (room.owner === room_player.username) {
             room.owner = room.players[0]?.room_player as string || null;
-            if (!room.owner) { ROOMS[room.code] = null; return}
+            if (!room.owner) { ROOMS[room.code] = null; return }
             logger.info(`New owner of room ${room_code}: ${room.owner}`);
         }
 
@@ -284,7 +290,7 @@ io.on("connection", (socket: Socket) => {
             return socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
 
         if (room.owner !== room_player.username) return socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
-            room.state = "in_game";
+        room.state = "in_game";
         let countdown = 3;
 
         const countdownInterval = setInterval(() => {
