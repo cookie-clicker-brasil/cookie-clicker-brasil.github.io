@@ -159,7 +159,6 @@ $("#form_button").on("click", () => {
 
   // Verificação do tempo só se a opção for "create"
   if (option === "create") {
-    
     if (!roomTime) {
       return showMessage(
         `<i class="fas fa-exclamation-circle"></i> ${lang("room.no_room_time")}`,
@@ -173,12 +172,18 @@ $("#form_button").on("click", () => {
         `<i class="fas fa-exclamation-circle"></i> ${lang("room.time_check")}`,
       );
     }
-    
+
+    if (playerLimit < 2) {
+      return showMessage(
+        `<i class="fas fa-exclamation-circle"></i> ${lang("room.room_limit_min")}`,
+      );
+    }
+  
     if (playerLimit > 50) {
       return showMessage(
-        `<i class="fas fa-exclamation-circle"></i> ${lang("room.room_limit")}`);
-    };
-    
+        `<i class="fas fa-exclamation-circle"></i> ${lang("room.room_limit_max")}`,
+      );
+    }
   }
 
   // Verificação do código da sala só se a opção for "join"
@@ -214,40 +219,34 @@ socket.on("err_socket", ({ err_socket }: { err_socket: string }) => {
 // Handle room updates
 socket.on(
   "room",
-  ({
-    room,
-  }: { room_player: string; room: { playerLimit: number } }) => {
+  ({ room }: { room_player: string; room: { playerLimit: number } }) => {
     console.log(room);
     $("#max").text(room.playerLimit);
   },
 );
-socket.on(
-  "update_room",
-  ({ room }: { room_player: string; room: any }) => {
-    $("#splash-screen").hide();
-    $("#start-screen").hide();
-    $("ui").show();
+socket.on("update_room", ({ room }: { room_player: string; room: any }) => {
+  $("#start-screen").hide();
+  $("ui").show();
 
-    if (room.state === "waiting") {
-      $(".waiting-room").show();
-      $(".room-code").show();
-    } else if (room.state === "in_game") {
-      $(".waiting-room").hide();
-      $("#game").show();
-    }
+  if (room.state === "waiting") {
+    $(".waiting-room").show();
+    $(".room-code").show();
+  } else if (room.state === "in_game") {
+    $(".waiting-room").hide();
+    $("#game").show();
+  }
 
-    if (room.owner === localStorage.getItem("name")) {
-      $("#start_game").show();
-    } else {
-      $("#start_game").hide();
-    }
+  if (room.owner === localStorage.getItem("name")) {
+    $("#start_game").show();
+  } else {
+    $("#start_game").hide();
+  }
 
-    localStorage.setItem("code", room.code);
+  localStorage.setItem("code", room.code);
 
-    $("#current_code").text(room.code);
-    $("#online").text(room.players.length);
-  },
-);
+  $("#current_code").text(room.code);
+  $("#online").text(room.players.length);
+});
 
 // Leave room functionality
 $("#leave_room").on("click", () => {
@@ -275,9 +274,9 @@ $("#start_game").on("click", () => {
 socket.on("count_down", ({ countdown }: { countdown: number }) => {
   $("ui").hide();
   $("#countdown-container").show();
-    if(countdown === 3){
-        startSong.play()
-    }
+  if (countdown === 3) {
+    startSong.play();
+  }
   if (countdown > 0) {
     $("#countdown").text(countdown);
   } else {

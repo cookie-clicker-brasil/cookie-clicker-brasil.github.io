@@ -109,7 +109,7 @@ io.on("connection", (socket: Socket) => {
         date: new Date(),
         socket: socket.id,
         player_data: { cookies: null },
-        room_player
+        room_player,
       });
       socket.emit("room", { room_player, room });
       io.to(room_code).emit("update_room", { room_player, room });
@@ -163,7 +163,10 @@ io.on("connection", (socket: Socket) => {
   socket.on("join_random_room", ({ room_player }: { room_player: string }) => {
     // Filters public rooms that are in "waiting" state and have less than 10 players
     const availableRooms = Object.values(ROOMS).filter(
-      (room) => room.public && room.state === "waiting" && room.playerLimit !== room.players.length,
+      (room) =>
+        room.public &&
+        room.state === "waiting" &&
+        room.playerLimit !== room.players.length,
     );
 
     // If no available public rooms
@@ -173,8 +176,7 @@ io.on("connection", (socket: Socket) => {
     }
 
     // Randomly select a room from the available rooms
-    const randomRoom =
-      availableRooms[randomInt(availableRooms.length)];
+    const randomRoom = availableRooms[randomInt(availableRooms.length)];
 
     // Check if the player is already in the selected room
     if (
@@ -193,7 +195,7 @@ io.on("connection", (socket: Socket) => {
       date: new Date(),
       socket: socket.id,
       player_data: { cookies: null },
-      room_player
+      room_player,
     });
 
     io.to(randomRoom.code).emit("update_room", {

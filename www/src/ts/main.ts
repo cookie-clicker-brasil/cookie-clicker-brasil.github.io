@@ -1,22 +1,13 @@
 import $ from "jquery";
 
-
 /**
  * This function runs when the document is ready.
  * It initializes interactions with the splash screen and handles the game room code visibility logic.
  */
 $(() => {
-  /**
-   * Event handler for clicking on the splash screen.
-   * Hides the splash screen and shows the start screen after a 1-second delay.
-   */
-  $("#splash-screen").on("click", () => {
-    setTimeout(() => {
-      $("#splash-screen").hide();
-      $("#start-screen").show();
-    }, 1000);
-  });
 
+  $("#start-screen").show();
+  
   /**
    * Event handler for changing the game option selection (either creating a new game or joining an existing one).
    * Shows or hides the room code input field based on the user's choice.

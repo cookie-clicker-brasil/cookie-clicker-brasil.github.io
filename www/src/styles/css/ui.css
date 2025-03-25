@@ -31,8 +31,6 @@ body {
   padding: 0;
   margin: 0;
   width: 100%;
-  height: 100vh;
-  display: flex;
   flex-direction: column;
   user-select: none;
   background: linear-gradient(to bottom, var(--layout), var(--layout-dark));
@@ -102,6 +100,7 @@ ui .statistic td .value {
   opacity: 0;
   animation: slideIn 2s forwards;
 }
+
 .room-code h3 {
   margin: 0;
   padding: 0;

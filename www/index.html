@@ -215,20 +215,24 @@
 
             <div id="game_container">
 
-              <div class="mb-3">
-                <label for="gameTime" class="form-label">
-                  <i class="fas fa-clock"></i>
-                  <i18next i18next-id="game.gameTimeLabel">Game Time</i18next>
-                </label>
-                <input type="number" class="form-control" id="room_time" name="gameTime" placeholder="e.g. 11" min="11" max="600" value="11">
-              </div>
-              <div class="mb-3">
-                <label for="gameTime" class="form-label">
-                  <i class="fas fa-users"></i>
-                  <i18next i18next-id="game.gamePlayerLimit">Player Limit</i18next>
-                </label>
-                <input type="number" class="form-control" id="player_limit" name="playerLimit" placeholder="e.g. 10" min="2" max="50" value="10">
-              </div>
+<div class="d-flex gap-2">
+  <div class="mb-3 flex-grow-1">
+    <label for="room_time" class="form-label d-block">
+      <i class="fas fa-clock"></i>
+      <i18next i18next-id="game.gameTimeLabel">Game Time</i18next>
+    </label>
+    <input type="number" class="form-control w-100" id="room_time" name="gameTime" placeholder="e.g. 11" min="11" max="600" value="11">
+  </div>
+  <div class="mb-3 flex-grow-1">
+    <label for="player_limit" class="form-label d-block">
+      <i class="fas fa-users"></i>
+      <i18next i18next-id="game.gamePlayerLimit">Player Limit</i18next>
+    </label>
+    <input type="number" class="form-control w-100" id="player_limit" name="playerLimit" placeholder="e.g. 10" min="2" max="50" value="10">
+  </div>
+</div>
+
+
 
               <div class="mb-3">
                 <label for="publicRoom" class="form-label">
@@ -257,15 +261,5 @@
       </div>
     </div>
   </div>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6690516270288705"
-crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-style="display:block"
-data-ad-format="autorelaxed"
-data-ad-client="ca-pub-6690516270288705"
-data-ad-slot="8927377641"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 </body>
 </html>
