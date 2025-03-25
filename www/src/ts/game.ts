@@ -41,7 +41,7 @@ function showMessage(text: string): void {
 const socket: Socket = io(
   localStorage.getItem("wsURL") ||
   import.meta.env.VITE_SOCKET_URL ||
-  "https://socket-hj1h.onrender.com",
+  "wss://wss.squareweb.app",
   {
     transports: ["websocket", "polling"],
   },
