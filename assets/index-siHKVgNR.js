@@ -21001,7 +21001,7 @@ function showMessage(text) {
     <div class="toast-body">${text}</div></div>`);
 }
 const socket = esmExports.io(
-  localStorage.getItem("wsURL") || void 0 || "wss://wss.squareweb.app",
+  localStorage.getItem("wsURL") || void 0 || "wss://ws.squareweb.app",
   {
     transports: ["websocket", "polling"]
   }
