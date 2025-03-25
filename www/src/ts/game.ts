@@ -40,15 +40,20 @@ function showMessage(text: string): void {
 // Create socket connection
 const socket: Socket = io(
   localStorage.getItem("wsURL") ||
-    import.meta.env.VITE_SOCKET_URL ||
-    "https://socket-hj1h.onrender.com",
+  import.meta.env.VITE_SOCKET_URL ||
+  "https://socket-hj1h.onrender.com",
   {
     transports: ["websocket", "polling"],
   },
 );
-
 // Initialize cookies count and handle local storage
 let cookies: number = Number(localStorage.getItem("cookie")) || 0;
+let token: string = "";
+function main() {
+  if (localStorage.getItem("tmp-token")) token = localStorage.getItem("tmp-token");
+  
+}
+main()
 if (cookies < 0) {
   cookies = 0;
   localStorage.setItem("cookie", cookies.toString());
@@ -74,7 +79,7 @@ const updateCookies = (): void => {
   localStorage.setItem("cookie", cookies.toString());
 
   socket.emit("update_cookies", {
-    room_player: localStorage.getItem("name"),
+    token: token,
     room_code: localStorage.getItem("code"),
     cookies,
   });
@@ -121,8 +126,8 @@ $(".cookie").on("click", function (e) {
 });
 
 // Rejoin room if necessary
-socket.emit("rejoin_room", {
-  room_player: localStorage.getItem("name"),
+if (token) socket.emit("rejoin_room", {
+  token: token,
   room_code: localStorage.getItem("code"),
 });
 
@@ -220,8 +225,15 @@ socket.on("err_socket", ({ err_socket }: { err_socket: string }) => {
 socket.on(
   "room",
   ({ room }: { room_player: string; room: { playerLimit: number } }) => {
-    console.log(room);
     $("#max").text(room.playerLimit);
+  },
+);
+// Handle token updates
+socket.on(
+  "token",
+  (data: { token: string }) => {
+    localStorage.setItem("tmp-token", data.token)
+    token = data.token
   },
 );
 socket.on("update_room", ({ room }: { room_player: string; room: any }) => {
@@ -252,7 +264,7 @@ socket.on("update_room", ({ room }: { room_player: string; room: any }) => {
 $("#leave_room").on("click", () => {
   socket.emit("leave_room", {
     room_code: localStorage.getItem("code"),
-    room_player: localStorage.getItem("name"),
+    room_player: token,
   });
 
   localStorage.setItem("code", null);
@@ -267,6 +279,7 @@ $("#start_game").on("click", () => {
   localStorage.setItem("cookie", cookies.toString());
   socket.emit("start_game", {
     room_code: localStorage.getItem("code"),
+    token: token,
   });
 });
 

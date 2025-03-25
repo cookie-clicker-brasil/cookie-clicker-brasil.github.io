@@ -7,15 +7,15 @@
   "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",
   "scripts": {
     "start": "vite",
+    "start-api": "cd server && npm run build && npm run start",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host 0.0.0.0 --port 80",
     "typos": "typos --config typos.toml",
     "lint": "npx @biomejs/biome lint --write",
     "format": "npx @biomejs/biome format --write",
     "copy": "npx cap copy",
     "update": "npx cap update",
     "sync": "npx cap sync",
-    "prepare": "husky",
     "pre-commit": "cz"
   },
   "hooks": {

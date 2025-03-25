@@ -9,6 +9,7 @@ import type {
   RejoinRoomData,
   StartGameData,
   UpdateCookiesData,
+  TokenData,
 } from "./types/rooms";
 import colors from "colors";
 import "dotenv/config";
@@ -18,6 +19,7 @@ const app = express();
 const HTTP = createServer(app);
 const io = new Server(HTTP);
 const ROOMS: Record<string, Room> = {};
+const TOKENS: Record<string, TokenData> = {};
 let roomIdCounter = 0;
 
 /**
@@ -36,6 +38,17 @@ function generateUuid(): number {
 function generateCode(): string {
   const code = Math.random().toString(36).substring(2, 8).toUpperCase();
   if (ROOMS[code]) return generateCode();
+  return code;
+}
+
+/**
+ * Generates a random token to identify a user in a room.
+ * @returns A random token.
+ */
+function generateToken(username: string, roomCode: string): string {
+  const code = Math.random().toString(36).substring(2, 18);
+  if (TOKENS[code]) return generateToken(username, roomCode);
+  TOKENS[code] = { username, room_code: roomCode };
   return code;
 }
 
@@ -112,7 +125,8 @@ io.on("connection", (socket: Socket) => {
         room_player,
       });
       socket.emit("room", { room_player, room });
-      io.to(room_code).emit("update_room", { room_player, room });
+      socket.emit("token", { room_player, room: room.code, token: generateToken(room_player, room.code) })
+      io.to(room_code).emit("update_room", { type: "join", room_player, room });
 
       logger.info(
         `Player "${colors.bold.green.underline(room_player)}" joined room "${colors.bold.green.underline(room_code)}".`,
@@ -124,31 +138,35 @@ io.on("connection", (socket: Socket) => {
    * Handles player leaving a room.
    * @param data - The data for leaving the room.
    */
-  socket.on("leave_room", ({ room_code, room_player }: LeaveRoomData) => {
+  socket.on("leave_room", ({ room_code, token }: LeaveRoomData) => {
     const room = ROOMS[room_code];
 
     if (!room) {
       socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
       return;
     }
+    const tokenData = TOKENS[token]
+    if (!tokenData || tokenData.room_code !== room_code)
+      return socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
 
     room.players = room.players.filter(
-      (player) => player.room_player !== room_player,
+      (player) => player.room_player !== tokenData.username,
     );
 
     if (room.players.length === 0) {
       delete ROOMS[room_code];
+      delete TOKENS[token];
       logger.info(`Room ${room_code} has been deleted.`);
-    } else if (room.owner === room_player) {
+    } else if (room.owner === tokenData.username) {
       room.owner = room.players[0]?.room_player || null;
       logger.info(`New owner of room ${room_code}: ${room.owner}`);
     }
 
     socket.leave(room_code);
-    io.to(room_code).emit("update_room", { room_player, room });
+    io.to(room_code).emit("update_room", { type: "leave", room_player: tokenData.username, room });
 
     logger.info(
-      `Player ${room_player} (Socket ID: ${socket.id}) left room ${room_code}`,
+      `Player ${tokenData.username} (Socket ID: ${socket.id}) left room ${room_code}`,
     );
   });
 
@@ -166,7 +184,8 @@ io.on("connection", (socket: Socket) => {
       (room) =>
         room.public &&
         room.state === "waiting" &&
-        room.playerLimit !== room.players.length,
+        room.playerLimit !== room.players.length &&
+        room.players.find(player => player.room_player !== room_player)
     );
 
     // If no available public rooms
@@ -189,7 +208,7 @@ io.on("connection", (socket: Socket) => {
     // Add the player to the selected room
     socket.join(randomRoom.code);
     socket.emit("room", { room_player, room: randomRoom });
-
+    socket.emit("token", { room_player, room: randomRoom.code, token: generateToken(room_player, randomRoom.code) })
     randomRoom.players.push({
       id: generateUuid(),
       date: new Date(),
@@ -212,20 +231,20 @@ io.on("connection", (socket: Socket) => {
    * Handles player rejoining a room.
    * @param data - The data for rejoining the room.
    */
-  socket.on("rejoin_room", ({ room_player, room_code }: RejoinRoomData) => {
+  socket.on("rejoin_room", ({ token, room_code }: RejoinRoomData) => {
     const room = ROOMS[room_code];
-
-    if (!room) return;
+    const tokenData = TOKENS[token]
+    if (!room || !tokenData || tokenData.room_code !== room.code) return;
 
     const player = room.players.find(
-      (player) => player.room_player === room_player,
+      (player) => player.room_player === tokenData.username,
     );
     if (player) {
       player.socket = socket.id;
       socket.join(room_code);
-      io.to(room_code).emit("update_room", { room_player, room });
-      socket.emit("room", { room_player, room });
-      logger.info(`Player "${room_player}" rejoined room "${room_code}".`);
+      io.to(room_code).emit("update_room", { type: "rejoin", room_player: tokenData.username, room });
+      socket.emit("room", { room_player: tokenData.username, room });
+      logger.info(`Player "${tokenData.username}" rejoined room "${room_code}".`);
     }
   });
 
@@ -233,13 +252,12 @@ io.on("connection", (socket: Socket) => {
    * Starts the game in a room.
    * @param data - The data to start the game.
    */
-  socket.on("start_game", ({ room_code }: StartGameData) => {
+  socket.on("start_game", ({ room_code, token }: StartGameData) => {
     const room = ROOMS[room_code];
+    const tokenData = TOKENS[token]
 
-    if (!room) {
-      socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
-      return;
-    }
+    if (!room || !tokenData || tokenData.room_code !== room_code || room.owner !== tokenData.username)
+      return socket.emit("err_socket", { err_socket: "ROOM_NOT_FOUND" });
     if (room.state !== "waiting")
       return socket.emit("err_socket", {
         err_socket: "ROOM_STATE_ERROR_IN_GAME",
@@ -297,24 +315,24 @@ io.on("connection", (socket: Socket) => {
    */
   socket.on(
     "update_cookies",
-    ({ room_player, room_code, cookies }: UpdateCookiesData) => {
+    ({ token, room_code, cookies }: UpdateCookiesData) => {
       if (typeof cookies !== "number") {
         socket.emit("err_socket", { err_socket: "INVALID_COOKIES" });
         return;
       }
       const room = ROOMS[room_code];
-
-      if (!room) return;
+      const tokenData = TOKENS[token]
+      if (!room || !tokenData || tokenData.room_code !== room_code) return;
 
       cookies = Math.max(Math.min(60 * room.time, cookies), 0);
       const player = room.players.find(
-        (player) => player.room_player === room_player,
+        (player) => player.room_player === tokenData.username,
       );
 
       if (player) {
         player.player_data.cookies = cookies;
         logger.info(
-          `Player "${room_player}" in room "${room_code}" updated cookies to ${cookies}.`,
+          `Player "${tokenData.username}" in room "${room_code}" updated cookies to ${cookies}.`,
         );
       }
     },
@@ -328,8 +346,8 @@ io.on("connection", (socket: Socket) => {
   });
 });
 
-HTTP.listen(process.env.PORT, () => {
+HTTP.listen(process.env.PORT ?? 3000, () => {
   logger.info(
-    `Socket running: ${colors.bold.green.underline(`http://0.0.0.0:${process.env.PORT}`)}`,
+    `Socket running: ${colors.bold.green.underline(`http://0.0.0.0:${process.env.PORT ?? 3000}`)}`,
   );
 });
