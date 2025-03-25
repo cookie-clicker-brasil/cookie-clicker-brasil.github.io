@@ -122,6 +122,11 @@ ui .statistic td .value {
   letter-spacing: 1px;
 }
 
+.room-code p::selection {
+  background: var(--text-color-dark);
+  color: #fff;
+}
+
 @keyframes slideIn {
   0% {
     transform: translateY(-20px);

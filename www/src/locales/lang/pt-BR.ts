@@ -39,6 +39,7 @@ const translation = {
     time_check:
       "O tempo da sala deve ser maior que 10 segundos e menor ou igual a 10 minutos!",
     no_room_code: "Parece que você não adicionou o código da sala",
+    room_limit: "O máximo de jogadores em uma sala é 50.",
     no_connected: "Parece que você foi desconectado do jogo Cookie!",
   },
   modal: {

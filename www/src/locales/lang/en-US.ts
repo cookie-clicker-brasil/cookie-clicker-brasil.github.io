@@ -40,6 +40,7 @@ const enUSTranslation = {
     time_check:
       "The room time must be greater than 10 seconds and less than or equal to 10 minutes!",
     no_room_code: "It seems you haven't added the room code!",
+    room_limit: "The maximum number of players in a room is 50.",
     no_connected: "It seems you've been disconnected from the Cookie game!",
   },
   modal: {

@@ -135,7 +135,7 @@ if (localStorage.getItem("name")) {
 $("#form_button").on("click", () => {
   const option = $('input[name="option_game"]:checked').val() as string;
   const roomPlayer = $("#room_name").val() as string;
-  const playerLimit = $("#player_limit").val() as string;
+  const playerLimit = $("#player_limit").val() as number;
   const roomCode = $("#room_code").val() as string;
   const roomPublic = $("#room_public").prop("checked") as boolean;
   const roomTime = $("#room_time").val() as string | null;
@@ -159,6 +159,7 @@ $("#form_button").on("click", () => {
 
   // Verificação do tempo só se a opção for "create"
   if (option === "create") {
+    
     if (!roomTime) {
       return showMessage(
         `<i class="fas fa-exclamation-circle"></i> ${lang("room.no_room_time")}`,
@@ -172,6 +173,12 @@ $("#form_button").on("click", () => {
         `<i class="fas fa-exclamation-circle"></i> ${lang("room.time_check")}`,
       );
     }
+    
+    if (playerLimit > 50) {
+      return showMessage(
+        `<i class="fas fa-exclamation-circle"></i> ${lang("room.room_limit")}`);
+    };
+    
   }
 
   // Verificação do código da sala só se a opção for "join"

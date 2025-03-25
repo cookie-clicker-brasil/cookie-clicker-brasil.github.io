@@ -6,10 +6,10 @@
   "license": "Apache-2.0",
   "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",
   "scripts": {
-    "test": "echo \"Test: yes that was a test!\" && exit 1",
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "typos": "typos --config typos.toml",
     "lint": "npx @biomejs/biome lint --write",
     "format": "npx @biomejs/biome format --write",
     "copy": "npx cap copy",
