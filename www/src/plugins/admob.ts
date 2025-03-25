@@ -60,7 +60,7 @@ if (window.Capacitor.getPlatform() !== "android") {
       });
   }
 
-  $("#splash-screen").on("click", () => $show_banner());
+  $("#start-playing").on("click", () => $show_banner());
 
   $("#start_game").on("click", () => $remove_banner());
 

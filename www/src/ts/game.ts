@@ -178,7 +178,7 @@ $("#form_button").on("click", () => {
         `<i class="fas fa-exclamation-circle"></i> ${lang("room.room_limit_min")}`,
       );
     }
-  
+
     if (playerLimit > 50) {
       return showMessage(
         `<i class="fas fa-exclamation-circle"></i> ${lang("room.room_limit_max")}`,

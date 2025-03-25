@@ -5,9 +5,8 @@ import $ from "jquery";
  * It initializes interactions with the splash screen and handles the game room code visibility logic.
  */
 $(() => {
-
   $("#start-screen").show();
-  
+
   /**
    * Event handler for changing the game option selection (either creating a new game or joining an existing one).
    * Shows or hides the room code input field based on the user's choice.
