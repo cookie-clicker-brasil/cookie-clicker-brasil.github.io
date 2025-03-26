@@ -8519,6 +8519,7 @@ const translation = {
     rankingTitle: "Ranking",
     roomCode: "Código da Sala:",
     waiting: "Aguardando...",
+    messages: "Mensagens",
     startButton: "Começar",
     leaveButton: "Sair"
   },
@@ -8577,6 +8578,7 @@ const enUSTranslation = {
     rankingTitle: "Ranking",
     roomCode: "Room Code:",
     waiting: "Waiting...",
+    messages: "Messages",
     startButton: "Start",
     leaveButton: "Leave"
   },
@@ -21170,7 +21172,7 @@ socket.on("update_room", ({ room }) => {
 $("#leave_room").on("click", () => {
   socket.emit("leave_room", {
     room_code: localStorage.getItem("code"),
-    room_player: token
+    token
   });
   localStorage.setItem("code", null);
   $("ui").hide();
