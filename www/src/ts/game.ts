@@ -264,7 +264,7 @@ socket.on("update_room", ({ room }: { room_player: string; room: any }) => {
 $("#leave_room").on("click", () => {
   socket.emit("leave_room", {
     room_code: localStorage.getItem("code"),
-    room_player: token,
+    token,
   });
 
   localStorage.setItem("code", null);

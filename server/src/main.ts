@@ -218,6 +218,7 @@ io.on("connection", (socket: Socket) => {
     });
 
     io.to(randomRoom.code).emit("update_room", {
+      type: "JOIN",
       room_player,
       room: randomRoom,
     });

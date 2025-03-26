@@ -20,6 +20,7 @@ const enUSTranslation = {
     rankingTitle: "Ranking",
     roomCode: "Room Code:",
     waiting: "Waiting...",
+    messages: "Messages",
     startButton: "Start",
     leaveButton: "Leave",
   },
