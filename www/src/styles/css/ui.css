@@ -109,6 +109,7 @@ ui .statistic td .value {
   font-size: 0.6rem;
   color: #4b2e16;
 }
+
 .room-code p {
   user-select: text;
   font-family: "minecraftia", cursive;
@@ -131,19 +132,29 @@ ui .statistic td .value {
     transform: translateY(-20px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
   }
 }
 
-.waiting-room {
+.waiting-room-data {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   font-family: "minecraftia", sans-serif;
+}
+
+.waiting-room {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  gap: 40px;
 }
 
 .waiting-room h1 {
@@ -180,10 +191,12 @@ ui .statistic td .value {
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.2);
   }
@@ -281,6 +294,7 @@ ui .statistic td .value {
   0% {
     transform: scale(1.2);
   }
+
   100% {
     transform: scale(1);
   }
@@ -313,6 +327,7 @@ ui .statistic td .value {
     transform: translateY(100px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -320,10 +335,12 @@ ui .statistic td .value {
 }
 
 @keyframes bounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }

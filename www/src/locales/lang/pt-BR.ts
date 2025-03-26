@@ -19,6 +19,7 @@ const translation = {
     rankingTitle: "Ranking",
     roomCode: "Código da Sala:",
     waiting: "Aguardando...",
+    messages: "Mensagens",
     startButton: "Começar",
     leaveButton: "Sair",
   },
