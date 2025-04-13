@@ -17300,8 +17300,8 @@ function requireBootstrap_esm() {
     return n.default = e, t && t.set(e, n), n;
   }
   /*!
-    * Bootstrap v5.3.3 (https://getbootstrap.com/)
-    * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+    * Bootstrap v5.3.5 (https://getbootstrap.com/)
+    * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
     * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
     */
   const elementMap = /* @__PURE__ */ new Map();
@@ -17486,7 +17486,7 @@ function requireBootstrap_esm() {
   const execute = function(possibleCallback) {
     let args = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [];
     let defaultValue = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : possibleCallback;
-    return typeof possibleCallback === "function" ? possibleCallback(...args) : defaultValue;
+    return typeof possibleCallback === "function" ? possibleCallback.call(...args) : defaultValue;
   };
   const executeAfterTransition = function(callback, transitionElement) {
     let waitForTransition = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : true;
@@ -17767,7 +17767,7 @@ function requireBootstrap_esm() {
       const bsKeys = Object.keys(element.dataset).filter((key) => key.startsWith("bs") && !key.startsWith("bsConfig"));
       for (const key of bsKeys) {
         let pureKey = key.replace(/^bs/, "");
-        pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1, pureKey.length);
+        pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1);
         attributes[pureKey] = normalizeData(element.dataset[key]);
       }
       return attributes;
@@ -17816,7 +17816,7 @@ function requireBootstrap_esm() {
       }
     }
   }
-  const VERSION = "5.3.3";
+  const VERSION = "5.3.5";
   class BaseComponent extends Config {
     constructor(element, config) {
       super();
@@ -18811,7 +18811,7 @@ function requireBootstrap_esm() {
     }
     _createPopper() {
       if (typeof Popper === "undefined") {
-        throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org)");
+        throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org/docs/v2/)");
       }
       let referenceElement = this._element;
       if (this._config.reference === "parent") {
@@ -18886,7 +18886,7 @@ function requireBootstrap_esm() {
       }
       return {
         ...defaultBsPopperConfig,
-        ...execute(this._config.popperConfig, [defaultBsPopperConfig])
+        ...execute(this._config.popperConfig, [void 0, defaultBsPopperConfig])
       };
     }
     _selectMenuItem(_ref2) {
@@ -19871,7 +19871,7 @@ function requireBootstrap_esm() {
       return this._config.sanitize ? sanitizeHtml(arg, this._config.allowList, this._config.sanitizeFn) : arg;
     }
     _resolvePossibleFunction(arg) {
-      return execute(arg, [this]);
+      return execute(arg, [void 0, this]);
     }
     _putElementInTemplate(element, templateElement) {
       if (this._config.html) {
@@ -19952,7 +19952,7 @@ function requireBootstrap_esm() {
   class Tooltip extends BaseComponent {
     constructor(element, config) {
       if (typeof Popper === "undefined") {
-        throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org)");
+        throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org/docs/v2/)");
       }
       super(element, config);
       this._isEnabled = true;
@@ -19992,7 +19992,6 @@ function requireBootstrap_esm() {
       if (!this._isEnabled) {
         return;
       }
-      this._activeTrigger.click = !this._activeTrigger.click;
       if (this._isShown()) {
         this._leave();
         return;
@@ -20164,7 +20163,7 @@ function requireBootstrap_esm() {
       return offset2;
     }
     _resolvePossibleFunction(arg) {
-      return execute(arg, [this._element]);
+      return execute(arg, [this._element, this._element]);
     }
     _getPopperConfig(attachment) {
       const defaultBsPopperConfig = {
@@ -20200,7 +20199,7 @@ function requireBootstrap_esm() {
       };
       return {
         ...defaultBsPopperConfig,
-        ...execute(this._config.popperConfig, [defaultBsPopperConfig])
+        ...execute(this._config.popperConfig, [void 0, defaultBsPopperConfig])
       };
     }
     _setListeners() {
@@ -23713,7 +23712,7 @@ function requireIndex_cjs$2() {
       return (component2 === null || component2 === void 0 ? void 0 : component2.type) === "VERSION";
     }
     const name$q = "@firebase/app";
-    const version$1 = "0.11.3";
+    const version$1 = "0.11.4";
     /**
      * @license
      * Copyright 2019 Google LLC
@@ -23757,7 +23756,7 @@ function requireIndex_cjs$2() {
     const name$2 = "@firebase/vertexai";
     const name$1 = "@firebase/firestore-compat";
     const name = "firebase";
-    const version = "11.5.0";
+    const version = "11.6.0";
     /**
      * @license
      * Copyright 2019 Google LLC
@@ -24704,7 +24703,7 @@ function requireIndex_esm$1() {
       });
     });
     var name = "firebase";
-    var version = "11.5.0";
+    var version = "11.6.0";
     /**
      * @license
      * Copyright 2020 Google LLC
